@@ -1,0 +1,138 @@
+{%- liquid
+    assign sec_st = section.settings
+
+    assign cnt_width = '100vw'
+    assign is_rtl = false
+    assign list_rtl = 'ar,dv,ha,he,ku,fa,ur,ug' | split: ','
+    assign pm_left = 'left'
+    assign pm_right = 'right'
+    if list_rtl contains request.locale.iso_code or settings.rtl
+      assign is_rtl = true
+      assign pm_left = 'right'
+      assign pm_right = 'left'
+    endif   
+-%}
+
+{%- capture sec_styles -%}
+{%- style -%}
+  .big-search {
+    --icns:{{ sec_st.icon }}px;--icnsm:16px;
+  }
+
+  {%- if sec_st.icntyp == '3' -%}
+  .cartCount.pp {margin: -2px 0 0 4px;}  
+  {%- endif -%}    
+
+{%- endstyle -%}
+{%- endcapture -%}
+{{- sec_styles | strip_newlines | remove: '  ' -}}
+
+{%- capture site_header -%}
+    <div id="header" class="fl f-aic pr main_hdr gap fw-sec"
+      data-sticky="{{ sec_st.sticky_type }}" data-section-id="header">
+      {%- if settings.enable_search -%}
+        <div class="fl fl1 main-search searchinline">
+          {%- render 'search-form', form_class: 'hdSearch' -%}
+        </div>
+      {%- endif -%}
+      <div class="fl f-jce f-aic icons-col">
+        <a class="hdicon searchIcn hide-lg" href="{{ routes.search_url }}" title="{{ 'sections.header.search' | t }}">
+          <svg class="at-icon{% if sec_st.icntyp == '3' %} hide-lg{% endif %}"><use xlink:href="#icon-search"></use></svg>
+          <p class="m0 hide">{{ 'sections.header.search' | t }}</p>
+        </a>
+
+        {%- if shop.customer_accounts_enabled -%}
+          <a class="hdicon user-menu" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="{{ 'sections.header.account' | t }}">
+            {%- render 'icon-account', icntyp: sec_st.icntyp -%}
+            <p class="m0{% if sec_st.icntyp == '1' %} hide{% else %} hide-sm hide-md{% endif %}{% if sec_st.icntyp == '2' %} pdt5{% endif %}">{{ 'sections.header.account' | t }}</p>
+          </a>
+        {%- endif -%}
+
+        {%- unless settings.catalog-mode -%}
+            <a href="{{ routes.cart_url }}" class="hdicon" id="cartLink" title="{{ 'sections.header.cart' | t }}">
+              <svg class="at-icon{% if sec_st.icntyp == '3' %} hide-lg{% endif %}"><use xlink:href="#icon-cart"></use></svg>
+              {% if sec_st.icntyp != '3' %}<b id="cart-icon-bubble" class="cartCount pp">{{ cart.item_count }}</b>{% endif %}
+              <p class="m0{% if sec_st.icntyp == '1' %} hide{% else %} hide-sm hide-md{% endif %}{% if sec_st.icntyp == '2' %} pdt5{% endif %}">{{ 'sections.header.cart' | t }}{% if sec_st.icntyp == '3' %}<b id="cart-icon-bubble" class="cartCount pp">{{ cart.item_count }}</b>{% endif %}</p>
+            </a>
+        {%- endunless -%}
+
+      </div>
+    </div>
+    {%- if settings.enable_search -%}
+        {%- render 'search-drawer', search_type:'inline', cnt_width:cnt_width, is_rtl:is_rtl -%}
+    {%- endif -%}
+    {%- endcapture -%}
+    {{- site_header | strip_newlines | remove: "  " | remove: "	" -}}
+{% schema %}
+ {
+    "name": "Header - Custom",
+    "limit": 1,
+    "class": "ss-header-top pr big-search",
+    "enabled_on": {
+        "groups": ["header"]
+    },
+    "settings": [ 
+ 	    {
+        "type": "select",
+        "id": "icntyp",
+        "label": "Addons",
+        "default": "2",
+        "options": [
+          {
+            "label": "Icons only",
+            "value": "1"
+          },
+          {
+          "label": "Icon with text",
+            "value": "2"
+          },
+          {
+          "label": "Text only",
+            "value": "3"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "icon",
+        "min": 12,
+        "max": 50,
+        "step": 1,
+        "label": "Icons Size",
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "header",
+        "content": "Sticky Header ====="
+      },
+      {
+        "type": "select",
+        "id": "sticky_type",
+        "label": "Sticky header",
+        "default": "top",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "always",
+            "label": "Always"
+          },
+          {
+            "value": "top",
+            "label": "On scroll up"
+          }
+        ]
+      }
+	  ],
+    "presets": [
+      {
+        "name": "Header - Custom",
+        "settings":{
+        }
+      }
+    ]
+  }
+{% endschema %}
