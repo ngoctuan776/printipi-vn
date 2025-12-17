@@ -17,21 +17,31 @@
 -%}
 <ul id="main_nav" class="{% if ishmb %}{% else %}fl1 fl f-wrap f-col {{ nav_align }} {% endif %}">
     {% for block in secblk %}
-        {%- liquid
-            assign blk_st = block.settings
-            assign label = blk_st.title | split: '[label' | last  | split: ']' | first | prepend: "nm_lbl"
-            assign ttlink = blk_st.url
-        -%}
-        {%- capture link_level_1 -%}
-              <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
-                  {{ blk_st.title | split: '[' | first }}
-                  {% if blk_st.title contains '[label' %}<span class="lbl {{ label }}">{{ settings[label] }}</span>{% endif %}
-                  {% if settings.navarw %}{{ arrow }}{% endif %}
-              </a>
-         {%- endcapture -%}
+      {%- liquid
+        assign blk_st = block.settings
+        assign label = blk_st.title | split: '[label' | last  | split: ']' | first | prepend: "nm_lbl"
+        assign ttlink = blk_st.url
+      -%}
+      {%- capture link_level_1 -%}
+        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
+          {%- if blk_st.icon != blank -%}
+            {% render 'icons-list-menu', icon_name: blk_st.icon %}
+          {%- endif -%}
+          {{ blk_st.title | split: '[' | first }}
+          {% if blk_st.title contains '[label' %}<span class="lbl {{ label }}">{{ settings[label] }}</span>{% endif %}
+          {% if settings.navarw %}{{ arrow }}{% endif %}
+        </a>
+      {%- endcapture -%}
     {%- case block.type -%}
     {%- when 'home' -%}
-    <li class="lvl1" {{ block.shopify_attributes }}><a href="{{ routes.root_url }}">{{ blk_st.title | split: '[' | first }}</a></li>
+    <li class="lvl1" {{ block.shopify_attributes }}>
+      <a href="{{ routes.root_url }}">
+        {%- if blk_st.icon != blank -%}
+          {% render 'icons-list-menu', icon_name: blk_st.icon %}
+        {%- endif -%}
+        {{ blk_st.title | split: '[' | first }}
+      </a>
+    </li>
 
     {%- when 'slink' -%}
     <li class="lvl1" {{ block.shopify_attributes }}>{{ link_level_1 | remove: arrow }}</li>

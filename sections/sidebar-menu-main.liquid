@@ -90,6 +90,34 @@
     </div>
 {%- endcapture -%}
 {{- site_header -}}
+{%- if sec_st.sm_rc_viewed or sec_st.sm_wishlist -%}
+  <ul class="sidebar-submenu">
+    {%- if sec_st.sm_rc_viewed -%}
+      <li class="lvl1">
+        <a href="{% if sec_st.rcv_link != blank %}{{ sec_st.rcv_link }}{% else %}#{% endif %}">
+          {% render 'icons-list-menu', icon_name: sec_st.rcv_icon %}
+          {{ sec_st.rcv_name }}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- if sec_st.sm_wishlist -%}
+      <li class="lvl1">
+        <a href="{% if sec_st.mwl_link != blank %}{{ sec_st.mwl_link }}{% else %}#{% endif %}">
+          {% render 'icons-list-menu', icon_name: sec_st.mwl_icon %}
+          {{ sec_st.mwl_name }}
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+{%- endif -%}
+{%- if sec_st.sm_support -%}
+  <div class="sidebar-menu-footer">
+    <a href="{% if sec_st.msp_link != blank %}{{ sec_st.msp_link }}{% else %}#{% endif %}">
+      {% render 'icons-list-menu', icon_name: sec_st.msp_icon %}
+      {{ sec_st.msp_name }}
+    </a>
+  </div>
+{%- endif -%}
 {% schema %}
  {
     "name": "Sidebar Menu",
@@ -175,15 +203,101 @@
         "unit": "px",
         "default": 30
       },
-	  {
+	    {
+        "type": "header",
+        "content": "Sub menu ===="
+      },
+      {
+        "type": "checkbox",
+        "id": "sm_rc_viewed",
+        "label": "Show menu recently viewed",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "rcv_name",
+        "label": "Name recently viewed",
+        "default": "Sản phẩm đã xem",
+        "visible_if": "{{ section.settings.sm_rc_viewed }}"
+      },
+      {
+        "type": "url",
+        "id": "rcv_link",
+        "label": "Link recently viewed",
+        "visible_if": "{{ section.settings.sm_rc_viewed }}"
+      },
+      {
+        "type": "text",
+        "id": "rcv_icon",
+        "label": "Icon Name",
+        "default": "home",
+        "visible_if": "{{ section.settings.sm_rc_viewed }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "sm_wishlist",
+        "label": "Show menu wishlist",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mwl_name",
+        "label": "Name wishlist",
+        "default": "Yêu thích",
+        "visible_if": "{{ section.settings.sm_wishlist }}"
+      },
+      {
+        "type": "url",
+        "id": "mwl_link",
+        "label": "Link wishlist",
+        "visible_if": "{{ section.settings.sm_wishlist }}"
+      },
+      {
+        "type": "text",
+        "id": "mwl_icon",
+        "label": "Icon Name",
+        "default": "home",
+        "visible_if": "{{ section.settings.sm_wishlist }}"
+      },
+	    {
+        "type": "header",
+        "content": "Menu Support footer ===="
+      },
+      {
+        "type": "checkbox",
+        "id": "sm_support",
+        "label": "Show menu support",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "msp_name",
+        "label": "Name support",
+        "default": "Hỗ trợ",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "url",
+        "id": "msp_link",
+        "label": "Link support",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "text",
+        "id": "msp_icon",
+        "label": "Icon Name",
+        "default": "home",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+	    {
         "type": "header",
         "content": "Navigation ===="
       },
       {
-		 "type": "paragraph",
-		 "content":"Customize look from Theme Settings -> Header Menu."
-      }, 	      
-       {
+        "type": "paragraph",
+        "content":"Customize look from Theme Settings -> Header Menu."
+      },
+      {
         "type": "header",
         "content": "Mobile Site  ====="
       },
@@ -212,7 +326,7 @@
         "type": "link_list",
         "id": "mbmenu",
         "label": "Select Menu",
-        "default": "main-menu"        
+        "default": "main-menu"
       },
       {
 		"type": "paragraph",
@@ -389,7 +503,13 @@
             "type": "text",
             "id": "title",
             "label": "Link Name",
-			"default": "Home"
+			      "default": "Home"
+          },
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
           }
         ]
       },
@@ -407,6 +527,12 @@
             "type": "url",
             "id": "url",
             "label": "Menu Link"
+          },
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
           }
         ]
       }, 
@@ -430,10 +556,16 @@
             "id": "menu",
             "label": "Select Menu",
             "default": "main-menu"
+          },
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
           }
         ]
       },
-	  {
+	    {
         "type": "m1",
         "name": "MM Modern",
         "settings": [
@@ -448,7 +580,13 @@
             "id": "url",
             "label": "Menu Link"
           },
- 			{
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
+          },
+          {
             "type": "checkbox",
             "id": "newtab",
             "label": "Open Link in New Window?"
@@ -486,7 +624,6 @@
               }
             ]
           },
-
           {
             "type": "range",
             "id": "colWd",
@@ -549,7 +686,7 @@
             "label": "Image 2 Link",
             "visible_if": "{{ block.settings.image2 != blank }}"
           },
-         {
+          {
             "type": "paragraph",
             "content": "-----------------------------------------------"
           },
@@ -570,7 +707,7 @@
             "label": "Image 3 Link",
             "visible_if": "{{ block.settings.image3 != blank }}"
           },
-         {
+          {
             "type": "paragraph",
             "content": "-----------------------------------------------"
           },
@@ -592,7 +729,7 @@
             "label": "Image 4 Link",
             "visible_if": "{{ block.settings.image4 != blank }}"
           },
-           {
+          {
             "type": "range",
             "id": "icnbr",
             "min": 0,
@@ -605,7 +742,7 @@
             "type":"paragraph",
             "content":"Title Appearance ==="
           },
-           {
+          {
             "type": "checkbox",
             "id": "overlay_lbl",
             "label": "Show above image?"
@@ -616,7 +753,7 @@
             "label": "Text",
             "default": "#111"
           },
-           {
+          {
             "type": "color",
             "id": "ttbg",
             "label": "Background",
@@ -675,33 +812,33 @@
             "type": "header",
             "content": "Popup width ==="
           },
-   		 {
-			"type": "checkbox",
-			"id": "cwd",
-			"label": "Custom width?",
-			"default": false,
+   		    {
+            "type": "checkbox",
+            "id": "cwd",
+            "label": "Custom width?",
+            "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
-		  },
-		  {
-			"type": "text",
-			"id": "bxwd",
-			"label": "Box width",
-			"default": "600",
+		      },
+		      {
+            "type": "text",
+            "id": "bxwd",
+            "label": "Box width",
+            "default": "600",
             "visible_if": "{{ block.settings.cwd }}"
-		  },
-		  {
-			"type": "select",
-			"id": "mmal",
-			"label": "Box align",
-			"default": "center",
+		      },
+		      {
+            "type": "select",
+            "id": "mmal",
+            "label": "Box align",
+            "default": "center",
             "visible_if": "{{ block.settings.cwd }}",
-			"options": [
-			  { "value": "left", "label": "Left" },
-			  { "value": "center", "label": "Center" },
-			  { "value": "right", "label": "Right" }
-			]
-		  },
-		 {
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ]
+		      },
+		      {
             "type": "checkbox",
             "id": "bxsz",
             "label": "Fullwidth?",
@@ -711,7 +848,7 @@
           }
         ]
       },
-	  {
+	    {
         "type": "m2",
         "name": "MM Links & Products",
         "settings": [
@@ -731,6 +868,12 @@
             "id": "menu",
             "label": "Select Menu",
             "default": "main-menu"
+          },          
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
           },
           {
             "type": "range",
@@ -772,7 +915,7 @@
             "max": 70,
             "step": 1,
             "label": "Columns Width",
-			"unit": "%",
+			      "unit": "%",
             "default": 30
           },
           {
@@ -829,7 +972,7 @@
             "type": "checkbox",
             "id": "ftcl",
             "label": "Enable ?",
-			"default": true
+			      "default": true
           },
           {
             "type": "range",
@@ -838,7 +981,7 @@
             "max": 80,
             "step": 1,
             "label": "Columns Width",
-			"unit": "%",
+			      "unit": "%",
             "default": 30
           },
           {
@@ -932,7 +1075,7 @@
                   "value": "btn8"
               }
             ]
-         },
+          },
           {
             "type": "color",
             "id": "txtcl",
@@ -945,7 +1088,7 @@
             "label": "Image overlay",
             "default": "#333"
           },
-        {
+          {
             "type": "range",
             "id": "ft_opt",
             "min": 0,
@@ -954,18 +1097,18 @@
             "label": "Overlay opacity",
             "unit": "%",
             "default": 0.4
-        },
+          },
                 {
             "type": "header",
             "content": "Popup width ==="
           },
-   		 {
-			"type": "checkbox",
-			"id": "cwd",
-			"label": "Custom width?",
-			"default": false,
+   		    {
+            "type": "checkbox",
+            "id": "cwd",
+            "label": "Custom width?",
+            "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
-		  },
+          },
 		  {
 			"type": "text",
 			"id": "bxwd",
@@ -1010,9 +1153,15 @@
             "id": "url",
             "label": "Menu Link"
           },
-		  {
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
+          },
+          {
             "type":"header",
-        	"content": "Column 1"
+        	  "content": "Column 1"
           },
           {
             "type": "text",
@@ -1034,7 +1183,7 @@
             "id": "menu1",
             "label": "Select Menu"
           },
-		  {
+          {
             "type":"header",
         	"content": "Column 2"
           },
@@ -1058,7 +1207,7 @@
             "id": "menu2",
             "label": "Select Menu"
           },
-		  {
+          {
             "type":"header",
         	"content": "Column 3"
           },
@@ -1083,7 +1232,7 @@
             "id": "menu3",
             "label": "Select Menu"
           },
-		  {
+          {
             "type":"header",
         	"content": "Column 4"
           },
@@ -1108,7 +1257,7 @@
             "id": "menu4",
             "label": "Select Menu"
           },
-		  {
+          {
             "type":"header",
         	"content": "Column 5"
           },
@@ -1203,7 +1352,13 @@
             "label": "Select Menu",
             "default": "main-menu",
             "info": "Use collection links only to show link with image"
-          },                   
+          },          
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
+          },                 
           {
             "type": "header",
             "content": "Main Links ==="
@@ -1404,6 +1559,12 @@
             "label": "Select Menu",
             "default": "main-menu",
             "info": "Use collection links only for this menu"
+          },
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon Name",
+			      "default": "home"
           },
           {
             "type": "checkbox",
