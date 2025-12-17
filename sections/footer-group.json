@@ -61,6 +61,7 @@
         "text_block_XtMbeb",
         "text_block_wimK9z"
       ],
+      "disabled": true,
       "settings": {
         "title": "",
         "subtitle": "",
@@ -81,7 +82,7 @@
         "fs": 13,
         "fsm": 13,
         "cl": "#eeeeee",
-        "icon_cl": "#fff",
+        "icon_cl": "#ffffff",
         "box": false,
         "boxbg": "#fafafa",
         "bdr": "#ffffff",
@@ -104,76 +105,12 @@
     },
     "footer": {
       "type": "footer",
-      "blocks": {
-        "e655fa2c-c617-469b-89d1-3799ec14880a": {
-          "type": "custom",
-          "settings": {
-            "hidem": false,
-            "hide_desk": false,
-            "title": "",
-            "logo": "shopify://shop_images/logo.svg",
-            "logo-wd": 130,
-            "inline_text": "At <a href=\"https://adornthemes.com/\" target=\"_blank\" title=\"https://adornthemes.com/\"><strong>AdornThemes</strong></a>, we design and provide elegant and highly functional Shopify themes, backed by exceptional support",
-            "text_width": 290,
-            "fs": 13,
-            "socials": true,
-            "socttl": "Keep in touch",
-            "payicon": false,
-            "width": "wd30"
-          }
-        },
-        "41222313-e395-42fd-bb68-7173fa014427": {
-          "type": "menu",
-          "settings": {
-            "hidem": false,
-            "hide_desk": false,
-            "title": "Information",
-            "menu": "information",
-            "width": "wd20"
-          }
-        },
-        "menu_W8YtqP": {
-          "type": "menu",
-          "settings": {
-            "hidem": false,
-            "hide_desk": false,
-            "title": "Customer Services",
-            "menu": "quick-links",
-            "width": "wd20"
-          }
-        },
-        "845fc15b-104f-4d3a-aed2-a0b071120ce9": {
-          "type": "newsletter",
-          "settings": {
-            "hidem": false,
-            "hide_desk": false,
-            "title": "Newsletter",
-            "txt": "Enter your email to receive daily news and get 20% off coupon for all items. NO spam, we promise",
-            "socials": false,
-            "socttl": "Stay Connected",
-            "width": "wd30",
-            "tf_bg": "#ffffff",
-            "tf_bdr": "#e4e4e4",
-            "tf_txt": "#000000",
-            "btncl": "#ffffff",
-            "btnbg": "#40b884",
-            "btnclh": "#ffffff",
-            "btnbgh": "#222222"
-          }
-        }
-      },
-      "block_order": [
-        "e655fa2c-c617-469b-89d1-3799ec14880a",
-        "41222313-e395-42fd-bb68-7173fa014427",
-        "menu_W8YtqP",
-        "845fc15b-104f-4d3a-aed2-a0b071120ce9"
-      ],
       "settings": {
         "sw": false,
         "space": false,
-        "copyright_text": "© 2025, Revone.",
-        "show_designby": true,
-        "show_payment": true,
+        "copyright_text": "© 2026 Designed by MION. All Rights Reserved",
+        "show_designby": false,
+        "show_payment": false,
         "payimgwd": 300,
         "configure": "1",
         "tcl": "#111111",
