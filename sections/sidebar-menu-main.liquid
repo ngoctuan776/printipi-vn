@@ -34,18 +34,14 @@
       .navToggle { margin-{{ pm_right }}:-5px; }
     {%- endif -%}
 
-    .searchinline .search .ad_inputs { max-width:250px;}
+    .searchinline .search .ad_inputs { max-width:350px; position: relative;}
   
-    @media only screen and (max-width:1024px){
-      .main-search { order:3; width:100%; flex:auto; margin:5px 0 0; }
-      {%- if sec_st.cntlogo -%}
-        .icons-col { flex:1; }
-      {%- else -%}
-        .icons-col { margin-{{ pm_left }}:auto; }
-      {%- endif -%}
+    @media only screen and (max-width: 768px){
+      .searchinline .search .ad_inputs {
+        margin: 0 auto;
+      }
     }
     
-    .icons-col .hdicon p {  {% if settings.nav_case %} text-transform: uppercase; {% endif %} font-family:var(--{{ settings.navft }}); font-weight:{{ settings.navfw }}; }
     {%- if section.settings.icntyp == '3' -%}
     .cartCount.pp {margin:-2px 0 0 4px;}
     {%- endif -%}
@@ -73,6 +69,7 @@
 </div>
 {%- endcapture -%}
 {%- capture site_header -%}
+    <a href="#" class="close-sidebar hide-desktop" data-close-sidebar>{% render 'icon-close' %}</a>
     <div class="sidebar-content" style="--gap:{{ sec_st.gap }}px;--gapm:5px;">
       {% if sec_st.cntlogo %}
         <div class="fl1 mbnavCol fl hide-lg cnt">

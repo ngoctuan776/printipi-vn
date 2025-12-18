@@ -227,7 +227,7 @@
             <div class="noresult">
                 <h1 class="page-title {{ settings.title_align }}">{{ settings.search_ttl }}</h1>
                 <p class="tc">{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
-                <form action="{{ routes.search_url }}" method="get" class="search pr searchInPage wd50-md m_auto" role="search" style="box-shadow:0 0 25px 5px {{ settings.bodycl | color_modify:'alpha', 0.1 }};border-radius:{{ settings.search_rad }}px;">
+                <form action="{{ routes.search_url }}" method="get" class="search pr searchInPage wd50-md m_auto" role="search" style="box-shadow:0 0 25px 5px {{ settings.bodycl | color_modify:'alpha', 0.1 }};">
                     <div class="ad_inputs fl">
                         <input class="s_input w_100" type="search" name="q" placeholder="{{ settings.search_ph }}" value="{{ search.terms | escape }}" autocomplete="off" />
                         <button class="btn s_submit" type="submit"><svg class="at-icon"><use xlink:href="#icon-search"></use></svg> <span class="fallback_txt">{{ 'general.search.submit' | t }}</span></button>

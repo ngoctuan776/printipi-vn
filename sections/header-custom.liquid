@@ -30,32 +30,33 @@
 {%- capture site_header -%}
     <div id="header" class="fl f-aic pr main_hdr gap fw-sec"
       data-sticky="{{ sec_st.sticky_type }}" data-section-id="header">
+      <div class="button-open-menu">
+        <a href="#" class="navToggle-menu hide-desktop" data-sidebar-toggle>
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="16" height="2" fill="#6B6B6B"/>
+            <rect y="6" width="16" height="2" fill="#6B6B6B"/>
+            <rect y="12" width="16" height="2" fill="#6B6B6B"/>
+          </svg>
+        </a>
+      </div>
       {%- if settings.enable_search -%}
         <div class="fl fl1 main-search searchinline">
           {%- render 'search-form', form_class: 'hdSearch' -%}
         </div>
       {%- endif -%}
       <div class="fl f-jce f-aic icons-col">
-        <a class="hdicon searchIcn hide-lg" href="{{ routes.search_url }}" title="{{ 'sections.header.search' | t }}">
-          <svg class="at-icon{% if sec_st.icntyp == '3' %} hide-lg{% endif %}"><use xlink:href="#icon-search"></use></svg>
-          <p class="m0 hide">{{ 'sections.header.search' | t }}</p>
-        </a>
-
         {%- if shop.customer_accounts_enabled -%}
-          <a class="hdicon user-menu" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="{{ 'sections.header.account' | t }}">
-            {%- render 'icon-account', icntyp: sec_st.icntyp -%}
-            <p class="m0{% if sec_st.icntyp == '1' %} hide{% else %} hide-sm hide-md{% endif %}{% if sec_st.icntyp == '2' %} pdt5{% endif %}">{{ 'sections.header.account' | t }}</p>
+          <a class="hdicon user-menu fl f-aic" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="{{ 'sections.header.account' | t }}">
+            {%- render 'icon-account-custom' -%}
+            <p class="m0 hide-sm">{{ 'sections.header.account' | t }}</p>
           </a>
         {%- endif -%}
-
         {%- unless settings.catalog-mode -%}
-            <a href="{{ routes.cart_url }}" class="hdicon" id="cartLink" title="{{ 'sections.header.cart' | t }}">
-              <svg class="at-icon{% if sec_st.icntyp == '3' %} hide-lg{% endif %}"><use xlink:href="#icon-cart"></use></svg>
-              {% if sec_st.icntyp != '3' %}<b id="cart-icon-bubble" class="cartCount pp">{{ cart.item_count }}</b>{% endif %}
-              <p class="m0{% if sec_st.icntyp == '1' %} hide{% else %} hide-sm hide-md{% endif %}{% if sec_st.icntyp == '2' %} pdt5{% endif %}">{{ 'sections.header.cart' | t }}{% if sec_st.icntyp == '3' %}<b id="cart-icon-bubble" class="cartCount pp">{{ cart.item_count }}</b>{% endif %}</p>
+            <a href="{{ routes.cart_url }}" class="hdicon cart-icon fl f-ais" id="cartLink" title="{{ 'sections.header.cart' | t }}">
+              {%- render 'icon-cart' -%}
+              <b id="cart-icon-bubble" class="cartCount pp">{{ cart.item_count }}</b>
             </a>
         {%- endunless -%}
-
       </div>
     </div>
     {%- if settings.enable_search -%}

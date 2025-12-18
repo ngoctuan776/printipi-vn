@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "pad-desk": 30,
     "sttltag": "h2",
     "sttlcl": "#222222",
     "hdelem": "#6eb69c",
@@ -142,13 +143,7 @@
     "search_fs": 18,
     "search_cl": "#222222",
     "search_fw": "600",
-    "search_ph": "Search Products",
-    "search_bg": "#fff",
-    "search_btnbg": "#fff",
-    "search_btnicon": "#222222",
-    "search_border": "#dddddd",
-    "search_rad": 30,
-    "search_h": 45,
+    "search_ph": "Tìm kiếm",
     "search_lbl1": "Popular Searches:",
     "search_word": "T-shirt, Top, Black, Women",
     "search_pop_cl": "#eeeeee",
@@ -203,6 +198,12 @@
     "animef": true,
     "anin_style": "fadeIn",
     "animefm": false,
+    "search_bg": "#fff",
+    "search_btnbg": "#fff",
+    "search_btnicon": "#222222",
+    "search_border": "#dddddd",
+    "search_rad": 30,
+    "search_h": 45,
     "content_for_index": []
   },
   "platform_customizations": {}

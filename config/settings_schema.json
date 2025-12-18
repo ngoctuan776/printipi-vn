@@ -2648,69 +2648,6 @@
       },
       {
         "type": "header",
-        "content": "Search Box"
-      },
-      {
-        "type": "color",
-        "id": "search_bg",
-        "label": "Background",
-        "default": "#f5f5f5"
-      },
-      {
-        "type": "color",
-        "id": "search_txt",
-        "label": "Text",
-        "default": "#111"
-      },
-      {
-        "type": "color",
-        "id": "search_btnbg",
-        "label": "Button background"
-      },
-      {
-        "type": "color",
-        "id": "search_btnicon",
-        "label": "Search icon",
-        "default": "#111"
-      },
-      {
-        "type": "color",
-        "id": "search_border",
-        "label": "Box border",
-        "default": "#fff"
-      },
-      {
-        "type": "range",
-        "id": "search_rad",
-        "label": "Box rounded",
-        "default": 25,
-        "min": 0,
-        "max": 30,
-        "step": 1,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "search_h",
-        "label": "Box min. height",
-        "default": 40,
-        "min": 36,
-        "max": 50,
-        "step": 1,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "search_font_size",
-        "min": 12,
-        "max": 20,
-        "step": 1,
-        "label": "Font size",
-        "unit": "px",
-        "default": 13
-      },
-      {
-        "type": "header",
         "content": "Popular Search Keyword"
       },
       {

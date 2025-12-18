@@ -106,7 +106,7 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "sw": false,
+        "sw": true,
         "space": false,
         "copyright_text": "© 2026 Designed by MION. All Rights Reserved",
         "show_designby": false,

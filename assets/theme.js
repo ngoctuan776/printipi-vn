@@ -983,3 +983,17 @@ class ProductRecommendations extends SlideSection {
     }
 }
 customElements.define('product-recommendations', ProductRecommendations);
+
+// Custom header top
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('[data-sidebar-toggle]').forEach((btn) => {
+    btn.addEventListener('click',(e) => {
+      e.preventDefault();
+      html.classList.add('actMbNav','showOverly');
+    });
+  });
+  document.querySelector('[data-close-sidebar]').addEventListener('click',(e) => {
+      e.preventDefault();
+      html.classList.remove('actMbNav','showOverly');
+  });
+});

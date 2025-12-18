@@ -35,13 +35,6 @@
     --cl:{{ sec_st.cl }};--clh:{{ sec_st.clh }};--icns:{{ sec_st.icon }}px;--icnsm:16px;--fs:{{ sec_st.fs }}px;
   }
 
-  {%- if sec_st.cntlogo -%}
-      .mbnavCol { min-width:35px; margin-{{ pm_left }}:-5px; }  @media only screen and (max-width:1024px){ .icons-col {flex:1;} }
-  {%- else -%}
-      .navToggle { margin-{{ pm_right }}:-5px; }
-      .icons-col { margin-{{ pm_left }}:auto; }
-  {%- endif -%}
-
   {%- if sec_st.stype == "1" -%}
     @media only screen and (max-width:1024px){
       .main-search { order:3; width:100%; flex:auto; margin:5px 0 10px; }
