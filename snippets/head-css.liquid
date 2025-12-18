@@ -57,8 +57,8 @@
         {%- endif -%}
     {% endcapture %}
 {% else %}
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+	{% comment %} <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {% liquid
     	assign font1 = settings.gfont1 | strip | replace:' ', '+'
      	assign font2 = settings.gfont2 | strip | replace:' ', '+'
@@ -69,7 +69,10 @@
     {%- capture gfonts -%}    
         {%- for font in font_names -%}family={{ font }}:wght@300;400;500;600;700{% unless forloop.last %}&{% endunless %}{% endfor %}
     {%- endcapture -%}
-    <link href="https://fonts.googleapis.com/css2?{{ gfonts }}&display=swap" rel="stylesheet" media="print" onload="this.media='all'">    
+    <link href="https://fonts.googleapis.com/css2?{{ gfonts }}&display=swap" rel="stylesheet" media="print" onload="this.media='all'">     {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400;1,14..32,500;1,14..32,600&display=swap" rel="stylesheet">
 {% endif %}
 
 <style type="text/css">
@@ -676,12 +679,10 @@ img:-moz-loading { visibility:hidden; }
     #main_nav { font-family:var(--{{ settings.navft }}); }
 	#main_nav a { position:relative; align-items:center; }
 	#main_nav .snav { display:flex; padding: 5px 0;}
-    #main_nav a .lbl { color:{{ settings.nav_link_lbl }}; font-size:10px;font-family:var(--{{ settings.navft }}); font-weight:400; letter-spacing:0; line-height:1;
-        display:inline-block; vertical-align:middle; margin-{{ p_left }}:5px; padding:3px 5px; position:relative; border-radius:2px; }
+    #main_nav a .lbl { color:{{ settings.nav_link_lbl }}; font-size:8px;font-family:var(--{{ settings.navft }}); font-weight:600; letter-spacing:0; line-height:10px;text-transform: uppercase;
+        display:inline-block; vertical-align:middle; margin-{{ p_left }}:-5px; padding:1px 3px; position:relative; border-radius:2px; }
     #main_nav>li.ctsize, #main_nav>li.ddmenu { position:relative; }
-    #main_nav>li>a { color:{{ settings.navcl }}; font-size:{{ settings.navfs }}px; font-weight:{{ settings.navfw }}; {% if settings.nav_case %}text-transform:uppercase;{% endif %} padding:{{ settings.nav_min_h }}px 18px; display:flex; align-items:center; white-space:nowrap; }
-    #main_nav>li:hover>a, #main_nav>li>a.active { color:{{ settings.navclh }}; }
-    #main_nav>li>a .lbl { display:block; position:absolute; top:0; left:50%; }
+    #main_nav>li>a .lbl { display:block; position:relative; top:-10px;}
     
     .mgmenu { opacity:0; visibility:hidden; padding:30px 35px; position:absolute; top:auto; z-index:9999; max-height:600px; overflow:auto;background-color:{{ settings.nmmbg }}; pointer-events:none; transform:translateY(20px); transition:all 0.3s ease-in; }
     {% if settings.boxshdow %} 

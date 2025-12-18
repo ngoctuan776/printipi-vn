@@ -812,8 +812,8 @@
         "id": "gfont1",
         "label": "Font Family 1",
         "default": "Poppins",
-        "visible_if": "{{ settings.fonts == '2' }}",
         "info": "[Find google font name](https:\/\/fonts.google.com\/)",
+        "visible_if": "{{ settings.fonts == '2' }}"
       },
       {
         "type": "text",

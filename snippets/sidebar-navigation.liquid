@@ -15,7 +15,7 @@
        endif
     endcapture
 -%}
-<ul id="main_nav" class="{% if ishmb %}{% else %}fl1 fl f-wrap f-col {{ nav_align }} {% endif %}">
+<ul id="main_nav" class="sidebar-menu-list {% if ishmb %}{% else %}fl1 fl f-wrap f-col {{ nav_align }} {% endif %}">
     {% for block in secblk %}
       {%- liquid
         assign blk_st = block.settings
@@ -23,7 +23,8 @@
         assign ttlink = blk_st.url
       -%}
       {%- capture link_level_1 -%}
-        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
+        {% assign menu_path = ttlink | split: '?' | first %}
+        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" class="{% if request.path == menu_path %}active{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
           {%- if blk_st.icon != blank -%}
             {% render 'icons-list-menu', icon_name: blk_st.icon %}
           {%- endif -%}
@@ -35,7 +36,7 @@
     {%- case block.type -%}
     {%- when 'home' -%}
     <li class="lvl1" {{ block.shopify_attributes }}>
-      <a href="{{ routes.root_url }}">
+      <a href="{{ routes.root_url }}" class="{% if request.path == routes.root_url %}active{% endif %}">
         {%- if blk_st.icon != blank -%}
           {% render 'icons-list-menu', icon_name: blk_st.icon %}
         {%- endif -%}

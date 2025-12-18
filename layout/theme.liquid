@@ -78,13 +78,14 @@
           <link rel="stylesheet" href="{{ 'pages.css' | asset_url }}" type="text/css" media="all">
         {%- endif -%}
     {%- endif -%}
-
-    {%- sections 'header-group' -%}
-    <div class="sidebar-wrapper">{%- sections 'sidebar-group' -%}</div>
-
-    <main id="PageContainer" class="main-content {{ template | split: '.' | first }}" id="MainContent" role="main">{{ content_for_layout }}</main>
-
-    {%- sections 'footer-group' -%}
+    <div class="main-wrapper">
+      <div class="sidebar-wrapper">{%- sections 'sidebar-group' -%}</div>
+      <div class="main-wrapper__content">
+        {%- sections 'header-group' -%}
+        <main id="PageContainer" class="main-content {{ template | split: '.' | first }}" id="MainContent" role="main">{{ content_for_layout }}</main>
+        {%- sections 'footer-group' -%}
+      </div>
+    </div>
     {%- sections 'overlay-group' -%}
     {%- if settings.enable_age_varification -%}{% render 'age-check' %}{%- endif -%}
     {%- render 'svg-icons' -%}

@@ -91,7 +91,7 @@
 {%- endcapture -%}
 {{- site_header -}}
 {%- if sec_st.sm_rc_viewed or sec_st.sm_wishlist -%}
-  <ul class="sidebar-submenu">
+  <ul class="sidebar-submenu sidebar-menu-list">
     {%- if sec_st.sm_rc_viewed -%}
       <li class="lvl1">
         <a href="{% if sec_st.rcv_link != blank %}{{ sec_st.rcv_link }}{% else %}#{% endif %}">
@@ -112,7 +112,7 @@
 {%- endif -%}
 {%- if sec_st.sm_support -%}
   <div class="sidebar-menu-footer">
-    <a href="{% if sec_st.msp_link != blank %}{{ sec_st.msp_link }}{% else %}#{% endif %}">
+    <a href="{% if sec_st.msp_link != blank %}{{ sec_st.msp_link }}{% else %}#{% endif %}" class="fl f-aic">
       {% render 'icons-list-menu', icon_name: sec_st.msp_icon %}
       {{ sec_st.msp_name }}
     </a>
@@ -120,7 +120,7 @@
 {%- endif -%}
 {% schema %}
  {
-    "name": "Sidebar Menu",
+    "name": "Sidebar Menu Main",
     "limit": 1,
     "class": "pr hdr_inline",
     "enabled_on": {
@@ -136,10 +136,10 @@
         "type": "range",
         "id": "logowd",
         "min": 50,
-        "max": 500,
-        "step": 5,
+        "max": 150,
+        "step": 1,
         "label": "Logo Width",
-        "default": 120
+        "default": 100
       },      
  	    {
         "type": "select",
@@ -329,9 +329,9 @@
         "default": "main-menu"
       },
       {
-		"type": "paragraph",
+        "type": "paragraph",
         "content": "Categories Menu ===="
-	  },
+      },
       {
         "type": "checkbox",
         "id": "catnav",
@@ -513,7 +513,7 @@
           }
         ]
       },
-	  {
+	    {
         "type": "slink",
         "name": "Single Link",
         "settings": [
@@ -1109,36 +1109,36 @@
             "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
           },
-		  {
-			"type": "text",
-			"id": "bxwd",
-			"label": "Box width",
-			"default": "600",
+          {
+            "type": "text",
+            "id": "bxwd",
+            "label": "Box width",
+            "default": "600",
             "visible_if": "{{ block.settings.cwd }}"
-		  },
-		  {
-			"type": "select",
-			"id": "mmal",
-			"label": "Box align",
-			"default": "center",
+          },
+          {
+            "type": "select",
+            "id": "mmal",
+            "label": "Box align",
+            "default": "center",
             "visible_if": "{{ block.settings.cwd }}",
-			"options": [
-			  { "value": "left", "label": "Left" },
-			  { "value": "center", "label": "Center" },
-			  { "value": "right", "label": "Right" }
-			]
-		  },
-		 {
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ]
+          },
+          {
             "type": "checkbox",
             "id": "bxsz",
             "label": "Fullwidth?",
             "default": false,
-             "info":"fullwidth inner content",
-             "visible_if": "{{ block.settings.cwd == false }}",
+            "info":"fullwidth inner content",
+            "visible_if": "{{ block.settings.cwd == false }}",
           }
         ]
       },
-	  {
+	    {
         "type": "m3",
         "name": "MM Top Image Columns",
         "settings": [
@@ -1295,43 +1295,43 @@
             "type": "header",
             "content": "Popup width ==="
           },
-   		 {
-			"type": "checkbox",
-			"id": "cwd",
-			"label": "Custom width?",
-			"default": false,
+   		    {
+            "type": "checkbox",
+            "id": "cwd",
+            "label": "Custom width?",
+            "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
-		  },
-		  {
-			"type": "text",
-			"id": "bxwd",
-			"label": "Box width",
-			"default": "600",
+          },
+		      {
+            "type": "text",
+            "id": "bxwd",
+            "label": "Box width",
+            "default": "600",
             "visible_if": "{{ block.settings.cwd }}"
-		  },
-		  {
-			"type": "select",
-			"id": "mmal",
-			"label": "Box align",
-			"default": "center",
+		      },
+		      {
+            "type": "select",
+            "id": "mmal",
+            "label": "Box align",
+            "default": "center",
             "visible_if": "{{ block.settings.cwd }}",
-			"options": [
-			  { "value": "left", "label": "Left" },
-			  { "value": "center", "label": "Center" },
-			  { "value": "right", "label": "Right" }
-			]
-		  },
-		 {
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ]
+		      },
+          {
             "type": "checkbox",
             "id": "bxsz",
             "label": "Fullwidth?",
             "default": false,
-             "info":"fullwidth inner content",
-             "visible_if": "{{ block.settings.cwd == false }}",
+            "info":"fullwidth inner content",
+            "visible_if": "{{ block.settings.cwd == false }}",
           }
         ]
       },
-	  {
+	    {
         "type": "m4",
         "name": "MM Categories",
         "settings": [
@@ -1496,49 +1496,49 @@
             "step": 1,
             "label": "Column width",
             "default": 50,
-			"unit": "%"
+            "unit": "%"
           },
-                {
+          {
             "type": "header",
             "content": "Popup width ==="
           },
-   		 {
-			"type": "checkbox",
-			"id": "cwd",
-			"label": "Custom width?",
-			"default": false,
+   		    {
+            "type": "checkbox",
+            "id": "cwd",
+            "label": "Custom width?",
+            "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
-		  },
-		  {
-			"type": "text",
-			"id": "bxwd",
-			"label": "Box width",
-			"default": "600",
+		      },
+          {
+            "type": "text",
+            "id": "bxwd",
+            "label": "Box width",
+            "default": "600",
             "visible_if": "{{ block.settings.cwd }}"
-		  },
-		  {
-			"type": "select",
-			"id": "mmal",
-			"label": "Box align",
-			"default": "center",
+          },
+          {
+            "type": "select",
+            "id": "mmal",
+            "label": "Box align",
+            "default": "center",
             "visible_if": "{{ block.settings.cwd }}",
-			"options": [
-			  { "value": "left", "label": "Left" },
-			  { "value": "center", "label": "Center" },
-			  { "value": "right", "label": "Right" }
-			]
-		  },
-		 {
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ]
+          },
+          {
             "type": "checkbox",
             "id": "bxsz",
             "label": "Fullwidth?",
             "default": false,
-             "info":"fullwidth inner content",
-             "visible_if": "{{ block.settings.cwd == false }}",
+            "info":"fullwidth inner content",
+            "visible_if": "{{ block.settings.cwd == false }}",
           }
         ]
       },
-	  {
+	    {
         "type": "m5",
         "name": "MM Collections",
         "settings": [
@@ -1632,39 +1632,39 @@
             "type": "header",
             "content": "Popup width ==="
           },
-   		 {
-			"type": "checkbox",
-			"id": "cwd",
-			"label": "Custom width?",
-			"default": false,
+   		    {
+            "type": "checkbox",
+            "id": "cwd",
+            "label": "Custom width?",
+            "default": false,
             "visible_if": "{{ block.settings.bxsz == false }}",
-		  },
-		  {
-			"type": "text",
-			"id": "bxwd",
-			"label": "Box width",
-			"default": "600",
+          },
+          {
+            "type": "text",
+            "id": "bxwd",
+            "label": "Box width",
+            "default": "600",
             "visible_if": "{{ block.settings.cwd }}"
-		  },
-		  {
-			"type": "select",
-			"id": "mmal",
-			"label": "Box align",
-			"default": "center",
-            "visible_if": "{{ block.settings.cwd }}",
-			"options": [
-			  { "value": "left", "label": "Left" },
-			  { "value": "center", "label": "Center" },
-			  { "value": "right", "label": "Right" }
-			]
-		  },
-		 {
+          },
+          {
+            "type": "select",
+            "id": "mmal",
+            "label": "Box align",
+            "default": "center",
+                  "visible_if": "{{ block.settings.cwd }}",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ]
+          },
+          {
             "type": "checkbox",
             "id": "bxsz",
             "label": "Fullwidth?",
             "default": false,
-             "info":"fullwidth inner content",
-             "visible_if": "{{ block.settings.cwd == false }}",
+            "info":"fullwidth inner content",
+            "visible_if": "{{ block.settings.cwd == false }}",
           }
         ]
       }
