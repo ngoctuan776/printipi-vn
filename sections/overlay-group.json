@@ -81,6 +81,7 @@
         "wish_3zmTKz",
         "shop_9xYtEz"
       ],
+      "disabled": true,
       "settings": {
         "hdtxt": false,
         "fsicon": 15,
@@ -146,6 +147,7 @@
         "text_8LJ3jc",
         "text_ErBWeL"
       ],
+      "disabled": true,
       "settings": {
         "sty": "2",
         "iconc": "#ffffff",
@@ -261,6 +263,7 @@
     },
     "someone_purchased_f78FmY": {
       "type": "someone-purchased",
+      "disabled": true,
       "settings": {
         "hide_mb": true,
         "products": [

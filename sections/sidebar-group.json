@@ -73,7 +73,7 @@
       "name": "Sidebar Menu Main",
       "settings": {
         "logo": "shopify://shop_images/Frame_1.svg",
-        "logowd": 120,
+        "logowd": 67,
         "icntyp": "1",
         "icon": 16,
         "fs": 12,
@@ -91,7 +91,7 @@
         "sm_support": true,
         "msp_name": "Hỗ trợ",
         "msp_link": "shopify://pages/contact",
-        "msp_icon": "home",
+        "msp_icon": "",
         "logowdm": 90,
         "cntlogo": false,
         "spnav": false,
