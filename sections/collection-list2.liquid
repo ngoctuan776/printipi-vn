@@ -29,7 +29,7 @@
     <div class="{% if section_st.sw %}fw-sec{% if section_st.npd %} npd{% endif %}{% else %}page-width{% endif %} pr zi1 cl_box" data-section-id="{{ section.id }}">   	
         {%- render 'sec-title' -%}
         {%- capture collection_data -%}
-          {%- for block in section.blocks -%}     
+          {%- for block in section.blocks -%}
                 {%- liquid
                   assign blk_st = block.settings                   
                   assign collection = collections[blk_st.collection]
@@ -40,7 +40,7 @@
                 %}
                 
                 <div class="gitem{% if section_st.carousel %} swiper-slide{% endif %} {% render 'animate-data', css:true %}" {% render 'animate-data' %} {{ block.shopify_attributes }}>
-                      <a href="{{ blk_st.url | default:collection.url }}" class="db pr of_hidden brad{% if section_st.zoom %} zoom_hov{% endif %}" title="{{ blk_st.title }}" style="--rounded:{{ section_st.irad}}px;">                    
+                      <a href="{{ blk_st.url | default:collection.url }}" class="db pr of_hidden brad{% if section_st.zoom %} zoom_hov{% endif %}" title="{{ blk_st.title }}" style="--rounded:{{ section_st.irad}}px;">
                         <div class="img pr of_hidden overlay" style="--overlay:{{ section_st.img_ol}};">
                           {%- if collection_image != blank -%}
                             {{ collection_image | image_url: width: collection_image.width | image_tag: loading:'lazy', class:'imgFt', alt: img_alt, sizes:sizes, widths:"180,320,400,560,740,900,1200" }}
@@ -48,13 +48,13 @@
                             {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}{{ 'collection-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg imgFt' }}
                           {%- endif -%}
                         </div>
-                         <div class="fl {{ section_st.text-align }} pa bottom0 pd20 w_100">
-                        <div class="at_box anim zi1 pd0">                          
-                            {% if blk_st.pretitle != blank %}<div class="rgTxt mb5" style="--fs:{{ section_st.pfs }}px;--fsm:{{ section_st.pfsm }}px;">{{ blk_st.pretitle }}</div>{% endif %}
+                         <div class="fl {{ section_st.text-align }} pa bottom0 w_100">
+                        <div class="at_box anim zi1 pd0">
+                            {% if blk_st.pretitle != blank %}<div class="rgTxt" style="--fs:{{ section_st.pfs }}px;--fsm:{{ section_st.pfsm }}px;">{{ blk_st.pretitle }}</div>{% endif %}
                             {% if blk_st.title != blank %}<div class="rgTxt {{section_st.ft}}">{{ blk_st.title }}</div>{% endif %}
                             {% if section_st.count and count != blank %}<span class="db counts mt5 mb5" style="--cl:{{ section_st.cl }};">{{ 'collections.general.items_with_count' | t: count: count }}</span>{% endif %}
-                            {% if blk_st.btntxt != blank %}<button class="btn mt20 {{ section_st.btn-size }} {{ section_st.btn-style }}"  type="button">{{ blk_st.btntxt }}</button>{% endif %}                  
-                        </div>                         
+                            {% if blk_st.btntxt != blank %}<button class="btn mt20 {{ section_st.btn-size }} {{ section_st.btn-style }}"  type="button">{{ blk_st.btntxt }}</button>{% endif %}
+                        </div>
                        </div>
                       </a>
                 </div>
@@ -85,6 +85,7 @@
 {% schema %}
 {
     "name": "Collection List (Overlay)",
+    "class": "collection-list2",
     "disabled_on": {
         "groups": ["header", "footer", "custom.overlay"]
     },
