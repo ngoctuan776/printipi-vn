@@ -56,6 +56,7 @@
                      assign swatch_clr = 'url(' | append: swatch_img | append: ')'
                   endif
                 -%}
+                <span class="hidden">{{ swatch_clr }}</span>
                 {% if color_type == "vrimage" and vr_img != null %}
                     {% # theme-check-disable DeprecateBgsizes %}
                       <li class="swatch bgImg clrswt lazyload{% if option_disabled %} disabled{% endif %}{% if cl_count > settings.clcount %} hide{% endif %}" title="{{ value }}"

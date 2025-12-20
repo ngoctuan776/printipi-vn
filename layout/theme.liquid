@@ -62,6 +62,11 @@
   {%- endcapture -%}
   {{ head_data | strip_newlines | remove: "  " | remove: "	" }}
   {{ content_for_header }}
+  <script type="text/javascript">
+    teeinblue = {
+      formSelector: '.product-form form',
+    };
+  </script>
 </head>
 {%- capture snowonpage -%}{% if settings.sn-index %}index,{% endif %}{% if settings.sn-product %}product,{% endif %}{% if settings.sn-collection %}collection,{% endif %}{% if settings.sn-blog %}article,blog,{% endif %}{% if settings.sn-cart %}cart,{% endif %}{% if settings.sn-page %}page{% endif %}{%- endcapture -%}
 <body class="template-{{ request.page_type }}{% if is_rtl %} rtl{% endif %}{% if settings.bodyimg != blank %} lazyload{% endif %}{% if settings.snow_effect and snowonpage contains request.page_type %} falling-snow {{settings.snow_style}}{% endif %}"

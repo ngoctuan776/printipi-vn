@@ -1,0 +1,5 @@
+{% assign review_avg = 0 %}
+{% if product.metafields.air_reviews_product.review_avg %}
+  {% assign review_avg = product.metafields.air_reviews_product.review_avg %}
+{% endif %}
+<div class="product-card__rating fl f-aic lh-1" style="--width-rating: {{ review_avg | divided_by: 5 | times: 100 }}%;"><div class="product-card__rating-count">{{ review_avg }}</div><div class="icon-star">{% render "icon-start-active" %}{% render "icon-start-default" %}</div></div>

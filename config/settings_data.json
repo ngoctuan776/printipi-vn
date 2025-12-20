@@ -204,7 +204,14 @@
     "search_border": "#dddddd",
     "search_rad": 30,
     "search_h": 45,
-    "content_for_index": []
+    "content_for_index": [],
+    "blocks": {
+      "421424240597080315": {
+        "type": "shopify://apps/teeinblue-product-personalizer/blocks/product-personalizer/67212f31-32b0-450c-97dd-7e182a5fac7b",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "platform_customizations": {}
 }

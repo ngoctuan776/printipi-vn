@@ -2868,6 +2868,10 @@
         "default": "140",
         "options": [
           {
+            "value": "auto",
+            "label": "Auto"
+          },
+          {
             "group": "Landscape",
             "value": "50",
             "label": "0:5"
@@ -3263,20 +3267,8 @@
       },
       {
         "type": "color",
-        "id": "grid_btn",
-        "label": "Background",
-        "default": "#fafafa"
-      },
-      {
-        "type": "color",
         "id": "grid_icon",
         "label": "Icons",
-        "default": "#111"
-      },
-      {
-        "type": "color",
-        "id": "grid_btnh",
-        "label": "Background hover",
         "default": "#111"
       },
       {
