@@ -86,7 +86,7 @@
         "rcv_icon": "recently_viewed",
         "sm_wishlist": true,
         "mwl_name": "Yêu thích",
-        "mwl_link": "shopify://collections",
+        "mwl_link": "shopify://pages/wishlist",
         "mwl_icon": "wishlist",
         "sm_support": true,
         "msp_name": "Hỗ trợ",
