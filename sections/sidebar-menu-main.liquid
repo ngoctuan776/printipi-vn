@@ -90,8 +90,9 @@
 {%- if sec_st.sm_rc_viewed or sec_st.sm_wishlist -%}
   <ul class="sidebar-submenu sidebar-menu-list">
     {%- if sec_st.sm_rc_viewed -%}
+      {% assign menu_path = sec_st.rcv_link | split: '?' | first %}
       <li class="lvl1">
-        <a href="{% if sec_st.rcv_link != blank %}{{ sec_st.rcv_link }}{% else %}#{% endif %}">
+        <a href="{% if sec_st.rcv_link != blank %}{{ sec_st.rcv_link }}{% else %}#{% endif %}" class="{% if request.path == menu_path %}active{% endif %}">
           {% render 'icons-list-menu', icon_name: sec_st.rcv_icon %}
           {{ sec_st.rcv_name }}
         </a>
@@ -99,7 +100,8 @@
     {%- endif -%}
     {%- if sec_st.sm_wishlist -%}
       <li class="lvl1">
-        <a href="{% if sec_st.mwl_link != blank %}{{ sec_st.mwl_link }}{% else %}#{% endif %}">
+        {% assign menu_path = sec_st.mwl_link | split: '?' | first %}
+        <a href="{% if sec_st.mwl_link != blank %}{{ sec_st.mwl_link }}{% else %}#{% endif %}" class="{% if request.path == menu_path %}active{% endif %}">
           {% render 'icons-list-menu', icon_name: sec_st.mwl_icon %}
           {{ sec_st.mwl_name }}
         </a>
