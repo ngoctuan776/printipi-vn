@@ -33,7 +33,7 @@
           "type": "slink",
           "settings": {
             "title": "Chủ đề",
-            "url": "shopify://collections",
+            "url": "shopify://collections/frontpage",
             "icon": "themes"
           }
         },
@@ -41,7 +41,7 @@
           "type": "slink",
           "settings": {
             "title": "Phong cách [label3]",
-            "url": "shopify://collections",
+            "url": "shopify://collections/test",
             "icon": "styles"
           }
         },
@@ -49,7 +49,7 @@
           "type": "slink",
           "settings": {
             "title": "Bán chạy [label1]",
-            "url": "shopify://collections",
+            "url": "shopify://pages/contact",
             "icon": "bestselling"
           }
         },
@@ -57,7 +57,7 @@
           "type": "slink",
           "settings": {
             "title": "Hàng mới",
-            "url": "shopify://collections",
+            "url": "shopify://policies/privacy-policy",
             "icon": "new_product"
           }
         }

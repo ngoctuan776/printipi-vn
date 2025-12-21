@@ -60,6 +60,8 @@
             "salebg": "#e95144",
             "fw": "fwr",
             "brad": 30,
+            "tax_msg": false,
+            "ship_msg": false,
             "bm": 20
           }
         },
@@ -235,7 +237,6 @@
           "type": "img",
           "settings": {
             "title": "Guarantee Safe Checkout",
-            "pimg": "shopify://shop_images/payment-approve.png",
             "imgwd": 320,
             "img_align": true,
             "cl": "#222222",
@@ -322,6 +323,7 @@
       "settings": {
         "title": "Frequently Bought Together",
         "subtitle": "",
+        "products": [],
         "sw": false,
         "bg": "#fafafa",
         "bgg": "",
@@ -532,6 +534,31 @@
         "hidem": false,
         "hided": false
       }
+    },
+    "176622612140d99771": {
+      "type": "apps",
+      "blocks": {
+        "air_product_reviews_app_block_review_list_trtN6L": {
+          "type": "shopify://apps/air-product-reviews/blocks/app-block-review-list/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
+          "settings": {
+            "air_blockreviews_summaryHeading": "Reviews",
+            "air_blockreviews_layout": "list",
+            "air_blockreviews_singleStarColor": "#16A086",
+            "air_blockreviews_primaryColor": "#121212"
+          }
+        }
+      },
+      "block_order": [
+        "air_product_reviews_app_block_review_list_trtN6L"
+      ],
+      "settings": {
+        "sst": 30,
+        "ssb": 30,
+        "sstm": 15,
+        "ssbm": 15,
+        "bg": "",
+        "sw": false
+      }
     }
   },
   "order": [
@@ -541,6 +568,7 @@
     "upsell",
     "tabs",
     "devider_ywr3VC",
+    "176622612140d99771",
     "related",
     "recommanded",
     "recentviewed"

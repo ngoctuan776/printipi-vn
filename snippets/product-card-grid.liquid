@@ -117,7 +117,16 @@
 
 <product-card class="db grid_bx {{boxstyle}}{% unless product.available %} sold-out style{{ settings.soldout_style }}{% endunless %}">
   {%- if boxstyle == "grid_2" -%}<a class="overly h_100 w_100 pa db" href="{{ product_url }}" aria-label="{{ product.title }}"></a>{%- endif -%}
-  <div class="grid_img_wr mb15">
+  {%- assign image_ratio = settings.primg_ratio -%}
+  {%- if section_st.enable_custom_ratio -%}
+    {%- assign image_ratio = section_st.primg_ratio -%}
+    {%- if section_st.primg_ratio == 'auto' -%}
+      {% assign image_ratio = 1 | divided_by: product.featured_image.aspect_ratio | round: 2 | times: 100 %}
+    {%- endif -%}
+  {%- else if settings.primg_ratio == 'auto' -%}
+    {% assign image_ratio = 1 | divided_by: product.featured_image.aspect_ratio | round: 2 | times: 100 %}
+  {%- endif -%}  
+  <div class="grid_img_wr" {% if settings.primg_ratio == 'auto' or section_st.enable_custom_ratio %}style="--primg_ratio: {{ image_ratio }}%;"{% endif %}>
     <a class="grid_img" href="{{ product_url }}">
         {% if product_media.media_type == 'video' %}
             {% capture video_tag %}{{ product_media | video_tag: loop:true, autoplay:true, muted:muted, class:image_class }}{% endcapture %}

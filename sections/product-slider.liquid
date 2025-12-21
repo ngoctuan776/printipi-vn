@@ -15,7 +15,7 @@
 	  {%- if section_st.show_view_all != blank -%}
       <div class="sec-ttl-wrp fl f-jcsb f-aic">
         {%- render 'sec-title' -%}
-        <div class="tc"><a href="{{ collection.url }}" class="mt30 btn {{ section_st.btn-size }} {{ section_st.btn-style }}">{{ section_st.show_view_all }}</a></div>
+        <div class="tc"><a href="{{ collection.url }}" class="btn {{ section_st.btn-size }} {{ section_st.btn-style }}">{{ section_st.show_view_all }}</a></div>
       </div>
     {%-  else -%}
       {%- render 'sec-title' -%}
@@ -62,7 +62,7 @@
         "label": "Heading",
         "default": "Weekly Best Sellers"		
       },	  
-	  {
+	    {
          "type": "textarea",
          "id": "subtitle",
          "label": "Sub Heading",
@@ -72,12 +72,110 @@
          "id": "collection",
          "type": "collection",
          "label": "Select Collection"
-      },            
-	  {
+      },
+	    {
+        "type": "header",
+        "content": "Grid image ==="
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_custom_ratio",
+        "label": "Enable Custom Ratio?",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "primg_ratio",
+        "label": "Ratio",
+        "default": "140",
+        "visible_if": "{{ section.settings.enable_custom_ratio }}",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Auto"
+          },
+          {
+            "group": "Landscape",
+            "value": "50",
+            "label": "0:5"
+          },
+          {
+            "group": "Landscape",
+            "value": "60",
+            "label": "0:6"
+          },
+          {
+            "group": "Landscape",
+            "value": "70",
+            "label": "0:7"
+          },
+          {
+            "group": "Landscape",
+            "value": "80",
+            "label": "0:8"
+          },
+          {
+            "group": "Landscape",
+            "value": "90",
+            "label": "0:9"
+          },
+          {
+            "group": "Squared",
+            "value": "100",
+            "label": "1:1"
+          },
+          {
+            "group": "Portrait",
+            "value": "110",
+            "label": "1:1"
+          },
+          {
+            "group": "Portrait",
+            "value": "120",
+            "label": "1:2"
+          },
+          {
+            "group": "Portrait",
+            "value": "130",
+            "label": "1:3"
+          },
+          {
+            "group": "Portrait",
+            "value": "140",
+            "label": "1:4"
+          },
+          {
+            "group": "Portrait",
+            "value": "150",
+            "label": "1:5"
+          },
+          {
+            "group": "Portrait",
+            "value": "160",
+            "label": "1:6"
+          },
+          {
+            "group": "Portrait",
+            "value": "170",
+            "label": "1:7"
+          },
+          {
+            "group": "Portrait",
+            "value": "180",
+            "label": "1:8"
+          },
+          {
+            "group": "Portrait",
+            "value": "190",
+            "label": "1:9"
+          }
+        ]
+      },
+	    {
         "type": "header",
         "content": "Grid Appearance ==="
-      },	
-	   {
+      },
+      {
             "type": "select",
             "id": "prbox_style",
             "label": "Grid style",
