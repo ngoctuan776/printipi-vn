@@ -75,6 +75,7 @@ class ProductRecentlyViewed extends SlideSection {
         if(theme.mlcurrency) currenciesChange(document.querySelectorAll('product-card span.money'));
         initializeScrollAnimationTrigger();
         initializeVideos();
+        if(typeof checkWishlist == 'function') checkWishlist();
       })
       .catch((e) => {
         console.error(e);

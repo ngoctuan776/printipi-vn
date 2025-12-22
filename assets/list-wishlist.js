@@ -2,8 +2,8 @@
 
 var wlp = "at_wishlist",
   wishlistItems = JSON.parse(localStorage.getItem(wlp)),
-  wraper = document.querySelector("list-wishlist-products"),
-  limit = wraper.dataset.limit;
+  wrapper = document.querySelector("list-wishlist-products"),
+  limit = wrapper.dataset.limit;
 
 if (wishlistItems === null) wishlistItems = [];
 var wishlistItems = wishlistItems.filter(item => item);
@@ -17,11 +17,13 @@ class ProductListWishlist extends SlideSection {
     this.connectedCallback();
   }
   initData() {
-    var savedProductsArr = JSON.parse(localStorage.getItem(wlp));
-    const index = savedProductsArr.indexOf(this.dataset.id);
-    if (index > -1) savedProductsArr.splice(index, 1);
-    let cleanedItems = savedProductsArr.filter(item => item);
-    this.getStoredProducts(cleanedItems);
+    let savedProductsArr = JSON.parse(localStorage.getItem(wlp));
+    if (savedProductsArr && savedProductsArr.length > 0) {
+      this.getStoredProducts(savedProductsArr);
+    } else {
+      let wishlistSec = document.querySelector(".list-wishlist-product");
+      wishlistSec.remove();
+    }
   }
   getStoredProducts(p) {
     const limit = this.dataset?.limit;
@@ -59,6 +61,7 @@ class ProductListWishlist extends SlideSection {
         if(theme.mlcurrency) currenciesChange(document.querySelectorAll('product-card span.money'));
         initializeScrollAnimationTrigger();
         initializeVideos();
+        if(typeof checkWishlist == 'function') checkWishlist();
       })
       .catch((e) => {
         console.error(e);
