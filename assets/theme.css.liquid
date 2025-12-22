@@ -614,6 +614,8 @@ span.wishicon.added svg path{fill: #FFFFFF;}
 
 {% if settings.trim_title %} .grid_bx .grid_title {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;}{% endif %}
 
+.grid_bx .grid_meta .price {display: flex;align-items: center;gap: 5px;flex-wrap: wrap;}
+.grid_bx .grid_meta s.pr_price {margin-left: 0;}
 .grswatches { gap:7px; }
 .grswatches li { overflow:hidden; position:relative; height:{{settings.swatch_size}}px; width:{{settings.swatch_size}}px; cursor:pointer; box-shadow:0 0 1px 1px {{ settings.gswatch_bdr }}; border:2px solid #fff; border-radius:{{ settings.sbrd }}px;background-size:cover!important; }
 .grswatches li.active, 
@@ -1479,8 +1481,11 @@ details[open] .arw { transform:rotate(180deg); }
     margin-top: 1px;
   }
 }
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 576px) {
   :root {
     --sidebar-width: 215px;
+  }
+  .sec-ttl-wrp {
+    align-items: center;
   }
 }
