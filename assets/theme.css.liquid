@@ -171,6 +171,7 @@ input:checked+span.checkbox:before { content:' '; display:block; background-colo
 .empty-page { padding:125px calc(var(--grid_gutter) / 2); }
 
 .swarw { color:var(--arw); background-color:var(--arwbg); position:absolute; top:40%; width:30px; height:30px; margin-top:-13px; z-index:10; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:all 0.3s ease-in-out }
+.collection-list2 .swarw{top:50%;}
 .swarw:hover {opacity:1;}
 
 {% comment %} /*  Global Class */ {% endcomment %}
@@ -222,7 +223,7 @@ input:checked+span.checkbox:before { content:' '; display:block; background-colo
 	.sec-ttl:not(.tl) .sbttl { max-width:800px; }
   .page-title { font-size:{{settings.page_ttl_s}}px; }
 }
-@media only screen and (max-width:767px) {   
+@media only screen and (max-width:768px) {   
     .sec-ttl .sbttl br { display:none; }
 }
 
@@ -231,11 +232,19 @@ input:checked+span.checkbox:before { content:' '; display:block; background-colo
 .gspace { margin:0 calc(var(--grspm) * -1); row-gap:calc(var(--grspm) * 2); }
 .gspace .gitem { padding:0 var(--grspm); }
 .gspace.swiper .gitem { padding-bottom:0!important; }
+@media (min-width:577px){
+  .gspace { margin:0 -6px; row-gap:12px; }
+  .gspace .gitem { padding:0 6px; }
+}
+@media (min-width:769px){
+  .gspace { margin:0 -7.5px; row-gap:15px; }
+  .gspace .gitem { padding:0 7.5px; }
+}
 @media only screen and (min-width:1025px) {
-    .flbox { padding:var(--gr_pd, 0); margin:var(--gr_mr, 0); }
-  
-    .gspace { margin:0 calc(var(--grsp) * -1); row-gap:calc(var(--grsp) * 2); }
-    .gspace .gitem { padding:0 var(--grsp); }   
+  .flbox { padding:var(--gr_pd, 0); margin:var(--gr_mr, 0); }
+
+  .gspace { margin:0 calc(var(--grsp) * -1); row-gap:calc(var(--grsp) * 2); }
+  .gspace .gitem { padding:0 var(--grsp); }
 }
 
 .tooltip-label { background-color:{{settings.tooltip_bg}}; color:{{settings.tooltip_text}}; font-size:11px; font-family:var(--ft1); font-weight:500; line-height:18px; white-space:nowrap;
@@ -720,8 +729,11 @@ span.wishicon.added svg path{fill: #FFFFFF;}
 .collection-list2 .cl_box { padding-right: 0;}
 .collection-list2 .cl_box .swiper { padding-right: 98px;}
 .cl_box .pa {padding: 18px 30px;}
-@media only screen and (min-width:768px){
+@media only screen and (min-width:769px){
 	.cl_box1 .details { bottom:var(--psbtm); }
+}
+@media only screen and (min-width:768px){
+  .collection-list2 .sec_cov {padding-top: 20px;}
 }
 
 {% comment %} Masonary Banner {% endcomment %}

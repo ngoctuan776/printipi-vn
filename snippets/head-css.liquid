@@ -122,7 +122,7 @@ body{ color:var(--all_text, {{ settings.bodycl }}); font-family:var(--{{ setting
 	
 .fw-sec { padding-left:{{ settings.pad-mbl }}px; padding-right:{{ settings.pad-mbl }}px }
 .fw-sec.npd { padding:0 }
-@media only screen and (min-width:768px){.fw-sec{ padding-left:{{ settings.pad-ipad }}px; padding-right:{{ settings.pad-ipad }}px }} 
+@media only screen and (min-width:769px){.fw-sec{ padding-left:{{ settings.pad-ipad }}px; padding-right:{{ settings.pad-ipad }}px }} 
 @media only screen and (min-width:1280px){.fw-sec{ padding-left:{{ settings.pad-desk }}px; padding-right:{{ settings.pad-desk }}px }} 
 
 {% comment %} /* Swiper Common */ {% endcomment %}
@@ -398,8 +398,8 @@ img:-moz-loading { visibility:hidden; }
 .gap{gap:var(--gapm, var(--gap))}
 .row-gap{row-gap:var(--gapm, var(--gap))}
 .col-gap{column-gap:var(--gapm, var(--gap))}
-  
-@media (min-width:769px){
+
+@media (min-width:577px){
     .at-icon{width:var(--icns,16px);height:var(--icns,16px)}
     .img_wrap:before { padding-bottom:var(--ratio); }
     .col-md-1{width:100%}
@@ -505,11 +505,16 @@ img:-moz-loading { visibility:hidden; }
   .order2-md{order:2}
   .order3-md{order:3}
 
-  .hide-desktop {
-    display: none !important;
-  }
+  .grid-products{margin:0 -6px; row-gap:6px}
+  .grid-products .gitem{padding-left:6px;padding-right:6px}
 }
-
+@media (min-width:769px){
+    .hide-desktop {
+        display: none !important;
+    }
+    .grid-products{margin:0 -7.5px; row-gap:7.5px}
+    .grid-products .gitem{padding-left:7.5px;padding-right:7.5px}
+}
 @media (min-width:1025px){
     .showOverly,.actHmbNav,.searchact { margin-right:17px; }
   
