@@ -12,17 +12,12 @@
 .count-bubble--dot::before { content:''; width:0.2rem; height:0.2rem; display:block; background-color:#fff; border-radius:50%; }
 .count-bubble { color:{{settings.bodybg}}; background-color:{{settings.bodycl}}; display:inline-block; margin-left:5px; height:17px; width:17px; border-radius:50%; text-align:center; font-size:11px; font-weight:400; line-height:17px; }
 
-.btn-filter, .btn-sort_by { font-size:12px; background:none; border: 1px solid var(--border-color); border-radius:8px; height:30px; padding:0 15px 0 12px; }
+.btn-filter, .btn-sort_by { font-size:12px; background:none; gap: 5px; border: 1px solid var(--border-color); border-radius:8px; height:30px; padding:0 15px 0 12px; }
 .prView { margin:0 20px 0 auto; }
 .tlbr .change-view { background:none; opacity:0.6; border:0; padding:8px; }
 .tlbr .active_view { opacity:1; }
 .filter-sorting-wrapper { position: relative; }
-.filter-sorting-wrapper .cnrList {left: auto;right: 0;transform: translateX(0%);z-index: 1;}
-.filter-sorting-wrapper .cnrList li {padding: 0}
-.filter-sorting-wrapper .cnrList li a {
-  padding: 8px 15px;
-  border-radius: 7px;
-}
+.filter-sorting-wrapper .cnrList {left: auto;right: 0;transform: translateX(0%);z-index: 1;top: 40px;}
 .filter-sorting-wrapper .cnrList li a.selected {
   background-color: var(--bgr-light);
 }

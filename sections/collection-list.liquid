@@ -31,7 +31,6 @@
   }
   .ss-collection-list .gitem {
     width: auto;
-    padding: 0 8px;
   }
   .ss-collection-list .gitem a {
     display: flex;
@@ -39,7 +38,8 @@
     gap: 15px;
     border: 1px solid #DDDDDD;
     border-radius: 60px;
-    padding: 0 25px 0 0;
+    height: 46px;
+    padding: 0 20px 0 0;
     transition: 0.3s;
   }
   .ss-collection-list .gitem a:hover {
@@ -114,6 +114,8 @@
             {% if section.blocks.size == 0 %}{% render 'no-blocks' %}{% endif %}
         {%- endcapture -%}
         {%- capture styles -%}
+          --grid_gutter:{{ section_st.gspace }}px;
+          --grid_gutterm:{{ section_st.gspacem }}px;
           --grsp:{{ section_st.gspace | divided_by: 2.0 }}px;--grspm:{{ section_st.gspacem | divided_by: 2.0 }}px;
           --rounded:{{section_st.irad }}px;--cl:{{ section_st.cl }};--fs:{{ section_st.fs }}px;--fsm:{{ section_st.fsm }}px;--fw:{{ section_st.fw }};--lh:{{ section_st.lh }};
           --bg:{{ section_st.tbg | color_modify:'alpha', section_st.tbg_op }};{% if section_st.style == '4' %}--bgt:{{ section_st.tbg | color_to_hex }}00;{% endif %}

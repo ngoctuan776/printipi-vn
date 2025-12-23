@@ -62,12 +62,35 @@
             {%- for value in filter.active_values -%}
                 <a class="active-fl removefl" href="{{ value.url_to_remove }}">{{ value.label | escape }} <svg class="at-icon"><use xlink:href="#icon-close"></use></svg></a>
             {%- endfor -%}
-            {%- if filter.type == "price_range" and filter.min_value.value != nil or filter.max_value.value != nil -%}
-                <a class="active-fl removefl" href="{{ filter.url_to_remove }}">
+            {%- if filter.type == "price_range" -%}
+              {%- assign min_value = filter.min_value.value -%}
+              {%- assign max_value = filter.max_value.value -%}
+
+              {%- if filter.type == "price_range" -%}
+                {%- liquid
+                  assign min_value = filter.min_value.value | default: 0
+                  assign max_value = filter.max_value.value | default: filter.range_max
+                  
+                  assign has_custom_price = false
+                  if min_value > 0 or max_value < filter.range_max
+                    assign has_custom_price = true
+                  endif
+                -%}
+
+                {%- if has_custom_price -%}
+                  <a class="active-fl removefl sss" href="{{ filter.url_to_remove }}">
+                    {{ min_value | money }} - {{ max_value | money }}
+                    <svg class="at-icon"><use xlink:href="#icon-close"></use></svg>
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+            {% comment %} {%- if filter.type == "price_range" and filter.min_value.value != nil or filter.max_value.value != nil -%}
+                <a class="active-fl removefl sss" href="{{ filter.url_to_remove }}">
                   {% if filter.min_value.value %}{{ filter.min_value.value | money }}{% else %}{{ 0 | money }}{% endif %} - {% if filter.max_value.value %}{{ filter.max_value.value | money }}{% else %}{{ filter.range_max | money }}{% endif %}
                   <svg class="at-icon"><use xlink:href="#icon-close"></use></svg>
                 </a>
-            {%- endif -%}
+            {%- endif -%} {% endcomment %}
         {%- endfor -%}
 	</div>
 {%- endcapture -%}
@@ -223,18 +246,18 @@
                     </filters-form>
 				{%- endif -%}
             
-				<div class="tlbr fl f-jcsb f-aic mb15">                  	
-                   {%- if section_st.filters -%}
-                 	 <button type="button" class="btn-filter fl f-aic ttu fwm mr15 {% if section_st.sbpos != 'popup' %} hide-lg{% endif %}" area-label="{{ 'collections.general.filter_button' | t }}">
-                      <svg class="at-icon mr5" fill="none" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m3 6.25c-.41421 0-.75.33579-.75.75s.33579.75.75.75zm0 10c-.41421 0-.75.3358-.75.75s.33579.75.75.75zm6 1.5c.41421 0 .75-.3358.75-.75s-.33579-.75-.75-.75zm12 0c.4142 0 .75-.3358.75-.75s-.3358-.75-.75-.75zm-6-11.5c-.4142 0-.75.33579-.75.75s.3358.75.75.75zm6 1.5c.4142 0 .75-.33579.75-.75s-.3358-.75-.75-.75zm-18 0h3v-1.5h-3zm0 10h6v-1.5h-6zm15 0h3v-1.5h-3zm-3-10h6v-1.5h-6zm2.25 9.25c0 1.2426-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.6789 3.75-3.75zm-2.25 2.25c-1.2426 0-2.25-1.0074-2.25-2.25h-1.5c0 2.0711 1.6789 3.75 3.75 3.75zm-2.25-2.25c0-1.2426 1.0074-2.25 2.25-2.25v-1.5c-2.0711 0-3.75 1.6789-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.0074 2.25 2.25h1.5c0-2.0711-1.6789-3.75-3.75-3.75zm-3.75-7.75c0 1.24264-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.67893 3.75-3.75zm-2.25 2.25c-1.24264 0-2.25-1.00736-2.25-2.25h-1.5c0 2.07107 1.67893 3.75 3.75 3.75zm-2.25-2.25c0-1.24264 1.00736-2.25 2.25-2.25v-1.5c-2.07107 0-3.75 1.67893-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.00736 2.25 2.25h1.5c0-2.07107-1.6789-3.75-3.75-3.75z" fill="#28303f"/></svg>
-                       {{ 'collections.general.filter_button' | t }}
-                    </button>
-                   {%- endif -%}
-                   {{ productcount }}{{ pr_view }}{{ shorting }}
-            	</div>
-                {{ active_filters }}
-				{{ products_list | strip_newlines }}             
-               {%- if collection.description != blank and section_st.des_pos == "2" -%}<div class="rte cl_desc mt30">{{ collection.description }}</div>{%- endif -%}	
+				<div class="tlbr fl f-jcsb f-aic mb10">                  	
+          {%- if section_st.filters -%}
+          <button type="button" class="btn-filter fl f-aic fwm mr15 {% if section_st.sbpos != 'popup' %} hide-lg{% endif %}" area-label="{{ 'collections.general.filter_button' | t }}">
+            <svg class="at-icon mr5" fill="none" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m3 6.25c-.41421 0-.75.33579-.75.75s.33579.75.75.75zm0 10c-.41421 0-.75.3358-.75.75s.33579.75.75.75zm6 1.5c.41421 0 .75-.3358.75-.75s-.33579-.75-.75-.75zm12 0c.4142 0 .75-.3358.75-.75s-.3358-.75-.75-.75zm-6-11.5c-.4142 0-.75.33579-.75.75s.3358.75.75.75zm6 1.5c.4142 0 .75-.33579.75-.75s-.3358-.75-.75-.75zm-18 0h3v-1.5h-3zm0 10h6v-1.5h-6zm15 0h3v-1.5h-3zm-3-10h6v-1.5h-6zm2.25 9.25c0 1.2426-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.6789 3.75-3.75zm-2.25 2.25c-1.2426 0-2.25-1.0074-2.25-2.25h-1.5c0 2.0711 1.6789 3.75 3.75 3.75zm-2.25-2.25c0-1.2426 1.0074-2.25 2.25-2.25v-1.5c-2.0711 0-3.75 1.6789-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.0074 2.25 2.25h1.5c0-2.0711-1.6789-3.75-3.75-3.75zm-3.75-7.75c0 1.24264-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.67893 3.75-3.75zm-2.25 2.25c-1.24264 0-2.25-1.00736-2.25-2.25h-1.5c0 2.07107 1.67893 3.75 3.75 3.75zm-2.25-2.25c0-1.24264 1.00736-2.25 2.25-2.25v-1.5c-2.07107 0-3.75 1.67893-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.00736 2.25 2.25h1.5c0-2.07107-1.6789-3.75-3.75-3.75z" fill="#28303f"/></svg>
+              {{ 'collections.general.filter_button' | t }}
+          </button>
+          {%- endif -%}
+          {{ productcount }}{{ pr_view }}{{ shorting }}
+        </div>
+        {{ active_filters }}
+				{{ products_list | strip_newlines }}
+        {%- if collection.description != blank and section_st.des_pos == "2" -%}<div class="rte cl_desc mt30">{{ collection.description }}</div>{%- endif -%}	
 			</div>          
 		</div>
  	</div>
@@ -254,7 +277,7 @@
 {
 	"name": "Collection Main",
 	"class": "collectionPage",
-	"settings": [	  	  
+	"settings": [
 		{
 			"type": "checkbox",
 			"id": "clttl",
@@ -283,6 +306,104 @@
 			"label": "Text center?",
 			"default": false
 		},
+    {
+      "type": "header",
+      "content": "Grid image ==="
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_ratio",
+      "label": "Enable Custom Ratio?",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "primg_ratio",
+      "label": "Ratio",
+      "default": "140",
+      "visible_if": "{{ section.settings.enable_custom_ratio }}",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "group": "Landscape",
+          "value": "50",
+          "label": "0:5"
+        },
+        {
+          "group": "Landscape",
+          "value": "60",
+          "label": "0:6"
+        },
+        {
+          "group": "Landscape",
+          "value": "70",
+          "label": "0:7"
+        },
+        {
+          "group": "Landscape",
+          "value": "80",
+          "label": "0:8"
+        },
+        {
+          "group": "Landscape",
+          "value": "90",
+          "label": "0:9"
+        },
+        {
+          "group": "Squared",
+          "value": "100",
+          "label": "1:1"
+        },
+        {
+          "group": "Portrait",
+          "value": "110",
+          "label": "1:1"
+        },
+        {
+          "group": "Portrait",
+          "value": "120",
+          "label": "1:2"
+        },
+        {
+          "group": "Portrait",
+          "value": "130",
+          "label": "1:3"
+        },
+        {
+          "group": "Portrait",
+          "value": "140",
+          "label": "1:4"
+        },
+        {
+          "group": "Portrait",
+          "value": "150",
+          "label": "1:5"
+        },
+        {
+          "group": "Portrait",
+          "value": "160",
+          "label": "1:6"
+        },
+        {
+          "group": "Portrait",
+          "value": "170",
+          "label": "1:7"
+        },
+        {
+          "group": "Portrait",
+          "value": "180",
+          "label": "1:8"
+        },
+        {
+          "group": "Portrait",
+          "value": "190",
+          "label": "1:9"
+        }
+      ]
+    },
 		{
 			"type": "header",
 			"content": "Product Toolbar ==="

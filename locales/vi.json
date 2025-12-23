@@ -222,7 +222,7 @@
       "clear": "Clear",
       "clear_all": "Clear All",
       "empty": "No products found",
-      "filter_button": "Filter",
+      "filter_button": "Filters",
       "filters_selected": {
         "one": "{{ count }} selected",
         "other": "{{ count }} selected"
