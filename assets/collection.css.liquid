@@ -2,10 +2,10 @@
 #Collection.npd .page-title, #Collection.npd .rte, #Collection.npd #main-collection-filters, #Collection.npd .tlbr, #Collection.npd .tlbr .active-facets  { padding-left:20px; padding-right:20px;}
   
 .sidebar {width:300px;}
-.sb_filter .closeFilter {background: #FFFFFF; color: var(--wdtcl); cursor: pointer; position: absolute; top: 3px; right: 0px; z-index: 666; padding: 6px 18px;}
+.sb_filter .closeFilter {background: #FFFFFF; color: var(--wdtcl); cursor: pointer; position: absolute; top: 10px; right: 0px; z-index: 666; padding: 6px 18px;}
 .sb_popup { width:350px; height:100%; position:fixed; top:0; left:-105%; z-index:668; box-shadow:0 0 5px rgba(0,0,0,.3) }
 .sb_popup.active { left:0 }
-.sb_popup .filterWrap { padding:20px 30px 25px; overflow:auto; height:100%; background:var(--sidebar_bg); }
+.sb_popup .filterWrap { padding:20px 20px 25px; overflow:auto; height:100%; background:var(--sidebar_bg); }
 
 .count-bubble:empty { visibility: hidden; display:none; }
 .count-bubble--dot:empty { visibility: visible; }
@@ -29,8 +29,9 @@ select.select__select {
 .btn-sort_by > * {pointer-events: none;}
 .btn-sort_by:hover {color: var(--color-main-text)}
 @media only screen and (min-width:1025px){
+  .sb_popup .filterWrap {padding:20px 30px 25px;}
   .activFilter .sb_popup { left:0; }
-  .sb_filter .closeFilter {top: 0; right: 20px;  padding: 15px;}
+  .sb_filter .closeFilter {top: 5px; right: 10px;  padding: 15px;}
   .sb_filter .closeFilter .at-icon {width:20px; height:20px;}
 }
 
