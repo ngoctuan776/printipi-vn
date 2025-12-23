@@ -153,7 +153,7 @@
 {%- capture products_list -%}
       {%- if collection.products.size == 0 -%}
         <div class="collection">
-          <div id="collectionPr" class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} grid-products" id="collectionPr" data-id="{{ section.id }}">
+          <div id="collectionPr" class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products" id="collectionPr" data-id="{{ section.id }}">
             <div class="collection--empty">
               <p class="collection-product-count light hide" role="status">{{ 'collections.general.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}</p>
               <div class="title-wrapper w_100 fl f-jcc">
@@ -174,7 +174,7 @@
                   {%- endfor -%}
                   </div>
               {%- else -%}
-                  <div id="collectionPr" class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} grid-products">
+                  <div id="collectionPr" class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products">
                       {%- for product in collection.products -%}
                           {%- capture sizes -%}
                               {%- if section_st.filters and section_st.sbpos != 'top' and section_st.sbpos != 'popup' -%}
@@ -430,6 +430,15 @@
 			"type": "paragraph",
 			"content": "Products per row (grid view)"
 		},
+    {
+      "type": "range",
+      "id": "gridlg",
+      "label": "Desktop large",
+      "default": 6,
+      "min": 2,
+      "max": 8,
+      "step": 1
+    },
 		{
 			"type": "range",
 			"id": "grid",
