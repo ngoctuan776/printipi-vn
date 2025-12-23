@@ -169,7 +169,7 @@
     "srbrad": 8,
     "btntxt": "",
     "grid_space": 30,
-    "grid_spacem": 15,
+    "grid_spacem": 10,
     "primg_ratio": "auto",
     "primg_size": "cover",
     "img_rad": 8,

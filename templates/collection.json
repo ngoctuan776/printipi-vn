@@ -333,7 +333,7 @@
         "sst": 30,
         "ssb": 15,
         "sstm": 20,
-        "ssbm": 15,
+        "ssbm": 10,
         "hidem": false,
         "hided": false
       }
@@ -390,8 +390,9 @@
         "pcount": false,
         "gridicn": false,
         "sortby": true,
-        "grid": 6,
-        "gridtb": 4,
+        "gridlg": 6,
+        "grid": 4,
+        "gridtb": 3,
         "gridmb": 2,
         "prpp": 12,
         "pagination": "infinite",
@@ -431,8 +432,8 @@
         "overlay": "#111111",
         "overlay_op": 0.9,
         "sst": 15,
-        "ssb": 40,
-        "sstm": 20,
+        "ssb": 30,
+        "sstm": 10,
         "ssbm": 20,
         "hidem": false,
         "hided": false
