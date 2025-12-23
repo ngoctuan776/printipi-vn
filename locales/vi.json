@@ -45,8 +45,8 @@
       "previous": "Previous",
       "next": "Next",
       "current_page": "Page {{ current }} of {{ total }}",
-      "loading": "Loading...",
-      "loadmore": "Load More"
+      "loading": "Xem thêm...",
+      "loadmore": "Xem thêm"
     },
     "quantity": {
       "minus": "Decrease quantity",

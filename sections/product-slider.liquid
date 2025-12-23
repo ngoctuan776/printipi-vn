@@ -15,7 +15,7 @@
 	  {%- if section_st.show_view_all != blank -%}
       <div class="sec-ttl-wrp fl f-jcsb f-aic">
         {%- render 'sec-title' -%}
-        <div class="tc"><a href="{{ collection.url }}" class="btn {{ section_st.btn-size }} {{ section_st.btn-style }}">{{ section_st.show_view_all }}</a></div>
+        <div class="tc"><a href="{{ section_st.collection.url }}" class="btn {{ section_st.btn-size }} {{ section_st.btn-style }}">{{ section_st.show_view_all }}</a></div>
       </div>
     {%-  else -%}
       {%- render 'sec-title' -%}

@@ -196,3 +196,42 @@ document.querySelectorAll(".change-view").forEach((btn) => {
       window.location = href.toString();
   });
 });
+
+// Close sort dropdown on click outside
+document.body.addEventListener('click',(e) => {
+  document.querySelectorAll('[data-filter-type="sort_by"]').forEach((box) => {
+    const pn = box.querySelector('.cnrList.active'),
+      ln = box.querySelector('.crlgTtl.active');
+    if(e.target.closest('.cnrList') != pn && e.target != ln){
+      if(pn) pn.classList.remove('active');
+      if(ln) ln.classList.remove('active');
+    }
+  });
+});
+
+// Change sort dropdown title on selection
+document.addEventListener('DOMContentLoaded', function () {
+  const realSelect = document.getElementById('SortBy');
+  const btnTextSort = document.querySelector('[data-sort-by-text]');
+  document.querySelectorAll('[data-filter-type="sort_by"] a.clOtp').forEach((item) => {
+    item.addEventListener('click',(e) => {
+      e.preventDefault();
+      const newValue = item.dataset.value;
+      realSelect.value = newValue;
+      realSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+      // Update button text
+      if(btnTextSort) {
+        btnTextSort.textContent = item.textContent;
+      }
+
+      // Remove/add active class from dropdown
+      document.querySelector('.filter-sorting-wrapper a.selected').classList.remove('selected');
+      item.classList.add('selected');
+
+      // Close dropdown
+      document.querySelector('.btn-sort_by.active').classList.remove('active');
+      document.querySelector('.filter-sorting-wrapper .cnrList.active').classList.remove('active');
+    });
+  });
+});
