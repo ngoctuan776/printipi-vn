@@ -91,25 +91,25 @@
     "loading": "Loading...",
     "refresh_page": "Choosing a selection results in a full page refresh.",
     "link_messages": {
-      "new_window": "Opens in a new window.",
-      "external": "Opens external website."
+      "new_window": "Mở trong cửa sổ mới.",
+      "external": "Mở trang web bên ngoài."
     }
   },
   "sections": {
     "header": {
-      "search": "Search",
+      "search": "Tìm kiếm",
       "account": "Tài khoản",
       "wishlist": "Wishlist",
-      "cart": "Bag"
+      "cart": "Giỏ hàng"
     },
     "navigation": {
       "browse_categories": "Categories",
       "menu": "MENU",
       "categories": "CATEGORIES",
       "back": "back to {{ item }}",
-      "language": "Language",
-      "currency": "Currency",
-      "close_menu": "Close Menu"
+      "language": "Ngôn ngữ",
+      "currency": "Tiền tệ",
+      "close_menu": "Đóng menu"
     },
     "quick_order_list": {
       "product_total": "Subtotal",
@@ -164,32 +164,33 @@
   },
   "cart": {
     "general": {
-      "title": "Your Cart",
-      "total": "Total",
-      "subtotal": "Subtotal",
-      "estimated_total": "Estimated total",
-      "savings": "You're saving",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
-      "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
-      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
-      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
-      "note": "Add Special instructions for your order",
-      "error": "There was an error while updating your cart. Please try again.",
-      "quantity_error_html": "Only {{ quantity }} of this item available.",
-      "cookies_required": "Enable cookies to use the shopping cart",
-      "empty": "No Products in the Cart",
-      "discount": "Apply a discount code",
-      "discount_applied": "Applied discount code: {{ code }}",
-      "discounts": "Discounts",
-      "discount_code": "Discount code",
-      "discount_already_applied": "Discount code already applied",
-      "discount_code_error": "Discount code cannot be applied to your cart",
-      "shipping_discount_error": "Shipping discounts are shown at checkout after adding an address",
-      "remove_discount": "Remove discount {{ code }}"
+      "title": "Giỏ hàng",
+      "product": "Sản phẩm",
+      "total": "Tổng số",
+      "subtotal": "Tổng phụ",
+      "estimated_total": "Tổng ước tính",
+      "savings": "Bạn đang tiết kiệm",
+      "taxes_and_shipping_policy_at_checkout_html": "Thuế và <a href=\"{{ link }}\">vận chuyển</a> được tính khi thanh toán",
+      "taxes_included_but_shipping_at_checkout": "Đã bao gồm thuế và vận chuyển được tính khi thanh toán",
+      "taxes_included_and_shipping_policy_html": "Đã bao gồm thuế. <a href=\"{{ link }}\">Vận chuyển</a> được tính khi thanh toán.",
+      "taxes_and_shipping_at_checkout": "Thuế và vận chuyển được tính khi thanh toán",
+      "note": "Thêm hướng dẫn đặc biệt cho đơn hàng của bạn",
+      "error": "Đã xảy ra lỗi khi cập nhật giỏ hàng của bạn. Vui lòng thử lại.",
+      "quantity_error_html": "Chỉ còn {{ quantity }} sản phẩm này.",
+      "cookies_required": "Bật cookie để sử dụng giỏ hàng",
+      "empty": "Không có sản phẩm trong giỏ hàng",
+      "discount": "Áp dụng mã giảm giá",
+      "discount_applied": "Đã áp dụng mã giảm giá: {{ code }}",
+      "discounts": "Mã giảm giá",
+      "discount_code": "Mã giảm giá",
+      "discount_already_applied": "Mã giảm giá đã được áp dụng",
+      "discount_code_error": "Mã giảm giá không thể áp dụng cho giỏ hàng của bạn",
+      "shipping_discount_error": "Giảm giá vận chuyển được hiển thị khi thanh toán sau khi thêm địa chỉ",
+      "remove_discount": "Xóa mã giảm giá {{ code }}"
     },
     "label": {
-      "product": "Product",
-      "price": "Price",
+      "product": "Sản phẩm",
+      "price": "Giá",
       "quantity": "Quantity",
       "total": "Total",
       "cart_note": "Add Order Note",
@@ -197,10 +198,10 @@
       "gift_wrap": "Add a Gift Wrap"
     },
     "button": {
-      "checkout": "Proceed To Checkout",
+      "checkout": "Thanh Toán",
       "view_cart": "View Cart",
       "gift_wrap": "Add a Gift Wrap",
-      "continue_shopping": "Continue Shopping",
+      "continue_shopping": "Tiếp tục mua sắm",
       "save": "Save",
       "apply": "Apply",
       "cancel": "Cancel",
@@ -211,8 +212,8 @@
       "calculating": "Calculating..."
     },
     "login": {
-      "title": "Have an account?",
-      "paragraph_html": "<a href=\"{{ link }}\" class=\"tdu\">Log in</a> to check out faster."
+      "title": "Bạn đã có tài khoản?",
+      "paragraph_html": "<a href=\"{{ link }}\" class=\"tdu\">Đăng nhập</a> để thanh toán nhanh hơn."
     }
   },
   "collections": {

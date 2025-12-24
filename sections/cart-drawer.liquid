@@ -47,14 +47,16 @@
         </div>
       {%- endif -%}
         <h4 class="fl f-jcsb{% if cart == empty %} hide{% endif %}">
-			{{ 'cart.general.title' | t }} (<span data-cart-render="item_count">{{ cart.item_count }}</span>)
-			<span class="close-cart ml_auto drawer__close" onclick="this.closest('cart-drawer').close()" title="{{ 'cart.button.close' | t }}"><svg class="at-icon"><use xlink:href="#icon-close"></use></svg></span>
+			{{ 'cart.general.title' | t }} <span class="item_count" data-cart-render="item_count">({{ cart.item_count }} {{ 'cart.general.product' | t }})</span>
+			<span class="close-cart drawer__close" onclick="this.closest('cart-drawer').close()" title="{{ 'cart.button.close' | t }}"><svg class="at-icon"><use xlink:href="#icon-close"></use></svg></span>
 		</h4>
         {%- if settings.freeship != blank and settings.free_ship_msg != blank -%}
-          <div class="ctfreeship freeShipMsg mb15{% if cart == empty %} hide{% endif %}">
+          <div class="ctfreeship-wrapper">
+            <div class="ctfreeship freeShipMsg{% if cart == empty %} hide{% endif %}">
               {% if settings.ship_ico %}<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M382.2,118.3h-66V81.6c0-7-5.5-12.7-12.3-12.7H12.3C5.5,68.8,0,74.5,0,81.6v301.6c0,7,5.5,12.7,12.3,12.7h41.2 c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3H345c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3h41.2 c6.8,0,12.3-5.7,12.3-12.7V252.6C512,178.6,453.8,118.3,382.2,118.3z M406,241c-16.1,0-29.2-13.6-29.2-30.2v-66.9h5.4 c53.3,0,98.9,42.5,104.6,97.2H406z M406,266.5h81.3v103.9h-28.8c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3h-28.9 V143.8h36v66.9C352.1,241.5,376.3,266.5,406,266.5z M435.1,383.2c0,19-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5s15-34.5,33.4-34.5 S435.1,364.1,435.1,383.2z M291.5,313.8v56.7H167c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3H24.6v-56.7H291.5z M110.2,348.6c18.4,0,33.4,15.5,33.4,34.5s-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5S91.8,348.6,110.2,348.6z M291.5,94.3v194H24.6 v-194H291.5z"></path></svg>{% endif %}
               {% if remain_amount > 0 %}{{ settings.free_ship_msg | replace: '[price]', free_amount }}{% else %}{{ settings.got_free_ship }}{% endif %}
               {% if settings.progress_bar %}<div class="shipBar"><span class="db anim" style="width:calc(100% - {{ shipbar }}%);"></span></div>{% endif %}
+            </div>
           </div>
         {%- endif -%}
       <cart-drawer-items class="fl1{% if cart == empty %} hide{% endif %}">
@@ -77,7 +79,7 @@
                         </div>
 						<div class="pr_details fl1 tl">
 							<a href="{{ item.url }}" class="pr_name">{{ item.product.title | escape }}</a>
-								<div class="cart-item__details mb10" role="cell" headers="CartDrawer-ColumnProduct">
+								<div class="cart-item__details mb5" role="cell" headers="CartDrawer-ColumnProduct">
                                   {% comment %}
 								  {%- if item.original_price != item.final_price -%}
 									<div class="pr_price cart-item__discounted-prices mb5">
@@ -91,11 +93,11 @@
 
 								  {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
 									  {%- if item.product.has_only_default_variant == false -%}
-                                        <div class=" fl col-gap" style="--gap:6px;">
-										{%- for option in item.options_with_values -%}
-										  <div class="pr_vr">{{ option.value }}</div> {% unless forloop.last %} / {% endunless %}  
-										{%- endfor -%}
-                                        </div>
+                      <div class=" fl col-gap" style="--gap:6px;">
+                        {%- for option in item.options_with_values -%}
+                          <div class="pr_vr">{{ option.value }}{% unless forloop.last %}, {% endunless %}</div>
+                        {%- endfor -%}
+                      </div>
 									  {%- endif -%}
 
 									  {%- for property in item.properties -%}
@@ -124,7 +126,7 @@
 								  {%- endif -%}
 								</div>
 
-								<div class="cart-item__totals mb10" role="cell" headers="CartDrawer-ColumnTotal">
+								<div class="cart-item__totals" role="cell" headers="CartDrawer-ColumnTotal">
                                   <div class="loading__spinner loading-overlay hidden"><svg style="--icns:12px;" class="at-icon at-spin"><use xlink:href="#icon-loading"></use></svg></div>
 								  <div class="ctitempr">
                                       {%- if item.original_line_price != item.final_line_price -%}
@@ -166,11 +168,11 @@
                                         <div class="quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}">
                                             <label class="hidden_txt" for="Drawer-quantity-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
                                             <quantity-input class="quantity cart-quantity qtyField sm mb5 mr5{% if item.id == gift_id %} hide{% endif %}">
-                                                <button type="button" class="qtyBtn minus" name="minus" aria-label="{{ 'general.quantity.minus' | t }}"><svg class="at-icon"><use xlink:href="#icon-minus"></use></svg></button>
+                                                <button type="button" class="qtyBtn minus" name="minus" aria-label="{{ 'general.quantity.minus' | t }}">{% render 'icon-minus' %}</button>
                                                 <input class="quantity__input qty" type="number" data-quantity-variant-id="{{ item.variant.id }}" name="updates[]" value="{{ item.quantity }}"
                                                     data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}" min="{{ item.variant.quantity_rule.min }}" {% if item.variant.quantity_rule.max != null %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
                                                     step="{{ item.variant.quantity_rule.increment }}" aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}" id="Drawer-quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                                                <button type="button" class="qtyBtn plus" name="plus" aria-label="{{ 'general.quantity.plus' | t }}"><svg class="at-icon"><use xlink:href="#icon-plus"></use></svg></button>
+                                                <button type="button" class="qtyBtn plus" name="plus" aria-label="{{ 'general.quantity.plus' | t }}">{% render 'icon-plus' %}</button>
                                             </quantity-input>
                                         </div>
                                         <cart-remove-button id="CartDrawer-Remove-{{ item.index | plus: 1 }}" class="mb5" data-index="{{ item.index | plus: 1 }}">
@@ -269,7 +271,7 @@
   
           <div class="cart_total fl f-jcsb" role="status">
             <span>{{ 'cart.general.total' | t }}</span>
-            <span>{{ cart.total_price | money_with_currency }}</span>
+            <span class="cart_total-price">{{ cart.total_price | money_with_currency }}</span>
          </div>
 
 			<div class="small-font mb15">
@@ -279,8 +281,8 @@
 					  {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
 					{%- elsif shop.shipping_policy.body != blank -%}
 					  {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
-					{%- else -%}
-					  {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+					{% comment %} {%- else -%}
+					  {{ 'cart.general.taxes_and_shipping_at_checkout' | t }} {% endcomment %}
 					{%- endif -%}
 			</div>
         </div>

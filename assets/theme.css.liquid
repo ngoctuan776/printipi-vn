@@ -1103,12 +1103,12 @@ s.pr_price { font-size:calc(var(--fsm,{{settings.pr_price_fsm}}px) - 2px); }
 .sizelink { display:inline-block; font-size:12px; font-weight:400; text-decoration:underline; margin-left:20px; }
 .dd_wrap .sizelink { float:right; }
 
-.qtyField { display:inline-flex; border:1px solid {{ settings.field_bd }};border-radius: {{settings.btn_rad}}px; overflow:hidden; }
+.qtyField { display:inline-flex; border:1px solid {{ settings.field_bd }};border-radius: 3px; overflow:hidden; }
 .qtyField .at-icon { width:13px; height:13px; pointer-events:none; }
 .qtyBtn, .qty, .gprQty { margin:0; color:{{ settings.cfield_text }}; width:40px; display:flex; align-items:center; justify-content:center; border:0; background:{{ settings.cfield_bg }}; border-radius:0; }
 .qty { width:60px; text-align:center; border:0 none; border-left:1px solid {{ settings.field_bd }}; border-right:1px solid {{ settings.field_bd }}; }
 
-.qtyField.sm .qty, .qtyField.sm .qtyBtn, .qtyField.sm .gprQty { line-height:19px; width:32px; height:32px; padding:4px 0; }
+.qtyField.sm .qty, .qtyField.sm .qtyBtn, .qtyField.sm .gprQty { line-height:19px; width:30px; height:30px; padding:4px 0; border-left: none; border-right: none; }
 .qtyField.sm span {border-left:1px solid {{ settings.field_bd }}; border-right:1px solid {{ settings.field_bd }};}
 
 @media only screen and (max-width:1100px){
@@ -1135,8 +1135,8 @@ s.pr_price { font-size:calc(var(--fsm,{{settings.pr_price_fsm}}px) - 2px); }
 #uersView { background:var(--bg); color:var(--ccl); padding:2px 6px; margin-right:8px; min-width:35px; border-radius:3px; text-align:center;}
 
 @keyframes bar-progress { 0% { background-position: 0 0; } 100% { background-position: -60px -60px; } }
-.shipBar { height:7px; border-radius:10px; position:relative; overflow:hidden; background-color:{{settings.shipbar}}; margin-top: 10px; }
-.shipBar span { position: absolute; top:0; left:0; height:100%; box-shadow:0 0 5px rgba(0,0,0,0.3); animation: 5s linear infinite bar-progress; background-color:{{settings.shipbara | color_lighten:10}};  background-size: 1rem 1rem;background-image: linear-gradient(135deg,{{settings.shipbara}} 0,{{settings.shipbara}} 25%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 50%,{{settings.shipbara}} 50%,{{settings.shipbara}} 75%,rgba(0,0,0,0) 75%,rgba(0,0,0,0) 100%);}
+.shipBar { height:4px; border-radius:0; position:relative; overflow:hidden; background-color:{{settings.shipbar}}; margin-top: 12px; }
+.shipBar span { position: absolute; top:0; left:0; height:100%; box-shadow:0 0 5px rgba(0,0,0,0.3); animation: 5s linear infinite bar-progress; background-color:{{settings.shipbara | color_lighten:10}};}
 
 .product-meta a {color:var(--cl); font-weight:500; }
 .meta2 a { background:var(--bg); padding:2px 10px; border-radius:4px; }
