@@ -56,6 +56,46 @@
   padding: 0;
 }
 .product__info .qtyField svg {pointer-events: none;}
+
+/* Description and Reviews Box */
+.prd-d-rv {
+  border-top: 1px solid var(--border-color);
+}
+.prd-d-rv > .grid {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+.prd-d-rv .gitem.desc-box {
+  padding: 30px 30px 30px 0;
+  border-right: 1px solid var(--border-color);
+  box-sizing: border-box;
+}
+.prd-d-rv .review-box {
+  padding: 30px 0 30px 30px;
+  box-sizing: border-box;
+}
+.rte ul li::marker {
+  color: rgba(255, 155, 67, 1);
+}
+.note-bd {
+  border: 1px dashed rgba(174, 174, 174, 1);
+  border-radius: 8px;
+  padding: 30px;
+}
+.rte ul.mb0 {
+  margin-bottom: 0;
+}
+.rte {
+  color: var(--color-main-text);
+}
+.rte p {
+  font-size: 14px;
+  line-height: 21px;
+}
+.rte strong {font-weight: 500;}
+
 @media only screen and (min-width:1025px) {
   .product-single-tee {
     display: grid;
@@ -95,8 +135,8 @@
     right: 0;
     width: 1px;
     height: auto;
-    bottom: 0;
-    background-color: rgba(229, 229, 229, 1);
+    bottom: -30px;
+    background-color: var(--border-color);
   }
   .product-single-tee .product__info {
     grid-area: area3;
@@ -173,3 +213,4 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 .tee-colorpicker-handle {border-radius: 8px;box-shadow: none;border: 1px solid var(--tee-customize-main-form-border-color);}
 .tee-colorpicker-body {left: auto;right: 0;}
 .tee-switch__input {padding-top: 10px;padding-bottom: 10px;}
+.teeinblue-theme-modern .tee-thumbnails__button {display: none;}

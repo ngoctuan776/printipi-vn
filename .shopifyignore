@@ -1,3 +1,4 @@
 config/settings_data.json
 sections/*.json
 templates/*.json
+html/

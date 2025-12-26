@@ -87,7 +87,7 @@
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 <div class="sec_cov" style="--sbg:{{ section_st.bg }};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px;--picon:{{ section_st.play_ico }};--thumb_bdr:{{ section_st.thumb_bdr }}">
-	 <div class="prstl{{ section_st.prstyle }}{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}" data-style="{{ section_st.prstyle }}" id="ProductSection-{{ section.id }}" data-url="{{ product.url }}" data-section-id="{{ section.id }}" data-enable-history-state="true">
+	<div class="prstl{{ section_st.prstyle }}{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}" data-style="{{ section_st.prstyle }}" id="ProductSection-{{ section.id }}" data-url="{{ product.url }}" data-section-id="{{ section.id }}" data-enable-history-state="true">
   	{%- capture product_media_gallery -%}
         <media-gallery id="MediaGallery-{{ section.id }}" data-section="{{ section.id }}" data-target="{{ featured_img.id }}" data-style="{{ section_st.prstyle }}" class="fl f-jcsb f-col{% if section_st.prthumbs != "bottom" %} f-row-md{% endif %}{% if is_color_group %} hide{% endif %}">
     		<div class="pr_lg_img{% if product.media.size == 1 %} w_100{% endif %}" style="{{ img_style }}">
@@ -238,7 +238,7 @@
 				{% endfor %}
 			</div>
 		{%- endif -%}
-		<div class="gitem product__media-wrapper {{ pimgcol_wd }} pr_photoes mb20">{{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }}</div>
+		<div class="gitem product__media-wrapper {{ pimgcol_wd }} pr_photoes">{{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }}</div>
 		<div class="product__info {% unless section_st.prstyle == "5" %}gitem {{ pdescol_wd }}{% endunless %} pr_meta pr{% if section_st.image-col == "lg" %} small_view{% endif %}">
 			<product-info id="ProductInfo-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" class="product__info-container db wrap-product-info">
 				{%- for block in section.blocks -%}
@@ -630,7 +630,7 @@
 													assign quantity_rule_soldout = true
 												endif
 											-%}
-											<div class="fl gap mb15" style="--gap:10px;">
+											<div class="fl gap" style="--gap:10px;">
 												{%- if inventory_block != blank -%}{{ inventory_block }}{%- endif -%}
 												<button id="ProductSubmitButton-{{ section.id }}" type="submit" name="add" class="btn {{ block.settings.atc-style }} pr_btn product-form__submit btn-has-icon"
 													{% if current_variant.available == false or quantity_rule_soldout %}disabled{% endif %}>
@@ -1000,6 +1000,17 @@
 	</script>
 {%- endif -%}
 <script type="application/ld+json">{{ product | structured_data }}</script>
+<div class="sec_cov" style="--sbg:{{ section_st.bg }};--sst:0;--ssb: 0;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px;">
+	<div class="prd-d-rv{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}">
+		<div class="grid">
+			<div class="gitem desc-box">
+				<div class="product-description rte">{{ product.description }}</div>
+			</div>
+			<div class="gitem review-box"><div class="AirReviews-Widget AirReviews-Widget--Block"></div></div>
+		</div>
+	</div>
+</div>
+
 {% schema %}
 	{
 	"name": "Product Main",
