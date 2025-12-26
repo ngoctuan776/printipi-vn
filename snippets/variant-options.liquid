@@ -81,7 +81,13 @@
   {%- elsif othervr == 'sw' and is_color == false -%}
     <input type="radio" id="{{ input_id }}" name="{{ option.name }}" value="{{ value | escape }}" form="{{ product_form_id }}"
       {% if option.selected_value == value %}checked{% endif %} class="swatchInput dn{% if option_disabled %} disabled{% endif %}">
-      <label class="swatchLbl" for="{{ input_id }}">{{ value -}}{{ label_unavailable }}</label>
+      {% if option.name == 'vị trí in' or option.name == 'Vị trí in' %}
+        <label class="swatchLbl color swt{{ value | handle }} large lazyload" for="{{ input_id }}" data-bgset="{{ vr_img }}">
+          <span class="tooltip-label top">{{ value -}}{{ label_unavailable }}</span>
+        </label>
+      {% else %}
+        <label class="swatchLbl" for="{{ input_id }}">{{ value -}}{{ label_unavailable }}</label>
+      {% endif %}
   {%- else -%}
     <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %} class="vrOpt{% if option_disabled %} disabled{% endif %}">{{- value -}}</option>
   {%- endif -%}

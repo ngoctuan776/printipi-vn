@@ -641,7 +641,7 @@ function checkWishlist(i){
   if(count) count.innerHTML = wItems.length;
   btns.forEach((btn) => {
      const id = btn.dataset.id,
-         txt = btn.querySelector(".tooltip-label"),
+         txt = btn.querySelector(".tooltip-label") || btn.querySelector("[data-tooltip-label]"),
          icn = btn.querySelector(".at-icon");
       if(wItems.includes(id)){
           txt.innerHTML = theme.wlremove;
