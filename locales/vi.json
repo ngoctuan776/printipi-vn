@@ -395,7 +395,7 @@
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
       "quick_view": "Quick View",
       "quantity_message": "Only {{items}} left - Selling fast",
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "Thêm vào giỏ hàng",
       "quick_shop": "Quick Add",
       "delivery_return": "Delivery & Return",
       "sku": "SKU :",
@@ -456,10 +456,10 @@
       "button": "Add selected to cart"
     },
     "wishlist": {
-      "add_to_wishlist": "Add to Wishlist",
-      "remove": "Remove From Wishlist",
-      "wishlist-empty": "Products weren't added to the wishlist.",
-      "shop_link": "Continue shopping"
+      "add_to_wishlist": "Yêu thích",
+      "remove": "Bỏ yêu thích",
+      "wishlist-empty": "Sản phẩm chưa được thêm vào danh sách yêu thích.",
+      "shop_link": "Tiếp tục mua sắm"
     },
     "enquiry": {
       "link": "Ask A Question",
