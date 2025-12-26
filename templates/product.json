@@ -11,8 +11,9 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
-        "sw": false,
+        "sw": true,
         "hidemb": false,
         "tc": false
       }
@@ -25,10 +26,10 @@
           "settings": {
             "cl": "#111111",
             "tff": "ft2",
-            "fs": 25,
-            "fsm": 22,
+            "fs": 16,
+            "fsm": 16,
             "fw": "600",
-            "lh": 1.3,
+            "lh": 20,
             "tcase": "none",
             "bm": 10
           }
@@ -43,23 +44,23 @@
         "rating_RBWrFJ": {
           "type": "rating",
           "settings": {
-            "bm": 15
+            "bm": 10
           }
         },
         "fa9c66a2-d2aa-4d30-974e-61bb044bb59d": {
           "type": "price",
           "settings": {
-            "pcl": "#111111",
-            "pcls": "#ec1313",
-            "fs": 25,
-            "fsm": 18,
+            "pcl": "#000000",
+            "pcls": "#8b8b8b",
+            "fs": 14,
+            "fsm": 14,
             "pfw": "600",
             "saved": true,
             "bfs": 12,
-            "salet": "#ffffff",
-            "salebg": "#e95144",
+            "salet": "#8c7551",
+            "salebg": "#ffefcc",
             "fw": "fwr",
-            "brad": 30,
+            "brad": 3,
             "tax_msg": false,
             "ship_msg": false,
             "bm": 20
@@ -67,6 +68,7 @@
         },
         "d3f45ea4-ab08-46d0-ab08-3771d2eb15d3": {
           "type": "order",
+          "disabled": true,
           "settings": {
             "icon": true,
             "orders": 30,
@@ -134,7 +136,7 @@
           "type": "variants",
           "settings": {
             "sold": false,
-            "cltype": "vi",
+            "cltype": "cs",
             "othervr": "sw",
             "bm": 15
           }
@@ -144,7 +146,7 @@
           "settings": {
             "qty_sel": true,
             "qlbl": true,
-            "inv": true,
+            "inv": false,
             "maxqty": 14,
             "fs": 13,
             "fcase": false,
@@ -160,10 +162,10 @@
           "type": "cta",
           "settings": {
             "gift_recipient": true,
-            "atc-style": "btn1",
+            "atc-style": "btn6",
             "wishlist-btn": "btn2",
             "ext-btn": "btn1",
-            "dynamic_btn": true,
+            "dynamic_btn": false,
             "btnbg": "#f4857b",
             "btntext": "#ffffff",
             "btnbdr": "#f4857b",
@@ -294,7 +296,7 @@
         "sstm": 0,
         "ssbm": 0,
         "bg": "#ffffff",
-        "sw": false
+        "sw": true
       }
     },
     "quick_order_list_erKtgp": {
