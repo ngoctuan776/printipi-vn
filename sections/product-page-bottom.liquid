@@ -1,0 +1,681 @@
+{%- liquid
+   assign section_st = section.settings
+-%}
+<div class="sec_cov sec__pdp-bottom" style="--sbg:{% if section_st.bgg != blank %}{{ section_st.bgg }}{% else %}{{ section_st.bg }}{% endif %};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px">
+	<div class="{% if section_st.sw %}fw-sec{% else %}page-width{% endif %}" data-section-id="{{ section.id }}">
+        <div class="grid">
+            <div class="gitem ss-left-box">
+				<div class="product-description rte">{{ product.description }}</div>
+                {%- for block in section.blocks -%}
+                    {%- if block.type == 'related-products' -%}
+                        {% render 'pdp-related-prds', block: block %}
+                    {%- endif -%}
+                    {%- if block.type == 'rvp' -%}
+                        {% render 'pdp-rvp-prds', block: block %}
+                    {%- endif -%}
+                {%- endfor -%}
+			</div>
+            <div class="gitem ss-right-box">
+                {%- for block in section.blocks -%}
+                    {%- if block.type == '@app' -%}
+                        {% render block %}
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+  "name": "Product Page Bottom",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Design ==="
+    },
+    {
+      "type": "checkbox",
+      "id": "sw",
+      "label": "Fullwidth?",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "bgg",
+      "label": "Gradient background"
+    },
+    {
+      "type": "range",
+      "id": "sst",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Spacing top",
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "ssb",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Spacing bottom",
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "sstm",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Spacing top (mobile)",
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "ssbm",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Spacing bottom (mobile)",
+      "unit": "px",
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "related-products",
+      "name": "Related Products",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title",
+          "default": "Related Products"
+        },
+        {
+          "id": "icon_name",
+          "type": "text",
+          "label": "Icon Name"
+        },
+        {
+          "id": "subtitle",
+          "type": "textarea",
+          "label": "Sub title"
+        },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Show Products",
+          "options": [
+            {
+              "value": "1",
+              "label": "By Collection"
+            },
+            {
+              "value": "2",
+              "label": "By Metafields"
+            },
+            {
+              "value": "3",
+              "label": "By Product Type"
+            },
+            {
+              "value": "4",
+              "label": "By Product Vendor"
+            }
+          ],
+          "default": "1",
+          "info": "[Learn more](https://www.adornthemes.com/knowledge-base/related-products-shopify/)"
+        },
+        {
+          "type": "paragraph",
+          "content": "Products Per Row"
+        },
+        {
+          "type": "range",
+          "id": "gridlg",
+          "label": "Desktop large",
+          "default": 6,
+          "min": 2,
+          "max": 8,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "grid",
+          "label": "Desktop",
+          "default": 4,
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "gridtb",
+          "label": "Tablet",
+          "default": 3,
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "gridmb",
+          "label": "Mobile",
+          "default": 2,
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Products limit",
+          "default": 5,
+          "min": 1,
+          "max": 15,
+          "step": 1
+        },
+        {
+          "type": "paragraph",
+          "content": "Manage grid style from Theme settings -> Products grid"
+        },
+        {
+          "type": "header",
+          "content": "Slider Settings ==="
+        },
+        {
+          "type": "checkbox",
+          "id": "carousel",
+          "label": "Enable carousel",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "loop",
+          "label": "Infinite loop",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-rotate slide",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "speed",
+          "label": "Change slide every",
+          "default": 5,
+          "min": 1,
+          "max": 30,
+          "step": 1,
+          "unit": "Sec"
+        },
+        {
+          "type": "checkbox",
+          "id": "arrow",
+          "label": "Show arrows on desktop?",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "arrowm",
+          "label": "Show arrows on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "dot",
+          "label": "Show dots on desktop?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "dotm",
+          "label": "Show dots on mobile?",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Section Design ==="
+        },
+        {
+          "type": "checkbox",
+          "id": "sw",
+          "label": "Fullwidth?",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "bg",
+          "label": "Background",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "bgg",
+          "label": "Gradient background"
+        },
+        {
+          "type": "color",
+          "id": "headings_cl",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "sst",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing top",
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "ssb",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing bottom",
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "sstm",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing top (mobile)",
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "ssbm",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing bottom (mobile)",
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hided",
+          "label": "Hide on desktop?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "rvp",
+      "name": "Recently Viewed Products",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title",
+          "default": "Recently Viewed Products"
+        },
+        {
+          "id": "icon_name",
+          "type": "text",
+          "label": "Icon Name"
+        },
+        {
+          "id": "subtitle",
+          "type": "textarea",
+          "label": "Sub title"
+        },
+        {
+          "type": "header",
+          "content": "Grid image ==="
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_custom_ratio",
+          "label": "Enable Custom Ratio?",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "primg_ratio",
+          "label": "Ratio",
+          "default": "140",
+          "visible_if": "{{ section.settings.enable_custom_ratio }}",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "group": "Landscape",
+              "value": "50",
+              "label": "0:5"
+            },
+            {
+              "group": "Landscape",
+              "value": "60",
+              "label": "0:6"
+            },
+            {
+              "group": "Landscape",
+              "value": "70",
+              "label": "0:7"
+            },
+            {
+              "group": "Landscape",
+              "value": "80",
+              "label": "0:8"
+            },
+            {
+              "group": "Landscape",
+              "value": "90",
+              "label": "0:9"
+            },
+            {
+              "group": "Squared",
+              "value": "100",
+              "label": "1:1"
+            },
+            {
+              "group": "Portrait",
+              "value": "110",
+              "label": "1:1"
+            },
+            {
+              "group": "Portrait",
+              "value": "120",
+              "label": "1:2"
+            },
+            {
+              "group": "Portrait",
+              "value": "130",
+              "label": "1:3"
+            },
+            {
+              "group": "Portrait",
+              "value": "140",
+              "label": "1:4"
+            },
+            {
+              "group": "Portrait",
+              "value": "150",
+              "label": "1:5"
+            },
+            {
+              "group": "Portrait",
+              "value": "160",
+              "label": "1:6"
+            },
+            {
+              "group": "Portrait",
+              "value": "170",
+              "label": "1:7"
+            },
+            {
+              "group": "Portrait",
+              "value": "180",
+              "label": "1:8"
+            },
+            {
+              "group": "Portrait",
+              "value": "190",
+              "label": "1:9"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Grid Appearance ==="
+        },
+        {
+          "type": "select",
+          "id": "prbox_style",
+          "label": "Grid style",
+          "default": "grid_1",
+          "options": [
+            {
+              "value": "grid_1",
+              "label": "Icons - Bottom Center"
+            },
+            {
+              "value": "grid_2",
+              "label": "Info. Hover Image"
+            },
+            {
+              "value": "grid_3",
+              "label": "Icons - Bottom Left"
+            },
+            {
+              "value": "grid_4",
+              "label": "Icons - Top Right"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Products Per Row"
+        },
+        {
+          "type": "range",
+          "id": "gridlg",
+          "label": "Desktop large",
+          "default": 6,
+          "min": 2,
+          "max": 8,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "grid",
+          "label": "Desktop",
+          "default": 4,
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "gridtb",
+          "label": "Tablet",
+          "default": 3,
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "gridmb",
+          "label": "Mobile",
+          "default": 2,
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "row",
+          "label": "Products limit",
+          "default": 6,
+          "min": 1,
+          "max": 15,
+          "step": 1
+        },
+        {
+          "type": "paragraph",
+          "content": "Manage grid style from Theme settings -> Products grid"
+        },
+        {
+          "type": "header",
+          "content": "Slider Settings ==="
+        },
+        {
+          "type": "checkbox",
+          "id": "carousel",
+          "label": "Enable carousel",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "loop",
+          "label": "Infinite loop",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-rotate slide",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "speed",
+          "label": "Change slide every",
+          "default": 5,
+          "min": 1,
+          "max": 30,
+          "step": 1,
+          "unit": "Sec"
+        },
+        {
+          "type": "checkbox",
+          "id": "arrow",
+          "label": "Show arrows on desktop?",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "arrowm",
+          "label": "Show arrows on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "dot",
+          "label": "Show dots on desktop?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "dotm",
+          "label": "Show dots on mobile?",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Section Design ==="
+        },
+        {
+          "type": "checkbox",
+          "id": "sw",
+          "label": "Fullwidth?",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "bg",
+          "label": "Background",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "bgg",
+          "label": "Gradient background"
+        },
+        {
+          "type": "color",
+          "id": "headings_cl",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "sst",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing top",
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "ssb",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing bottom",
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "sstm",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing top (mobile)",
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "ssbm",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Spacing bottom (mobile)",
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hided",
+          "label": "Hide on desktop?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Page Bottom"
+    }
+  ]
+}
+{% endschema %}

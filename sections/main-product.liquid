@@ -1000,7 +1000,7 @@
 	</script>
 {%- endif -%}
 <script type="application/ld+json">{{ product | structured_data }}</script>
-<div class="sec_cov" style="--sbg:{{ section_st.bg }};--sst:0;--ssb: 0;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px;">
+{% comment %} <div class="sec_cov" style="--sbg:{{ section_st.bg }};--sst:0;--ssb: 0;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px;">
 	<div class="prd-d-rv{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}">
 		<div class="grid">
 			<div class="gitem desc-box">
@@ -1009,8 +1009,7 @@
 			<div class="gitem review-box"><div class="AirReviews-Widget AirReviews-Widget--Block"></div></div>
 		</div>
 	</div>
-</div>
-
+</div> {% endcomment %}
 {% schema %}
 	{
 	"name": "Product Main",

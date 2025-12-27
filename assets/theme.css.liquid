@@ -195,7 +195,8 @@ input:checked+span.checkbox:before { content:' '; display:block; background-colo
 .sec-ttl .sbttl { color:var(--headings_cl, {{ settings.stxtcl}}); font-size:{{ settings.stxtfsm }}px; font-weight:{{settings.shfw}}; line-height:{{settings.shlh }}; margin:5px auto 0; display:block; }
 .sttl.has-icon{ gap:10px;}
 .sttl.has-icon svg { width:22px; height:auto;}
-.sttl.has-icon svg path { stroke: var(--color-main-text) }
+.sttl.has-icon svg:not(.not-stroke) path { stroke: var(--color-main-text) }
+.sttl.has-icon svg.not-stroke path { fill: var(--color-main-text) }
 {%- if settings.sttlstl == '2' -%}
     .sec-ttl .dbi:before,.sec-ttl .dbi:after { content:""; display:block; width:{{settings.ttlelw}}px; height:2px; background-color:{{settings.hdelem}}; position:absolute; top:50%; }
     .sec-ttl .dbi:before { right:calc(100% + 15px); }
