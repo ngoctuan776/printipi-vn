@@ -247,14 +247,14 @@
   },
   "contact": {
     "form": {
-      "name": "Name",
+      "name": "Họ và tên",
       "email": "Email",
-      "phone": "Phone Number",
-      "subject": "Subject",
-      "message": "Message",
-      "submit": "Send",
-      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
-      "error_heading": "Please adjust the following:"
+      "phone": "Số điện thoại",
+      "subject": "Chủ đề",
+      "message": "Lời nhắn",
+      "submit": "Gửi",
+      "post_success": "Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ phản hồi bạn trong thời gian sớm nhất.",
+      "error_heading": "Vui lòng điều chỉnh các mục sau:"
     }
   },
   "customer": {
