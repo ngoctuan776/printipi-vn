@@ -991,89 +991,93 @@
 	<link href="{{ 'photoswipe.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
 	<script type="module">
 		import PhotoSwipeLightbox from '{{ 'photoswipe-lightbox.min.js' | asset_url }}';
+		
+		const customArrowSVG = `
+		<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 24 24" width="24" height="24">
+			<path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+		</svg>
+		`;
 		const lightbox = new PhotoSwipeLightbox({
 			gallery: '.primgSlider',
 			children: '.pswipe:not(.swiper-slide-duplicate), .item',
             bgOpacity: 1,
-			pswpModule: () => import('{{ 'photoswipe.min.js' | asset_url }}')
+			pswpModule: () => import('{{ 'photoswipe.min.js' | asset_url }}'),
+			arrowPrevSVG: customArrowSVG,
+			arrowNextSVG: customArrowSVG,
 		});
 		lightbox.on('afterInit', () => {
-		const pswp = lightbox.pswp;
+			const pswp = lightbox.pswp;
 
-		/* =========================
-			1. Tạo DOM Swiper
-		========================= */
-		const thumbsWrap = document.createElement('div');
-		thumbsWrap.className = 'pswp-thumbs';
+			/* =========================
+				1. Tạo DOM Swiper
+			========================= */
+			const thumbsWrap = document.createElement('div');
+			thumbsWrap.className = 'pswp-thumbs';
 
-		thumbsWrap.innerHTML = `
-			<div class="swiper pswp-thumb-swiper">
-			<div class="swiper-wrapper"></div>
-			</div>
-		`;
-
-		pswp.element.appendChild(thumbsWrap);
-
-		const wrapper = thumbsWrap.querySelector('.swiper-wrapper');
-
-		/* =========================
-			2. Add thumb slides
-		========================= */
-		const total = pswp.getNumItems();
-
-		for (let i = 0; i < total; i++) {
-			const item = pswp.getItemData(i);
-
-			const slide = document.createElement('div');
-			slide.className = 'swiper-slide';
-
-			slide.innerHTML = `
-			<img src="${item.msrc || item.src}" />
+			thumbsWrap.innerHTML = `
+				<div class="swiper pswp-thumb-swiper">
+				<div class="swiper-wrapper"></div>
+				</div>
 			`;
 
-			slide.addEventListener('click', () => {
-			pswp.goTo(i);
+			pswp.element.appendChild(thumbsWrap);
+
+			const wrapper = thumbsWrap.querySelector('.swiper-wrapper');
+
+			/* =========================
+				2. Add thumb slides
+			========================= */
+			const total = pswp.getNumItems();
+
+			for (let i = 0; i < total; i++) {
+				const item = pswp.getItemData(i);
+
+				const slide = document.createElement('div');
+				slide.className = 'swiper-slide';
+
+				slide.innerHTML = `
+				<img src="${item.msrc || item.src}" />
+				`;
+
+				slide.addEventListener('click', () => {
+				pswp.goTo(i);
+				});
+
+				wrapper.appendChild(slide);
+			}
+
+			/* =========================
+				3. Init Swiper
+			========================= */
+			const thumbSwiper = new Swiper('.pswp-thumb-swiper', {
+				slidesPerView: 'auto',
+				spaceBetween: 8,
+				freeMode: true,
+				watchSlidesProgress: true,
+				centeredSlides: false
 			});
 
-			wrapper.appendChild(slide);
-		}
+			/* =========================
+				4. Sync active state
+			========================= */
+			const syncThumb = () => {
+				thumbSwiper.slideTo(pswp.currIndex, 300, false);
 
-		/* =========================
-			3. Init Swiper
-		========================= */
-		const thumbSwiper = new Swiper('.pswp-thumb-swiper', {
-			slidesPerView: 'auto',
-			spaceBetween: 8,
-			freeMode: true,
-			watchSlidesProgress: true,
-			centeredSlides: false
-		});
+				thumbSwiper.slides.forEach((slide, i) => {
+				slide.classList.toggle(
+					'swiper-slide-thumb-active',
+					i === pswp.currIndex
+				);
+				});
+			};
 
-		/* =========================
-			4. Sync active state
-		========================= */
-		const syncThumb = () => {
-			thumbSwiper.slideTo(pswp.currIndex, 300, false);
+			syncThumb();
+			pswp.on('change', syncThumb);
 
-			thumbSwiper.slides.forEach((slide, i) => {
-			slide.classList.toggle(
-				'swiper-slide-thumb-active',
-				i === pswp.currIndex
-			);
+			pswp.on('close', () => {
+				thumbSwiper.destroy(true, true);
 			});
-		};
-
-		syncThumb();
-		pswp.on('change', syncThumb);
-
-		/* =========================
-			5. Cleanup khi close
-		========================= */
-		pswp.on('close', () => {
-			thumbSwiper.destroy(true, true);
 		});
-		});
-
 
 		lightbox.init();
 	</script>
