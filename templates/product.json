@@ -155,7 +155,7 @@
             "lstock": "#fda43c",
             "ostock": "#dd2f45",
             "anim": true,
-            "bm": 15
+            "bm": 0
           }
         },
         "f3aed949-c526-4cd5-affb-f209a0499d89": {
@@ -173,7 +173,7 @@
             "bg": "#fafafa",
             "bd": "#eeeeee",
             "bdr": 5,
-            "bm": 20
+            "bm": 0
           }
         },
         "addons_3DKyxX": {
@@ -342,6 +342,103 @@
         "hided": false
       }
     },
+    "product_page_bottom_NbU8A4": {
+      "type": "product-page-bottom",
+      "blocks": {
+        "related_products_8Hxhxi": {
+          "type": "related-products",
+          "disabled": true,
+          "settings": {
+            "title": "Related Products",
+            "icon_name": "prd_related",
+            "subtitle": "",
+            "type": "1",
+            "gridlg": 3,
+            "grid": 3,
+            "gridtb": 2,
+            "gridmb": 2,
+            "limit": 5,
+            "carousel": true,
+            "loop": true,
+            "autoplay": false,
+            "speed": 5,
+            "arrow": true,
+            "arrowm": false,
+            "dot": false,
+            "dotm": false,
+            "sw": true,
+            "bg": "#ffffff",
+            "bgg": "",
+            "headings_cl": "",
+            "sst": 40,
+            "ssb": 40,
+            "sstm": 15,
+            "ssbm": 15,
+            "hidem": false,
+            "hided": false
+          }
+        },
+        "rvp_qmQ3KF": {
+          "type": "rvp",
+          "disabled": true,
+          "settings": {
+            "title": "Sản phẩm đã xem",
+            "icon_name": "recently_viewed",
+            "subtitle": "",
+            "enable_custom_ratio": false,
+            "primg_ratio": "140",
+            "prbox_style": "grid_1",
+            "gridlg": 3,
+            "grid": 3,
+            "gridtb": 2,
+            "gridmb": 2,
+            "row": 6,
+            "carousel": false,
+            "loop": true,
+            "autoplay": false,
+            "speed": 5,
+            "arrow": true,
+            "arrowm": false,
+            "dot": false,
+            "dotm": false,
+            "sw": true,
+            "bg": "#ffffff",
+            "bgg": "",
+            "headings_cl": "",
+            "sst": 40,
+            "ssb": 40,
+            "sstm": 15,
+            "ssbm": 15,
+            "hidem": false,
+            "hided": false
+          }
+        },
+        "air_product_reviews_app_block_review_list_3krqCi": {
+          "type": "shopify://apps/air-product-reviews/blocks/app-block-review-list/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
+          "settings": {
+            "air_blockreviews_summaryHeading": "Reviews",
+            "air_blockreviews_layout": "list",
+            "air_blockreviews_singleStarColor": "#16a086",
+            "air_blockreviews_primaryColor": "#121212"
+          }
+        }
+      },
+      "block_order": [
+        "related_products_8Hxhxi",
+        "rvp_qmQ3KF",
+        "air_product_reviews_app_block_review_list_3krqCi"
+      ],
+      "name": "Product Page Bottom",
+      "settings": {
+        "sw": true,
+        "bg": "#ffffff",
+        "bgg": "",
+        "sst": 0,
+        "ssb": 0,
+        "sstm": 15,
+        "ssbm": 15
+      }
+    },
     "tabs": {
       "type": "product-tabs",
       "blocks": {
@@ -406,6 +503,7 @@
         "extra_YG9Qf4",
         "extra_3Hp4gw"
       ],
+      "disabled": true,
       "settings": {
         "tab_style": "1",
         "acc": true,
@@ -434,6 +532,7 @@
     },
     "devider_ywr3VC": {
       "type": "devider",
+      "disabled": true,
       "name": "Devider",
       "settings": {
         "isbdr": true,
@@ -452,42 +551,18 @@
         "hided": false
       }
     },
-    "176622612140d99771": {
-      "type": "apps",
-      "blocks": {
-        "air_product_reviews_app_block_review_list_trtN6L": {
-          "type": "shopify://apps/air-product-reviews/blocks/app-block-review-list/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
-          "settings": {
-            "air_blockreviews_summaryHeading": "Reviews",
-            "air_blockreviews_layout": "list",
-            "air_blockreviews_singleStarColor": "#16a086",
-            "air_blockreviews_primaryColor": "#121212"
-          }
-        }
-      },
-      "block_order": [
-        "air_product_reviews_app_block_review_list_trtN6L"
-      ],
-      "settings": {
-        "sst": 30,
-        "ssb": 30,
-        "sstm": 15,
-        "ssbm": 15,
-        "bg": "",
-        "sw": false
-      }
-    },
     "related": {
       "type": "related-products",
-      "disabled": true,
       "settings": {
         "title": "Related Products",
+        "icon_name": "prd_related",
         "subtitle": "",
         "type": "1",
+        "gridlg": 6,
         "grid": 4,
         "gridtb": 3,
         "gridmb": 2,
-        "limit": 5,
+        "limit": 8,
         "carousel": true,
         "loop": false,
         "autoplay": false,
@@ -496,11 +571,11 @@
         "arrowm": false,
         "dot": false,
         "dotm": true,
-        "sw": false,
+        "sw": true,
         "bg": "#ffffff",
         "bgg": "",
         "headings_cl": "#000000",
-        "sst": 70,
+        "sst": 0,
         "ssb": 40,
         "sstm": 15,
         "ssbm": 15,
@@ -514,6 +589,7 @@
       "settings": {
         "title": "Recommended Products",
         "subtitle": "",
+        "gridlg": 6,
         "grid": 4,
         "gridtb": 3,
         "gridmb": 2,
@@ -540,10 +616,9 @@
     },
     "recentviewed": {
       "type": "recently-viewed",
-      "disabled": true,
       "settings": {
         "title": "Recently Viewed Products",
-        "icon_name": "",
+        "icon_name": "recently_viewed",
         "subtitle": "",
         "enable_custom_ratio": false,
         "primg_ratio": "140",
@@ -553,7 +628,7 @@
         "gridtb": 3,
         "gridmb": 2,
         "row": 6,
-        "carousel": true,
+        "carousel": false,
         "loop": true,
         "autoplay": true,
         "speed": 5,
@@ -561,7 +636,7 @@
         "arrowm": false,
         "dot": false,
         "dotm": true,
-        "sw": false,
+        "sw": true,
         "bg": "#ffffff",
         "bgg": "",
         "headings_cl": "#111111",
@@ -579,9 +654,9 @@
     "main",
     "quick_order_list_erKtgp",
     "upsell",
+    "product_page_bottom_NbU8A4",
     "tabs",
     "devider_ywr3VC",
-    "176622612140d99771",
     "related",
     "recommanded",
     "recentviewed"

@@ -11,6 +11,7 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -37,7 +38,7 @@
           "settings": {
             "shippingTax": false,
             "save": true,
-            "cl": "#4eaf13",
+            "cl": "#20b150",
             "bm": 20
           }
         },
@@ -68,20 +69,20 @@
       ],
       "settings": {
         "layout": "2",
-        "pagewidth": 1290,
+        "pagewidth": 1210,
         "cartCount": true,
         "countTime": 30,
-        "countMsg": "Please, hurry! Someone has placed an order with same products. These products are limited, checkout within [time]",
+        "countMsg": "Nhanh lên nào! Có người đã đặt mua cùng sản phẩm rồi. Số lượng sản phẩm có hạn, vui lòng thanh toán trước [time]",
         "txtcl": "#333333",
-        "txtbg": "#d6eadf",
+        "txtbg": "#e9fbf1",
         "shipCalc": true,
-        "shipTtl": "Get Shipping Estimates",
-        "default_country": "United States",
+        "shipTtl": "Nhận báo giá vận chuyển",
+        "default_country": "Việt Nam",
         "shipping-btn": "btn1",
         "cart-header": "#f5f5f5",
         "cart-summery": "#f5f5f5",
-        "sst": 20,
-        "ssb": 20,
+        "sst": 30,
+        "ssb": 30,
         "sstm": 10,
         "ssbm": 10
       }
@@ -89,7 +90,7 @@
     "recommanded": {
       "type": "product-recommendations",
       "settings": {
-        "title": "Recommended Products",
+        "title": "Đề xuất sản phẩm",
         "subtitle": "",
         "grid": 4,
         "gridtb": 3,
@@ -103,7 +104,7 @@
         "arrowm": true,
         "dot": false,
         "dotm": false,
-        "sw": false,
+        "sw": true,
         "bg": "",
         "bgg": "",
         "headings_cl": "#111111",
