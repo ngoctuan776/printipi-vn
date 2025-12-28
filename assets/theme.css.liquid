@@ -269,7 +269,7 @@ input:checked+span.checkbox:before { content:' '; display:block; background-colo
   .tooltip-label { display:none; }
 }
 
-.btn { padding:14px 30px; line-height: 1.2; font-family:var(--{{settings.btn_font}}); font-size:{{settings.btnf}}px; font-weight:{{settings.btn_weight}}; color:{{ settings.btn1_txt }}; background-color:{{ settings.btn1 }}; border-radius:{{settings.btn_rad}}px; border:{{settings.bdr_width}}px solid {{ settings.btn1_bdr }}; text-transform:{{settings.btncase}}; display:inline-block; overflow:hidden; user-select:none; appearance:none; transition:all .3s ease-in-out; cursor:pointer; white-space:normal; text-align:center;  }
+.btn { padding:14px 30px; line-height: 1.2; font-family:var(--{{settings.btn_font}}); font-size:{{settings.btnf}}px; font-weight:{{settings.btn_weight}}; color:{{ settings.btn1_txt }}; background-color:{{ settings.btn1 }}; border-radius:{{settings.btn_rad}}px; border:{{settings.bdr_width}}px solid {{ settings.btn1_bdr }}; text-transform:{{settings.btncase}}; display:inline-flex;align-items: center;justify-content:center; overflow:hidden; user-select:none; appearance:none; transition:all .3s ease-in-out; cursor:pointer; white-space:normal; text-align:center;  }
 .btn:focus, .btn:hover { color:{{ settings.btn1_txth}}; background-color:{{ settings.btn1h}}; border:{{settings.bdr_width}}px solid {{ settings.btn1_bdrh }}; opacity:1; }
 .btn[disabled] { cursor:default; opacity:.5 }
 .btn-sm { padding: 4px 15px;font-size: 12px;line-height: 20px; }

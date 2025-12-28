@@ -39,7 +39,7 @@
             "shippingTax": false,
             "save": true,
             "cl": "#20b150",
-            "bm": 20
+            "bm": 15
           }
         },
         "btn_nmdQej": {
@@ -49,7 +49,7 @@
             "additionalCheckout": false,
             "continue": true,
             "btncn": "btn4",
-            "bm": 5
+            "bm": 0
           }
         },
         "img_TJMMLR": {
@@ -92,6 +92,7 @@
       "settings": {
         "title": "Đề xuất sản phẩm",
         "subtitle": "",
+        "gridlg": 6,
         "grid": 4,
         "gridtb": 3,
         "gridmb": 2,
