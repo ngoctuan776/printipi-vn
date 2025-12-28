@@ -1,3 +1,4 @@
+{{ 'pdp-review-box.css' | asset_url | stylesheet_tag }}
 {%- liquid
 	assign section_st = section.settings
     assign cnt_width = settings.cntwd | append: 'px'
@@ -996,6 +997,84 @@
             bgOpacity: 1,
 			pswpModule: () => import('{{ 'photoswipe.min.js' | asset_url }}')
 		});
+		lightbox.on('afterInit', () => {
+		const pswp = lightbox.pswp;
+
+		/* =========================
+			1. Tạo DOM Swiper
+		========================= */
+		const thumbsWrap = document.createElement('div');
+		thumbsWrap.className = 'pswp-thumbs';
+
+		thumbsWrap.innerHTML = `
+			<div class="swiper pswp-thumb-swiper">
+			<div class="swiper-wrapper"></div>
+			</div>
+		`;
+
+		pswp.element.appendChild(thumbsWrap);
+
+		const wrapper = thumbsWrap.querySelector('.swiper-wrapper');
+
+		/* =========================
+			2. Add thumb slides
+		========================= */
+		const total = pswp.getNumItems();
+
+		for (let i = 0; i < total; i++) {
+			const item = pswp.getItemData(i);
+
+			const slide = document.createElement('div');
+			slide.className = 'swiper-slide';
+
+			slide.innerHTML = `
+			<img src="${item.msrc || item.src}" />
+			`;
+
+			slide.addEventListener('click', () => {
+			pswp.goTo(i);
+			});
+
+			wrapper.appendChild(slide);
+		}
+
+		/* =========================
+			3. Init Swiper
+		========================= */
+		const thumbSwiper = new Swiper('.pswp-thumb-swiper', {
+			slidesPerView: 'auto',
+			spaceBetween: 8,
+			freeMode: true,
+			watchSlidesProgress: true,
+			centeredSlides: false
+		});
+
+		/* =========================
+			4. Sync active state
+		========================= */
+		const syncThumb = () => {
+			thumbSwiper.slideTo(pswp.currIndex, 300, false);
+
+			thumbSwiper.slides.forEach((slide, i) => {
+			slide.classList.toggle(
+				'swiper-slide-thumb-active',
+				i === pswp.currIndex
+			);
+			});
+		};
+
+		syncThumb();
+		pswp.on('change', syncThumb);
+
+		/* =========================
+			5. Cleanup khi close
+		========================= */
+		pswp.on('close', () => {
+			thumbSwiper.destroy(true, true);
+		});
+		});
+
+
 		lightbox.init();
 	</script>
 {%- endif -%}

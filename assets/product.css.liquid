@@ -116,6 +116,10 @@
 }
 .rte strong {font-weight: 500;}
 
+.pr_btn.product-form__submit.loading .loading__spinner {
+  display: block;height: auto;visibility: visible;
+}
+.pr_btn.product-form__submit.loading .txt {height: auto;}
 @media only screen and (min-width:1025px) {
   .product-single-tee {
     display: grid;
@@ -165,6 +169,40 @@
   .product-single-tee .product__info .wrap-product-info {
     margin-left: 0;
   }
+}
+
+/* Custom photoswipe thumbs */
+.pswp-thumbs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 96px;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.pswp-thumbs .swiper {
+  height: 100%;
+  padding: 12px;
+}
+
+.pswp-thumbs .swiper-slide {
+  width: 64px;
+  height: 64px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.pswp-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+  outline: 2px solid #fff;
+}
+
+.pswp-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Tee form */
