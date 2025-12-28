@@ -1,0 +1,6 @@
+.AirReviews-Collapsible__Container .AirReviews-Collapsible__Content .AirReviews-Collapsible__Submit .AirReviews-ButtonGroup {
+    width: 100%;
+}
+#AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern.AirReviews--PageWidth__Md {
+    grid-template-columns: 300px 1fr;
+}

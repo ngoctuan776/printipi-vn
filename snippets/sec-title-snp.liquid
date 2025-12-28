@@ -6,12 +6,12 @@
 {%- if block.settings.title != blank or block.settings.subtitle != blank -%}
     {%- if settings.sttlstl == '2' -%}
         <div class="sec-ttl {{ settings.title_align }}" {{ styles }}>
-            <{{ settings.sttltag }} class="sttl {{ settings.sechdft }}"><span class="dbi pr">{{ block.settings.title }}</span></{{ settings.sttltag }}>
+            <{{ settings.sttltag }} class="sttl"><span class="dbi pr">{{ block.settings.title }}</span></{{ settings.sttltag }}>
             {%- if block.settings.subtitle != blank -%}<div class="sbttl">{{ block.settings.subtitle }}</div>{%- endif -%}
         </div>
     {%- else -%}
         <div class="sec-ttl {{ settings.title_align }}" {{ styles }}>
-            <{{ settings.sttltag }} class="sttl {{ settings.sechdft }} {% if block.settings.icon_name != blank %} fl f-aic has-icon{% endif %}">
+            <{{ settings.sttltag }} class="sttl{% if block.settings.icon_name != blank %} fl f-aic has-icon{% endif %}">
             {%- if block.settings.icon_name != blank -%}
                 {% render 'icons-list-menu', icon_name: block.settings.icon_name %}
             {%- endif -%}

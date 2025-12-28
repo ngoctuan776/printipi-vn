@@ -47,11 +47,14 @@
     .price { white-space:nowrap; }
     .ctPrice { line-height:1.1; }
     s.ctPrice { opacity:0.6; }
+    .cartPage input, .cartPage select, .cartPage textarea {
+      background-color: #FFF;
+    }
 
-    .cart_image { width:110px; padding:15px 0 !important; }
+    .cart_image { width:80px; padding:15px 0 !important; min-width: 80px; }
     .cart_image img { border-radius:{% if settings.img_rad > 6 %}6{% else %}{{ settings.img_rad}}{% endif %}px; overflow:hidden;}
     .cart_details { width:45%; max-width:300px }   
-    .cart_meta-text { padding:5px 0; font-size:{{ settings.bodyfs | minus:1 }}px; opacity:0.9; }
+    .cart_meta-text { padding:5px 0; }
     .cart .cart_pr a { color:{{ settings.bodycl }};}
 
     .cart_total { font-weight:600; font-size:15px; }
@@ -66,7 +69,7 @@
         .cart .cart_footer li.cart_summery { max-width:420px; }
         .cart .bdr-box { width:100%; padding:25px; background:{{section_st.cart-summery }}; }
     {% else %}
-        .cart .cart_footer { padding:20px 25px; background:{{ section_st.cart-summery }}; }
+        .cart .cart_footer { padding:20px; background:{{ section_st.cart-summery }}; }
     {% endif %}
 
     #dynamic-checkout-cart .shopify-cleanslate li {flex-basis: 100% !important;}
@@ -90,8 +93,17 @@
       #coupon-code + .btn { margin-{{ pm_left }}:5px; }
     {% endif %}
     
-    .cartCountdown { background: {{ section_st.txtbg }};  color:{{ section_st.txtcl }}; padding: 12px 20px; border-radius: 3px; }    
-    
+    .cartCountdown { background: {{ section_st.txtbg }};  color:{{ section_st.txtcl }}; padding: 12px 20px; border-radius: 3px; font-size:14px;}
+    table.cart-items {border-collapse: separate;}
+    .cart-items thead tr th:first-child {
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+    }
+    .cart-items thead tr th:last-child {
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+    }
+    .cart__ctas .btn4 {background-color: #FFF;}
     @media only screen and (max-width:766px){
       .cart_quantity quantity-popover { justify-content: left; margin-top:10px;}
       .cart_footer {flex-direction:column; margin:0;}
@@ -115,7 +127,7 @@
       .currencymsg { text-align:center !important }   
       .cart-totals .loading__spinner { min-height:28px;}
            
-      .cart .cart_footer {padding: 10px 15px;}
+      .cart .cart_footer {padding: 10px 15px;border-radius: 7px;}
       .shipCalc {margin: 15px 0; }
 
        .cart .cart_footer li.cart_summery { max-width:100%; }
@@ -162,7 +174,7 @@
                                         {% endif %}
                                     </td>
                                     <td class="cart_details tl">
-                                        <a href="{{ item.url }}" class="cart-item__name">{{ item.product.title | escape }}</a>                                        
+                                        <a href="{{ item.url }}" class="cart-item__name fwm">{{ item.product.title | escape }}</a>                                        
 
                                         {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                                             <div class="cart_meta-text">
@@ -186,7 +198,7 @@
                                             </ul>
                                         {%- endif -%}
                                     </td>                                    
-                                    <td class="tc hide-sm">
+                                    <td class="tc hide-sm fwm">
                                             {%- if item.original_price != item.final_price -%}
                                                 <div class="cart-item__discounted-prices">
                                                     <s class="ctPrice">{{ item.original_price | money }}</s><br/>
@@ -502,14 +514,25 @@
 {% capture cart_note %}
     {% if settings.cartnote %}
         <cart-note class="db cart__note">
-            <label class="fwm mb15 ttu" for="Cart-note">{{ 'cart.general.note' | t }}</label>
+            <label class="fwsb mb15 ttu" for="Cart-note">{{ 'cart.general.note' | t }}</label>
             <textarea class="text-area mb20 w_100" name="note" form="cart" id="Cart-note" placeholder=" ">{{ cart.note }}</textarea>
         </cart-note>
     {% endif %}
 {% endcapture %}
 <div class="sec_cov" style="--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px">
+    <div class="fw-sec">
+      <div class="title-wtapper">
+        <h1 class="page-title">{{ 'cart.general.title' | t }}</h1>
+        <div class="rte mb30">
+          {%- if cart.item_count > 0 -%}
+            {{ 'cart.general.subtitle' | t: item_count: cart.item_count }}
+          {%-  else -%}
+            {{ 'cart.general.subtitle_no_item' | t }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
     <div class="cartPage db page-width {% if cart == empty %}is-empty{% endif %}" style="max-width:{{ section_st.pagewidth }}px">
-        <h1 class="page-title tc">{{ 'cart.general.title' | t }}</h1>
         <div class="cart__warnings tc{% if cart != empty %} dn{% endif %}">
             <svg class="at-icon"><use xlink:href="#icon-cart"></use></svg>
             <p>{{ 'cart.general.empty' | t }}.</p> 
@@ -520,7 +543,7 @@
             {%- endif -%}
             <p>&nbsp;</p><p>&nbsp;</p>
         </div>
-        {% if section_st.cartCount %}       
+        {% if section_st.cartCount %}
           <div class="cartCountdown tc mb25 fl f-jcc f-aic" data-countdown="{{ section_st.countTime | times: 60 }}">
         <svg class="at-icon iconl mr5 hide-sm" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m16 29a13 13 0 1 1 13-13 13.015 13.015 0 0 1 -13 13zm0-24a11 11 0 1 0 11 11 11.013 11.013 0 0 0 -11-11z"/><path d="m16 22a1 1 0 0 1 -1-1v-7a1 1 0 0 1 2 0v7a1 1 0 0 1 -1 1z"/><circle cx="16" cy="11" r="1"/></svg>
             <p> {{ section_st.countMsg | replace:"[time]","<b id='cartTime' class='ml5 mr5'></b>" }}</p>

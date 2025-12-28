@@ -87,7 +87,7 @@
     {% endif %}
     
     {% unless related_items == blank %}
-        {% render 'sec-title' %}
+      {% render 'sec-title' %}
 		<div id="products-{{ section.id }}">
           {%- if section_st.carousel -%}
             <slide-section class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products swiper"
@@ -123,6 +123,11 @@
       "type": "text",
       "label": "Title",
       "default": "Related Products"
+    },
+    {
+      "id": "icon_name",
+      "type": "text",
+      "label": "Icon Name"
     },
     {
       "id": "subtitle",

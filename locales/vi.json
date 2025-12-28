@@ -165,6 +165,8 @@
   "cart": {
     "general": {
       "title": "Giỏ hàng",
+      "subtitle": "Có ({{ item_count }}) sản phẩm trong giỏ hàng của bạn",
+      "subtitle_no_item": "Không có sản phẩm trong giỏ hàng",
       "product": "Sản phẩm",
       "total": "Tổng số",
       "subtotal": "Tổng phụ",
@@ -191,25 +193,25 @@
     "label": {
       "product": "Sản phẩm",
       "price": "Giá",
-      "quantity": "Quantity",
-      "total": "Total",
-      "cart_note": "Add Order Note",
-      "coupon_code": "Add Coupon Code",
-      "gift_wrap": "Add a Gift Wrap"
+      "quantity": "Số lượng",
+      "total": "Tổng số",
+      "cart_note": "Thêm ghi chú đơn hàng",
+      "coupon_code": "Thêm mã giảm giá",
+      "gift_wrap": "Thêm gói quà"
     },
     "button": {
-      "checkout": "Thanh Toán",
-      "view_cart": "View Cart",
-      "gift_wrap": "Add a Gift Wrap",
+      "checkout": "Tiến Hành Thanh Toán",
+      "view_cart": "Xem giỏ hàng",
+      "gift_wrap": "Thêm gói quà",
       "continue_shopping": "Tiếp tục mua sắm",
-      "save": "Save",
-      "apply": "Apply",
-      "cancel": "Cancel",
-      "remove": "Remove {{title}}",
-      "update": "Update",
-      "close": "Close",
-      "calculate_shipping": "Calculate Shipping",
-      "calculating": "Calculating..."
+      "save": "Lưu",
+      "apply": "Chấp nhận",
+      "cancel": "Hủy",
+      "remove": "Xóa {{title}}",
+      "update": "Cập nhật",
+      "close": "Đóng",
+      "calculate_shipping": "Tính Toán Vận Chuyển",
+      "calculating": "Đang tính toán..."
     },
     "login": {
       "title": "Bạn đã có tài khoản?",

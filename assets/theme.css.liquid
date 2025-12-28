@@ -79,7 +79,7 @@
 .ft2 { font-family:var(--ft2) }
 .ft3 { font-family:var(--ft3) }
 
-h1, h2, h3, h4, h5, h6 { font-family:var(--{{settings.hd_font}}); font-weight:{{ settings.heading_weight}}; line-height:{{ settings.headings_lh}}; letter-spacing:0.0{{settings.headings_ls}}em; word-wrap:break-word; color:{{ settings.color_text }}; margin:0 0 20px 0; {% if settings.head_case %} text-transform: uppercase;{% endif %}}
+h1, h2, h3, h4, h5, h6 { font-family:var(--{{settings.hd_font}}); font-weight:{{ settings.heading_weight}}; line-height:{{ settings.headings_lh}}; letter-spacing:0.0{{settings.headings_ls}}em; word-wrap:break-word; color:{{ settings.color_text }}; margin:0 0 10px 0; {% if settings.head_case %} text-transform: uppercase;{% endif %}}
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color:inherit; text-decoration:none; font-weight:inherit }
 
 .h1, h1 { font-size:{{settings.h1_size | times:0.85 | floor}}px }
