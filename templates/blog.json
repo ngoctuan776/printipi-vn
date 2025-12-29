@@ -56,6 +56,7 @@
         "4670f409-1451-45fe-b405-d9e57a279173",
         "bc_pdcpwW"
       ],
+      "disabled": true,
       "settings": {
         "hit": 200,
         "hitt": 160,
@@ -70,6 +71,7 @@
     },
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -83,7 +85,7 @@
           "type": "menu",
           "settings": {
             "title": "Categories",
-            "side_categories": "category-menu"
+            "side_categories": ""
           }
         },
         "c159886d-17af-4b66-bdf5-ea49fbc6b992": {
@@ -127,8 +129,8 @@
       ],
       "settings": {
         "layout": "g1",
-        "img_ratio": "60",
-        "bbrad": 6,
+        "img_ratio": "80",
+        "bbrad": 7,
         "author": true,
         "date": true,
         "comment": true,
@@ -138,16 +140,17 @@
         "desc": true,
         "more": false,
         "dwords": 20,
-        "posts": 6,
+        "posts": 10,
+        "gridlg": 5,
         "grid": 3,
-        "gridtb": 2,
+        "gridtb": 3,
         "gridmb": 1,
         "htag": "h2",
         "tff": "ft2",
-        "tfs": 22,
-        "tfsm": 17,
-        "lh": 1.2,
-        "tfw": "600",
+        "tfs": 12,
+        "tfsm": 12,
+        "lh": 1.8,
+        "tfw": "500",
         "tcase": false,
         "sbposi": "nosidebar",
         "sidem": false,
@@ -155,15 +158,15 @@
         "wdTtlft": "ft2",
         "wdTtlwt": "500",
         "text_case": "capitalize",
-        "wdTtlcl": "#222222",
+        "wdTtlcl": "#000000",
         "ttlbdrt": true,
         "ttlbdr": "#eeeeee",
         "links_fs": 12,
         "links_cl": "#000000",
         "links_cl_hv": "#ec9090",
         "bottom_bdr": "#eeeeee",
-        "sw": false,
-        "npd": false,
+        "sw": true,
+        "npd": true,
         "bg": "#ffffff",
         "bgg": "",
         "overlay": "#ffffff",
@@ -171,7 +174,7 @@
         "sst": 30,
         "ssb": 30,
         "sstm": 15,
-        "ssbm": 15,
+        "ssbm": 30,
         "hidem": false,
         "hided": false
       }

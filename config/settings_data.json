@@ -146,6 +146,8 @@
     "nav_link_lbl5": "#9acee9",
     "cart_icon": "4",
     "count_cl": "#fff",
+    "empty_cart": "Tiếp tục mua hàng",
+    "empty_cart_url": "/",
     "drawer_txt": "#000000",
     "viewcart": true,
     "btn-style": "btn4",

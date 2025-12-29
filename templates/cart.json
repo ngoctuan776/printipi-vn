@@ -83,8 +83,8 @@
         "cart-summery": "#f5f5f5",
         "sst": 30,
         "ssb": 30,
-        "sstm": 10,
-        "ssbm": 10
+        "sstm": 15,
+        "ssbm": 15
       }
     },
     "recommanded": {
@@ -112,7 +112,7 @@
         "sst": 0,
         "ssb": 30,
         "sstm": 0,
-        "ssbm": 15,
+        "ssbm": 30,
         "hidem": false,
         "hided": false
       }

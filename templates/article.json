@@ -30,6 +30,7 @@
             "tff": "ft2",
             "fts": 32,
             "ftsm": 20,
+            "lh": 1.5,
             "fw": "500",
             "tuu": false,
             "cl": "#ffffff",
@@ -42,6 +43,8 @@
           "settings": {
             "author": true,
             "date": true,
+            "post_sep": "1",
+            "post_case": false,
             "cl": "#ffffff",
             "mb": 20,
             "mbm": 15
@@ -68,6 +71,7 @@
     },
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -81,7 +85,7 @@
           "type": "menu",
           "settings": {
             "title": "Categories",
-            "side_categories": "category-menu"
+            "side_categories": ""
           }
         },
         "74061d01-08a4-4de5-b72e-52bca63b136f": {
@@ -104,7 +108,6 @@
         "image_bnr_A6dbjA": {
           "type": "image_bnr",
           "settings": {
-            "img": "shopify://shop_images/INSTA10.jpg",
             "overlay": "#000000",
             "overlay_op": 0.3,
             "prehead": "MOST AWAITED SALE",
@@ -145,15 +148,24 @@
       ],
       "settings": {
         "ftimg": true,
-        "bbrad": 5,
+        "bbrad": 7,
         "author": true,
         "date": true,
+        "comment": false,
         "tags": true,
+        "post_sep": "1",
+        "post_case": false,
         "show_share_buttons": true,
         "htag": "h2",
+        "tff": "ft1",
+        "tfs": 22,
+        "tfsm": 17,
+        "lh": 1.5,
+        "tfw": "700",
+        "tcase": false,
         "ccl": "#000000",
         "cbg": "#f6f6f6",
-        "sbposi": "right",
+        "sbposi": "nosidebar",
         "sidem": false,
         "wdTtl": 15,
         "wdTtlft": "ft2",
