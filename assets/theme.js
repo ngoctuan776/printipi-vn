@@ -965,6 +965,7 @@ class ProductRecommendations extends SlideSection {
             if(recommendations && recommendations.querySelector('.gitem') != null) {
                 this.innerHTML = recommendations.innerHTML;
                 wrapper.classList.remove('hide');
+                wrapper.classList.add('rcm-filled');
             } else {
                 wrapper.classList.add('hide');
             }

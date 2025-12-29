@@ -122,8 +122,8 @@ body{ color:var(--all_text, {{ settings.bodycl }}); font-family:var(--{{ setting
 	
 .fw-sec { padding-left:{{ settings.pad-mbl }}px; padding-right:{{ settings.pad-mbl }}px }
 .fw-sec.npd { padding:0 }
-@media only screen and (min-width:769px){.fw-sec{ padding-left:{{ settings.pad-ipad }}px; padding-right:{{ settings.pad-ipad }}px }} 
-@media only screen and (min-width:1280px){.fw-sec{ padding-left:{{ settings.pad-desk }}px; padding-right:{{ settings.pad-desk }}px }} 
+@media only screen and (min-width:769px){.fw-sec, .page-width{ padding-left:{{ settings.pad-ipad }}px; padding-right:{{ settings.pad-ipad }}px }} 
+@media only screen and (min-width:1280px){.fw-sec, .page-width{ padding-left:{{ settings.pad-desk }}px; padding-right:{{ settings.pad-desk }}px }} 
 
 {% comment %} /* Swiper Common */ {% endcomment %}
 .swiper, .swiper-container { position:relative; overflow:hidden; z-index:1; display:block }

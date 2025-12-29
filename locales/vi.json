@@ -214,7 +214,7 @@
       "calculating": "Đang tính toán..."
     },
     "login": {
-      "title": "Bạn đã có tài khoản?",
+      "title": "Bạn có tài khoản chưa?",
       "paragraph_html": "<a href=\"{{ link }}\" class=\"tdu\">Đăng nhập</a> để thanh toán nhanh hơn."
     }
   },

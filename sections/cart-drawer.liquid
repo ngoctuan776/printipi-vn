@@ -37,11 +37,11 @@
 			</p>
             <div id="cartEmpty" class="fl f-jcc f-col tc h_100">
 			 <svg class="at-icon"><use xlink:href="#icon-cart"></use></svg>
-             <p>{{ 'cart.general.empty' | t }}</p>
-             {% if settings.empty_cart != blank %}<p><a href="{{ settings.empty_cart_url }}" class="btn">{{ settings.empty_cart }}</a></p>{% endif %}
+             <p class="color-text">{{ 'cart.general.empty' | t }}</p>
+             {% if settings.empty_cart != blank %}<p><a href="{{ settings.empty_cart_url }}" class="btn btn6">{{ settings.empty_cart }}</a></p>{% endif %}
              {%- if shop.customer_accounts_enabled and customer == nil -%}				
-                <div class="h5 fwm">{{ 'cart.login.title' | t }}</div>
-                <p>{{ 'cart.login.paragraph_html' | t: link: routes.account_login_url }}</p>
+                <div class="h5 fwm mb5">{{ 'cart.login.title' | t }}</div>
+                <p class="color-text">{{ 'cart.login.paragraph_html' | t: link: routes.account_login_url }}</p>
               {%- endif -%}
             </div>
         </div>

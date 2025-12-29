@@ -8,6 +8,9 @@
 {%- capture sizes -%}
 (min-width:1024px) calc({{ page_width }} / {{ section_st.grid }}),(min-width:768px) calc(100vw / {{ section_st.gridtb }}), calc(100vw / {{ section_st.gridmb }})
 {%- endcapture -%}
+<style>
+  .product-recommendations:not(.rcm-filled) .sec-ttl {display:none;}
+</style>
 <div class="product-recommendations recommendad-wrapper sec_cov{% if section_st.hidem %} hide-sm{% endif %}" style="--sbg:{% if section_st.bgg != blank %}{{ section_st.bgg }}{% else %}{{ section_st.bg }}{% endif %};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px">   
     <div class="{% if section_st.sw %}fw-sec{% else %}page-width{% endif %}">
         {%- render 'sec-title' -%}

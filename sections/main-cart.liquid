@@ -41,7 +41,10 @@
 {%- style -%}
     .ctdrawer { display:none!important; }
     .cart tr + tr { border-top:1px solid {{ section_st.cart-header }}; }
-    .cart td,.cart th { border:0; padding:10px 20px; }
+    .cart th { border:0; padding:10px 20px; }
+    .cart td {border: none;padding:20px 7.5px;}
+    .cart td:first-child { padding-left:0; }
+    .cart td:last-child { padding-right:20px; }
     .cart thead tr { font-weight:600; background:{{ section_st.cart-header }}; }
 
     .price { white-space:nowrap; }
@@ -51,10 +54,10 @@
       background-color: #FFF;
     }
 
-    .cart_image { width:80px; padding:20px 0 !important; min-width: 80px; }
+    .cart_image { width:80px; min-width: 80px; box-sizing: content-box; }
     .cart_image img { border-radius:{% if settings.img_rad > 6 %}6{% else %}{{ settings.img_rad}}{% endif %}px; overflow:hidden;}
     .cart_details { width:45%; max-width:300px }   
-    .cart_meta-text { padding:5px 0; }
+    .cart_meta-text { padding:5px 0 0; }
     .cart_meta-text span {display: inline-block;margin-bottom: 10px;}
     .cart .cart_pr a { color:{{ settings.bodycl }};}
 
@@ -82,7 +85,8 @@
     #main-cart-footer.is-empty,.is-empty .cartCountdown, .is-empty .cart, .is-empty .shipCalc { display:none; }
 
     {% if section_st.shipCalc %}
-        .shipCalc { margin:45px 0; }
+        .shipCalc { margin:60px 0 5px; }
+        .shipCalc .spttl {margin-bottom: 40px;}
         .spttl { overflow:hidden; }
         .spttl span { position: relative; }
         .spttl span:before, .spttl span:after { content:" "; border-top:1px solid #ccc; display: block; width:1000px; height:1px; position:absolute; top:50%; }
@@ -96,6 +100,9 @@
     
     .cartCountdown { background: {{ section_st.txtbg }};  color:{{ section_st.txtcl }}; padding: 12px 20px; border-radius: 3px; font-size:14px;margin-bottom:25px; }
     table.cart-items {border-collapse: separate;}
+    .cart-items thead tr th {
+      min-height: 40px;
+    }
     .cart-items thead tr th:first-child {
       border-top-left-radius: 7px;
       border-bottom-left-radius: 7px;
@@ -108,12 +115,26 @@
     .cart_quantity .cart-quantity .qtyBtn {background: transparent;}
     .qtyField.sm .qty, .qtyField.sm .qtyBtn, .qtyField.sm .gprQty { height: 28px; }
     .qtyField.sm input.quantity__input {width: 35px;}
-    .cart-items .cart-item:not(:last-child) td {
-      border-bottom: 1px solid rgba(230, 230, 230, 1);
-    }
+    
     cart-remove-button .svg {width: 18px;height: auto;}
+    .empty-text {margin: 15px 0 19px}
+    .empty-btn {margin-bottom: 30px;}
+    .empty-btn .btn {min-width: 250px;}
+    .cart__blocks .cart-discount-input {min-width: 120px}    
+    .cart__blocks .ad_input {flex-wrap: wrap;}
+    #get-rates-container {min-width: 230px;}
+    
+    @media only screen and (min-width:577px){
+      .cart tr:first-child td { padding-top: 30px; }
+      .cart-items .cart-item:not(:last-child) td {border-bottom: 1px solid rgba(230, 230, 230, 1);}
+    }
     @media only screen and (min-width:1025px){
       .cartCountdown {margin-bottom: 45px;}
+    }
+    @media only screen and (max-width:1024px){
+      #get-rates-container {min-width: 205px;}
+      .title-wrapper .rte {margin-bottom: 20px;}
+      .shipCalc {margin-top: 30px;}
     }
     @media only screen and (max-width:766px){
       .cart_quantity quantity-popover { justify-content: left; margin-top:10px;}
@@ -532,7 +553,7 @@
     <div class="fw-sec">
       <div class="title-wrapper">
         <h1 class="page-title">{{ 'cart.general.title' | t }}</h1>
-        <div class="rte mb45">
+        <div class="rte mb45 color-text">
           {%- if cart.item_count > 0 -%}
             {{ 'cart.general.subtitle' | t: item_count: cart.item_count }}
           {%-  else -%}
@@ -540,7 +561,7 @@
           {%- endif -%}
         </div>
       </div>
-      {% if section_st.cartCount %}
+      {% if section_st.cartCount and cart.item_count > 0 %}
         <div class="cartCountdown tc fl f-jcc f-aic" data-countdown="{{ section_st.countTime | times: 60 }}">
           <svg class="at-icon iconl mr10 hide-sm" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m16 29a13 13 0 1 1 13-13 13.015 13.015 0 0 1 -13 13zm0-24a11 11 0 1 0 11 11 11.013 11.013 0 0 0 -11-11z"/><path d="m16 22a1 1 0 0 1 -1-1v-7a1 1 0 0 1 2 0v7a1 1 0 0 1 -1 1z"/><circle cx="16" cy="11" r="1"/></svg>
             <p> {{ section_st.countMsg | replace:"[time]","<b id='cartTime' class='ml5 mr5 cartTime'></b>" }}</p>
@@ -549,14 +570,13 @@
     </div>
     <div class="cartPage db page-width {% if cart == empty %}is-empty{% endif %}">
         <div class="cart__warnings tc{% if cart != empty %} dn{% endif %}">
-            <svg class="at-icon"><use xlink:href="#icon-cart"></use></svg>
-            <p>{{ 'cart.general.empty' | t }}.</p> 
-            {% if settings.empty_cart != blank %}<p><a href="{{ settings.empty_cart_url }}" class="btn">{{ settings.empty_cart }}</a></p>{% endif %}             
+            {% render 'icon-cart-empty' %}
+            <p class="empty-text">{{ 'cart.general.empty' | t }}.</p> 
+            {% if settings.empty_cart != blank %}<p class="empty-btn"><a href="{{ settings.empty_cart_url }}" class="btn btn6">{{ settings.empty_cart }}</a></p>{% endif %}             
             {%- if shop.customer_accounts_enabled and customer == nil -%}
-                <h2 class="mb5">{{ 'cart.login.title' | t }}</h2>
+                <h2 class="mb10">{{ 'cart.login.title' | t }}</h2>
                 <p>{{ 'cart.login.paragraph_html' | t: link: routes.account_login_url }}</p>
             {%- endif -%}
-            <p>&nbsp;</p><p>&nbsp;</p>
         </div>    
         <div id="cartPage" class="cart{% if section_st.layout == "2" %} grid style2{% else %} style1{% endif %}">
 
