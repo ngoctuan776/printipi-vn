@@ -140,6 +140,7 @@
   "blogs": {
     "article": {
       "all_topics": "All topics",
+      "subtitle": "Có {{ item_count }} bài viết trong blog",
       "by_author": "by",
       "posted_in": "Posted in",
       "read_more": "Read more",

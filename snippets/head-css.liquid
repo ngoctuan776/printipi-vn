@@ -87,7 +87,7 @@
         --ft3:{{ settings.gfont3 | strip | default:settings.gfont1 | strip }};
     {% endif %}
     --site_gutter:15px;
-    --grid_gutter:15px;
+    --grid_gutter:8px;
     --grid_guttert:10px;
     --grid_gutterm:5px;
     --input_height:40px;
@@ -576,7 +576,7 @@ img:-moz-loading { visibility:hidden; }
     .order3-lg{order:3}
   
     .grid-products{margin:0 -{{ settings.grid_space | divided_by:2.0 }}px; row-gap:{{ settings.grid_space }}px}
-    .grid-products .gitem{padding-left:{{ settings.grid_space | divided_by:2.0 }}px;padding-right:{{ settings.grid_space | divided_by:2.0 }}px}
+    .grid-products .gitem{padding-left:8px;padding-right:8px}
 }
 @media (min-width:1400px){
     .col-xl-1{width:100%}
