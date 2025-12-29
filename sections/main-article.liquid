@@ -27,23 +27,23 @@
 	 <article class="{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}" >
       <div class="fl f-col f-row-lg">
       <div class="fl1 w_100{% if section_st.sbposi == 'left' %} order2{% endif %}">   
-      <div class="blog_listview" style="--fs:{{ section_st.tfs }}px;--fsm:{{ section_st.tfsm }}px;--fw:{{ section_st.tfw }};--lh:{{section_st.lh }}">                  
+      <div class="blog_listview" style="--cl: #000000;--fs:{{ section_st.tfs }}px;--fsm:{{ section_st.tfsm }}px;--fw:{{ section_st.tfw }};--lh:{{section_st.lh }}">                  
         <{{ section_st.htag }} class="blogTtl rgTxt mb10{% if section_st.tcase %} ttu{% endif %}">{{ article.title }}</{{ section_st.htag }}>
         {% if section_st.date or section_st.author or blog.comments_enabled? %}
                 <ul class="fl mb20 artDet{% if section_st.post_case %} ttu{% endif %}" style="--icns:14px;">                                               
                   {% if section_st.date %}
                       <li>
-                      <span class="sep-{{ section_st.post_sep }}">{% if section_st.post_sep == '1' %}{% render 'icon-date' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>
+                      <span class="sep-{{ section_st.post_sep }} mr5">{% if section_st.post_sep == '1' %}{% render 'icon-date' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>
                       <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></li>
                   {% endif %}
                   {% if section_st.author %}
                       <li class="fl">
-                      <span class="sep-{{section_st.post_sep }}">{% if section_st.post_sep == '1' %}{% render 'icon-user' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>
+                      <span class="sep-{{section_st.post_sep }} mr5">{% if section_st.post_sep == '1' %}{% render 'icon-user' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>
                       {{ 'blogs.article.by_author' | t }} <span class="ml5">{{ article.author }}</span></li>
                   {% endif %}
                   {% if blog.comments_enabled? and article.comments_count > 0 %}
                   <li class="cmnt">
-                      <span class="sep-{{ section_st.post_sep }}">{% if section_st.post_sep == '1' %}{% render 'icon-comment' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>           
+                      <span class="sep-{{ section_st.post_sep }} mr5">{% if section_st.post_sep == '1' %}{% render 'icon-comment' %} {% elsif section_st.post_sep == '2'%} 〡 {% elsif section_st.post_sep == '3' %} ● {% elsif section_st.post_sep == '4' %} ━ {% endif %}</span>           
                       <a href="{{ article.url }}#comments">{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</a>
                   </li>
                   {% endif %}
