@@ -1,0 +1,35 @@
+{%- liquid 
+    assign section_st = block.settings
+    assign page_width = settings.cntwd | append: 'px'
+    if section_st.sw
+        assign page_width = '100vw'
+    endif
+-%}
+{%- capture sizes -%}
+(min-width:1024px) calc({{ page_width }} / {{ section_st.grid }}),(min-width:768px) calc(100vw / {{ section_st.gridtb }}), calc(100vw / {{ section_st.gridmb }})
+{%- endcapture -%}
+<div class="recent-product sec_cov{% if section_st.hidem %} hide-sm{% endif %}" style="--sbg:{% if section_st.bgg != blank %}{{ section_st.bgg }}{% else %}{{ section_st.bg }}{% endif %};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px"> 
+    <div class="{% if section_st.sw %}snp-fw-sec{% else %}page-width{% endif %}">
+        {%- render 'sec-title-snp', block: block -%}
+        {%- if section_st.carousel -%}
+            <recently-viewed-products data-section-id="{{ section.id }}" data-url="{{ routes.search_url }}?section_id={{ section.id }}" data-id="{{ product.id }}" data-limit="{{ section_st.row | plus: 1 }}"
+              class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products swiper"
+              data-swiper='{ "slidesPerView":"auto", "loop":false, {% if section_st.autoplay %}"autoplay":{ "delay":"{{ section_st.speed | times: 1000 }}" },{% endif %} "navigation":{ "nextEl":".swn{{ block.id }}","prevEl":".swp{{ block.id }}" },"pagination":{ "el":".swpg{{ block.id }}","clickable":false }}'>
+                <div class="swiper-wrapper recentPrList">
+                  {%- for item in search.results -%}
+                    <div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{%- render 'product-card-grid', product: item, section_st:section_st, sizes: sizes -%}</div>
+                  {%- endfor -%}
+                </div>
+                {%- render 'swiper-navigation', id:block.id, section_st:section_st -%}
+            </recently-viewed-products>
+        {%- else -%}
+            <recently-viewed-products data-section-id="{{ section.id }}" data-url="{{ routes.search_url }}?section_id={{ section.id }}" data-id="{{ product.id }}" data-limit="{{ section_st.row | plus: 1 }}"
+              class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products recentPrList">
+                  {% for item in search.results %}
+                    <div class="gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: item, section_st:section_st, sizes: sizes %}</div>
+                  {% endfor %}
+            </recently-viewed-products>
+        {%- endif -%}
+    </div>
+</div>
+<script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>

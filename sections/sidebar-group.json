@@ -1,0 +1,118 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.sidebar",
+  "name": "Sidebar Group",
+  "sections": {
+    "sidebar_menu_main_ErMW3X": {
+      "type": "sidebar-menu-main",
+      "blocks": {
+        "home_qCC7QH": {
+          "type": "home",
+          "settings": {
+            "title": "Trang chủ",
+            "icon": "home"
+          }
+        },
+        "slink_LDdr4k": {
+          "type": "slink",
+          "settings": {
+            "title": "Sản phẩm",
+            "url": "shopify://collections",
+            "icon": "products"
+          }
+        },
+        "slink_xjqmkm": {
+          "type": "slink",
+          "settings": {
+            "title": "Chủ đề",
+            "url": "shopify://collections/frontpage",
+            "icon": "themes"
+          }
+        },
+        "slink_VWbCYN": {
+          "type": "slink",
+          "settings": {
+            "title": "Phong cách [label3]",
+            "url": "shopify://collections/test",
+            "icon": "styles"
+          }
+        },
+        "slink_wXcBA4": {
+          "type": "slink",
+          "settings": {
+            "title": "Bán chạy [label1]",
+            "url": "shopify://pages/contact",
+            "icon": "bestselling"
+          }
+        },
+        "slink_MLCVqN": {
+          "type": "slink",
+          "settings": {
+            "title": "Hàng mới",
+            "url": "shopify://policies/privacy-policy",
+            "icon": "new_product"
+          }
+        }
+      },
+      "block_order": [
+        "home_qCC7QH",
+        "slink_LDdr4k",
+        "slink_xjqmkm",
+        "slink_VWbCYN",
+        "slink_wXcBA4",
+        "slink_MLCVqN"
+      ],
+      "name": "Sidebar Menu Main",
+      "settings": {
+        "logo": "shopify://shop_images/Frame_1.svg",
+        "logowd": 67,
+        "icntyp": "1",
+        "icon": 16,
+        "fs": 12,
+        "cl": "#555555",
+        "clh": "#000000",
+        "gap": 30,
+        "sm_rc_viewed": true,
+        "rcv_name": "Sản phẩm đã xem",
+        "rcv_link": "shopify://collections",
+        "rcv_icon": "recently_viewed",
+        "sm_wishlist": true,
+        "mwl_name": "Yêu thích",
+        "mwl_link": "shopify://pages/wishlist",
+        "mwl_icon": "wishlist",
+        "sm_support": true,
+        "msp_name": "Hỗ trợ",
+        "msp_link": "shopify://pages/contact",
+        "msp_icon": "",
+        "logowdm": 90,
+        "cntlogo": false,
+        "spnav": false,
+        "mbmenu": "main-menu",
+        "catnav": true,
+        "catmenu": "main-menu",
+        "sicnm": true,
+        "icnm": 30,
+        "icnrad": 30,
+        "help": "",
+        "bg": "#ffffff",
+        "bgg": "",
+        "bgrepeat": "no-repeat",
+        "bgposition": "center_center",
+        "bgsize": "auto",
+        "hdrbd": false,
+        "hdrbd_cl": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "sidebar_menu_main_ErMW3X"
+  ]
+}

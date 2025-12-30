@@ -1,0 +1,86 @@
+{% capture product_variant_data %}
+{%- unless product.has_only_default_variant -%}
+{%- liquid
+    assign blk_st = block.settings
+    assign cltype = blk_st.cltype
+    assign othervr = blk_st.othervr
+    assign hidesoldout = ''
+    if blk_st.sold
+        assign hidesoldout = 'hidesoldout'
+    endif
+    if isQuick
+        if settings.qvrsold
+            assign hidesoldout = 'hidesoldout'
+        else
+            assign hidesoldout = ''
+        endif
+        assign cltype = settings.cltype
+        assign othervr = settings.othervr
+    endif    
+-%}
+<variant-selects id="variant-selects-{{ section_id }}" class="db mb{{ blk_st.bm | default: 20 }} {{ hidesoldout }}" data-section="{{ section_id }}" data-msldier="pis{{ section_id }}" data-url="{{ product.url }}"
+    {% if update_url == false %}data-update-url="false"{% endif %} {{ block.shopify_attributes }}>
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_index = option.position | minus: 1
+        assign is_color = false
+        assign option_name = option.name | downcase
+        assign color_options = settings.colorOpt | downcase | replace:", ","," | replace:" , ","," | replace:" ,","," | split: ","
+        for value in option.values
+           if value.swatch.image or value.swatch.color or color_options contains option_name
+            assign is_color = true
+          endif
+        endfor
+
+        assign sizechart = false
+        assign downcased_option = option.name | downcase
+        if size_options contains downcased_option
+            assign sizechart = true
+        endif
+      -%}
+      {%- capture sizechartlink -%}
+          {%- if sizechart and settings.sizechart -%}
+            <a href="#sizechart" class="sizelink popup-link fl f-aic" data-popup="sizechart" aria-haspopup="dialog">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 14H8M8 14H2L5 2H11L8 14ZM4.66667 5H7.25M3.66667 8H6.5M3 11H5.75" stroke="black" stroke-linecap="square"/></svg>
+                {{ 'products.product.size_chart' | t }}
+            </a>
+        {%- endif -%}
+      {%- endcapture -%}
+
+    {%- if is_color and cltype != 'dd' -%}
+          <fieldset class="product-form__input cloptions swatch fl f-wrap pvOpt{{ option_index }}{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% endif %}">
+            <legend class="header bdr0 pd0{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% else %} f-jcsb{% endif %}"><span class="dbi">{{ option.name }}:</span> <span class="ml5" data-opt="{{ option.name }}">{{- option.selected_value -}}</span></legend>
+            {% render 'variant-options', product:product, product_form_id:product_form_id, section_id:section_id, option:option, cltype:cltype, othervr:othervr, is_color:is_color %}
+        </fieldset>
+    {%- elsif is_color and cltype == 'dd' -%}
+        <div class="product-form__input w_100 pvOpt{{ option_index }}{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% else %} f-jcsb{% endif %}">
+          <label class="header" for="Option-{{ section_id }}-{{ forloop.index0 }}"><span class="dbi">{{ option.name }}:</span> <span class="ml5" data-opt="options[{{ option.name | escape }}]">{{- option.selected_value -}}</span></label>
+            <select id="Option-{{ section_id }}-{{ forloop.index0 }}" class="single-option-selector cloptions w_100" name="options[{{ option.name | escape }}]" form="{{ product_form_id }}">
+                {% render 'variant-options', product: product, product_form_id:product_form_id, option:option, cltype:cltype, othervr:othervr %}
+            </select>
+        </div>
+    {%- elsif othervr == 'sw' -%}
+        <fieldset class="product-form__input mfp-link swatch fl f-wrap opton-{{ option.name | handleize }} pvOpt{{ option_index }}{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% endif %}">
+            <legend class="header fl f-aic bdr0 pd0{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% else %} f-jcsb{% endif %}">
+                <span><span class="dbi">{{ option.name }}:</span> <span class="ml5" data-opt="{{ option.name }}">{{- option.selected_value -}}</span></span>
+                {{ sizechartlink }}
+            </legend>
+            {% render 'variant-options', product:product, product_form_id:product_form_id, section_id:section_id, option: option, cltype:cltype, othervr:othervr, is_color: false %}
+        </fieldset>
+    {%- else -%}
+        <div class="product-form__input w_100 mfp-link pvOpt{{ option_index }}{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% endif %}">
+            <label class="header fl f-aic{% if variant-picker == 'quickshop' %} {{ settings.quickview_align }}{% else %} f-jcsb{% endif %}" for="Option-{{ section_id }}-{{ forloop.index0 }}">
+                <span><span class="dbi">{{ option.name }}:</span> <span class="ml5" data-opt="options[{{ option.name | escape }}]">{{- option.selected_value -}}</span></span>
+                {{ sizechartlink }}
+            </label>
+            <select id="Option-{{ section_id }}-{{ forloop.index0 }}" class="single-option-selector w_100" name="options[{{ option.name | escape }}]" form="{{ product_form_id }}">
+                {% render 'variant-options', product:product, product_form_id:product_form_id, option: option, cltype:cltype, othervr:othervr %}
+            </select>
+        </div>
+    {%- endif -%}
+    {%- endfor -%}
+    <script type="application/json" id="variants{{ section_id }}">{{ product.variants | json }}</script>
+  </variant-selects>
+{%- endunless -%}
+{%- endcapture -%}
+{{ product_variant_data | strip_newlines }}

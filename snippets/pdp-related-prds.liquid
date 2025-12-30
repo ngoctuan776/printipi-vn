@@ -1,0 +1,109 @@
+{%- capture related_products -%}
+{%- liquid 
+    assign section_st = block.settings
+    assign page_width = settings.cntwd | append: 'px'
+    if section_st.sw
+        assign page_width = '100vw'
+    endif
+-%}
+{%- capture sizes -%}
+  (min-width:1024px) calc({{ page_width }} / {{ section_st.grid }}),(min-width:768px) calc(100vw / {{ section_st.gridtb }}), calc(100vw / {{ section_st.gridmb }})
+{%- endcapture -%}
+<div class="sec_cov{% if section_st.hidem %} hide-sm{% endif %}" style="--sbg:{% if section_st.bgg != blank %}{{ section_st.bgg }}{% else %}{{ section_st.bg }}{% endif %};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px"> 
+		<div class="related-product" id="{{ block.id }}">
+  <div class="{% if section_st.sw %}snp-fw-sec{% else %}page-width{% endif %}" >
+    {% assign current_product = product %}
+    {% if section_st.type == '1' %}
+		{%- liquid
+        	assign number_of_rows = section_st.limit | plus:1
+		  	assign exclusions = 'frontpage,all' | split: ','
+			assign collection_found = false
+            assign same_vendor = false
+			assign same_type = false
+
+            if collection and collection.all_products_count > 1
+        		unless exclusions contains collection.handle
+        			assign collection_found = true
+        		endunless
+      		endif
+      		unless collection_found
+        		for c in product.collections limit: number_of_rows
+          			unless exclusions contains c.handle or c.all_products_count < 2
+                      assign collection_found = true
+                      assign collection = c
+                      break
+          			endunless
+        		endfor
+      		endunless
+		-%}
+
+        {% if collection_found %}
+          {%- capture related_items -%}
+                {% for product in collection.products limit : number_of_rows %}
+                  {% unless product.handle == current_product.handle %}
+                      {% unless same_vendor and current_product.vendor != product.vendor %}
+                      	  {% unless same_type and current_product.type != product.type %}
+                              <div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: product, section_st:section_st, sizes:sizes %}</div>
+                          {% endunless %}
+                      {% endunless %}
+                  {% endunless %}
+                {% endfor %}
+          {%- endcapture -%}
+        {% endif %}
+    {% elsif section_st.type == '2' %}
+      {%- capture related_items -%}
+      {% for product in product.metafields.custom.related_products.value %}
+        <div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: product, section_st:section_st, sizes:sizes %}</div>
+      {% endfor %}
+      {%- endcapture -%}
+    {% elsif section_st.type == '3' %}
+    	{% assign number_of_rows = section_st.limit | plus:0 %}
+    	{% assign product_count = 0 %}
+        {% paginate collections.all.products by 50 %}
+    	  {%- capture related_items -%}
+                {% for product in collections.all.products %}
+                  	{% if product.handle != current_product.handle and product.type == current_product.type %}
+    					<div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: product, section_st:section_st, sizes:sizes %}</div>
+                  		{% assign product_count = product_count | plus: 1 %}
+                  	{% endif %}
+                  	{% if product_count == number_of_rows %}{% break %}{% endif %}
+                  {% endfor %}
+    		{%- endcapture -%}
+        {% endpaginate %}
+    {% elsif section_st.type == '4' %}
+    	{% assign number_of_rows = section_st.limit | plus:0 %}
+    	{% assign product_count = 0 %}
+        {% paginate collections.all.products by 50 %}
+    	  {%- capture related_items -%}
+                {% for product in collections.all.products %}
+                  	{% if product.handle != current_product.handle and product.vendor == current_product.vendor %}
+    					<div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: product, section_st:section_st, sizes:sizes %}</div>
+                  		{% assign product_count = product_count | plus: 1 %}
+                  	{% endif %}
+                  	{% if product_count == number_of_rows %}{% break %}{% endif %}
+                  {% endfor %}
+    		{%- endcapture -%}
+        {% endpaginate %}
+    {% endif %}
+    
+    {% unless related_items == blank %}
+        {% render 'sec-title-snp', block: block %}
+		<div id="products-{{ block.id }}">
+          {%- if section_st.carousel -%}
+            <slide-section class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products swiper"
+              data-swiper='{ "slidesPerView":"auto", "loop":{{ section_st.loop }}, {% if section_st.autoplay %}"autoplay":{ "delay":"{{ section_st.speed | times: 1000 }}" },{% endif %} "navigation":{ "nextEl":".swn{{ block.id }}","prevEl":".swp{{ block.id }}" },"pagination":{ "el":".swpg{{ block.id }}","clickable":false }}'>
+                <div class="swiper-wrapper">{{ related_items }}</div>
+                {% render 'swiper-navigation', id:block.id, section_st:section_st %}
+            </slide-section>
+        {%- else -%}
+            <div class="grid rwcols-{{ section_st.gridmb }} rwcols-md-{{ section_st.gridtb }} rwcols-lg-{{ section_st.grid }} rwcols-xl-{{ section_st.gridlg }} grid-products">
+                {{ related_items }}
+            </div>
+        {%- endif -%}
+        </div>
+	{% endunless %}
+  </div>
+</div>
+</div>
+{%- endcapture -%}
+{{ related_products | strip_newlines | remove: "  " | remove: "	" }}
