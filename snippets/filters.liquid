@@ -18,7 +18,9 @@
     {% endif %}
 	{%- assign total_active_values = 0 -%}
 	{% if section_st.filters %}
-  	<div class="closeFilter{% if section_st.sbpos != 'popup' %} hide-lg{% endif %}"><svg class="at-icon"><use xlink:href="#icon-close"></use></svg></div>
+  	<div class="closeFilter{% if section_st.sbpos != 'popup' %} hide-lg{% endif %}">
+      {% render 'icon-close' %}
+    </div>
 	<div class="filterWrap fl {{ flclass }}" data-url="{{ shop.url }}{{ collection.url | split: "?" | first }}"{% if section_st.sbpos == 'top' %} style="--gap:35px;"{% endif %}>
       	{% for block in section.blocks %}
           {%- assign blk_st = block.settings -%}
@@ -60,7 +62,7 @@
           {%- endif -%}
 
       	  {%- if block.type == 'filter_by' -%}
-      		{%- if blk_st.title != blank -%}<label class="{{ section_st.tff }} flby mb20 {{ section_st.bx_ttlw }}{% if section_st.sbpos != 'top' %} col-1{% else %} f-asc mr10{% endif %}">{{ blk_st.title }}</label>{%- endif -%}
+      		{%- if blk_st.title != blank -%}<label class="{{ section_st.tff }} color-main-text mb20 {{ section_st.bx_ttlw }}{% if section_st.sbpos != 'top' %} col-1{% else %} f-asc mr10{% endif %}">{{ blk_st.title }}</label>{%- endif -%}
             {%- liquid
                 if request.page_type == 'search'
                   assign filters = search.filters
@@ -76,11 +78,13 @@
                           <summary class="flTtl fl f-jcsb f-aic">
                               <span class="{{ section_st.bx_ttlw }} {{ section_st.bx_tcase }} {{ section_st.tff }}">
                                 {{- filter.label | escape -}}
-                                <span class="count-bubble">{% if filter.active_values.size > 0 %}{{ filter.active_values.size }}{% endif %}</span>
+                                {% comment %} <span class="count-bubble">{% if filter.active_values.size > 0 %}{{ filter.active_values.size }}{% endif %}</span> {% endcomment %}
                               </span>
                               {% unless section_st.tglico %}
-                                <svg class="at-icon plus"><use xlink:href="#icon-plus"></use></svg>
-                                <svg class="at-icon minus"><use xlink:href="#icon-minus"></use></svg>
+                                {% render 'icon-arrow-right' %}
+                                {% render 'icon-arrow-down' %}
+                                {% comment %} <svg class="at-icon plus"><use xlink:href="#icon-plus"></use></svg>
+                                <svg class="at-icon minus"><use xlink:href="#icon-minus"></use></svg> {% endcomment %}
                               {% endunless %}
                           </summary>
                         
@@ -97,7 +101,7 @@
                                   <span class="facets__selected no-js-hidden">{{ 'collections.general.filters_selected' | t: count: filter.active_values.size }}</span>
                                   <a href="{{ filter.url_to_remove }}" class="facets__reset link underlined-link js-facet-remove" >{{ 'collections.general.reset' | t }}</a>
                               </div>
-                              <ul class="flList {{ section_st.optcase }}{% if filter.presentation == 'swatch' %} fl f-wrap gap{% endif %}" role="list" {% if is_size %}style="column-count:2"{% endif %}>
+                              <ul class="flList {{ section_st.optcase }}{% if filter.presentation == 'swatch' %} fl f-wrap gap{% endif %}" role="list" {% if is_size %}style="column-count:2;--gap: 4px;"{% else  %}style="--gap: 4px;"{% endif %}>
                               {%- for value in filter.values -%}
                                 {%- if filter.presentation == 'swatch' -%}
                                   {%- liquid
@@ -111,10 +115,10 @@
                                     endif
                                   -%}
                                   <li class="color">
-									<label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="m0 fl-checkbox{% if value.count == 0 and value.active == false %} disabled{% endif %}">
+                                    <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="m0 fl-checkbox{% if value.count == 0 and value.active == false %} disabled{% endif %}">
                                     	<input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" id="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="custCheck dyfl"
                                             {%- if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>{{-  -}}
-                                        <span class="swt swt{{ value.value | handleize }} pr of_hidden clrbox" style="background:{{ swatch_value }};"></span>
+                                        <span class="swt swt{{ value.value | handleize }} pr of_hidden clrbox" style="background:{{ swatch_value }};--color: {{ swatch_value }}"></span>
                                         <span class="tooltip-label top">{{ value.label }}</span>
                                   	</label>
                                   </li>
@@ -145,8 +149,8 @@
                                   {{- filter.label | escape -}}
                                   <span class="count-bubble{% if filter.min_value.value or filter.max_value.value %}{{ filter.active_values.size }} count-bubble--dot{% endif %}"></span>
                                   {% unless section_st.tglico %}
-                                    <svg class="at-icon plus"><use xlink:href="#icon-plus"></use></svg>
-                                    <svg class="at-icon minus"><use xlink:href="#icon-minus"></use></svg>
+                                  {% render 'icon-arrow-right' %}
+                                  {% render 'icon-arrow-down' %}
                                   {% endunless %}
                               </span>
                           </summary>
@@ -156,7 +160,7 @@
 								<span class="facets__selected">{{ "collections.general.max_price_html" | t: price: max_price_amount }}</span>
 								<a href="{{ filter.url_to_remove }}" class="facets__reset link underlined-link js-facet-remove" >{{ 'collections.general.reset' | t }}</a>
 							</div>
-                            <price-range class="fl f-jcsb f-aic flList mb20 {{ section_st.optcase }}">
+                            <price-range class="fl f-jcsb f-aic flList mb20 gap10 {{ section_st.optcase }}">
                               {%- liquid
                                    assign last_two = filter.range_max | modulo: 100
                                    assign difference = 100 | minus: last_two
@@ -186,7 +190,7 @@
                                 <label for="Filter-Price-GTE" class="hidden_txt">{{ filter.label | escape }}-GTE</label>
                                 <input class="prRange w_100" name="{{ filter.min_value.param_name }}" id="Filter-Price-GTE" type="number" placeholder="0" min="0" value="{{ min_value }}" max="{{ max_price }}" />
                               </div>
-                              <span class="ml20 mr20"> - </span>
+                              {% comment %} <span class="ml20 mr20"> - </span> {% endcomment %}
                               <div class="field pr">
                                 <label for="Filter-Price-LTE" class="hidden_txt">{{ filter.label | escape }}-LTE</label>
                                 <input class="prRange w_100" name="{{ filter.max_value.param_name }}" id="Filter-Price-LTE" type="number" placeholder="{{ max_price }}" min="0" value="{{ max_value }}" max="{{ max_price }}" />

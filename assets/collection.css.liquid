@@ -2,11 +2,13 @@
 #Collection.npd .page-title, #Collection.npd .rte, #Collection.npd #main-collection-filters, #Collection.npd .tlbr, #Collection.npd .tlbr .active-facets  { padding-left:20px; padding-right:20px;}
   
 .sidebar {width:300px;}
-.sb_filter .closeFilter {background: #FFFFFF; color: var(--wdtcl); cursor: pointer; position: absolute; top: 10px; right: 0px; z-index: 666; padding: 6px 18px;}
-.sb_popup { width:350px; height:100%; position:fixed; top:0; left:-105%; z-index:668; box-shadow:0 0 5px rgba(0,0,0,.3) }
+.sb_filter .closeFilter {background: #FFFFFF; color: var(--wdtcl); cursor: pointer; position: absolute; top: 20px; right: 18px; z-index: 666; padding: 0;}
+.sb_popup { width:250px; height:100%; position:fixed; top:0; left:-105%; z-index:668; box-shadow:0 0 5px rgba(0,0,0,.3) }
 .sb_popup.active { left:0 }
 .sb_popup .filterWrap { padding:20px 20px 25px; overflow:auto; height:100%; background:var(--sidebar_bg); }
-
+.sb_popup .filterWrap > label { font-size: 16px; }
+.filterWrap span.checkbox {width: 13px;height: 13px; }
+input:checked+span.checkbox:before { width: 8px; height: 8px; }
 .count-bubble:empty { visibility: hidden; display:none; }
 .count-bubble--dot:empty { visibility: visible; }
 .count-bubble--dot::before { content:''; width:0.2rem; height:0.2rem; display:block; background-color:#fff; border-radius:50%; }
@@ -28,21 +30,15 @@ select.select__select {
 }
 .btn-sort_by > * {pointer-events: none;}
 .btn-sort_by:hover {color: var(--color-main-text)}
-@media only screen and (min-width:1025px){
-  .sb_popup .filterWrap {padding:20px 30px 25px;}
-  .activFilter .sb_popup { left:0; }
-  .sb_filter .closeFilter {top: 5px; right: 10px;  padding: 15px;}
-  .sb_filter .closeFilter .at-icon {width:20px; height:20px;}
-}
 
 .filterBx { width:100%; z-index:5; }
 .filterBx .bxTtl, .filterBx:not([open]) .flTtl .minus,
 .filterBx[open] .plus { display:none; }
 
 .flTtl { cursor:pointer; }
-.flTtl, .flby { color:var(--ttl_cl); font-size:var(--ttl_fs); margin-bottom:15px;}
+.flTtl, .flby { font-size:12px; line-height: 20px; margin-bottom:15px;}
 .flTtl .at-icon { width:12px; height:12px; z-index:111; cursor:pointer; margin-left:auto; }
-.filterDD {color:var(--opt_cl); max-height:350px; margin-bottom:30px; overflow-y:auto; }
+.filterDD {max-height:350px; margin-bottom:30px; overflow-y:auto; }
 .flTtl::-webkit-details-marker { display: none;}
   
 .filterDD .slider-container { width:220px !important; margin:0 5px;}
@@ -50,11 +46,8 @@ select.select__select {
 .flTop .filterClr .flList { padding-top:6px;}
 .flTop .filterClr .tooltip-label {font-size: 10px; line-height: 15px;}
 
-@media only screen and (min-width:1025px){
-	.filterDD .slider-container { width:240px !important;}
-}
 .flList li { padding:4px 0; }
-.flList li label { font-size:var(--opt_fs); line-height:normal; display:inline-flex; align-items:center;}
+.flList li label { font-size:12px; line-height:normal; display:inline-flex; align-items:center;}
 .flList li:not(.color) .fl-checkbox.disabled { opacity:.6; }
 
 .prcnt { font-size: {{settings.cl_bl_links | minus:1}}px; }
@@ -63,7 +56,7 @@ select.select__select {
 .filterClr .color { position:relative; padding:0; line-height:0; }
 .filterClr .color:hover .tooltip-label { opacity:1; visibility:visible; bottom:calc(100% + 7px); }
 .filterClr .swt { display:inline-block; width:var(--swatch_size); height:var(--swatch_size); line-height:var(--swatch_size); text-align:center; border-radius:var(--swatch_rounded); background-size:cover!important;}
-.filterClr input:checked + .swt { box-shadow:0 0 0 1px var(--filter_bdr), 0 0 0 1px #fff inset; }
+.filterClr input:checked + .swt { box-shadow:0 0 0 1px var(--color, --filter_bdr), 0 0 0 1px #fff inset; }
 .swtwhite { border:1px solid #ddd; }
  
 .flList .fl-checkbox.disabled .clrbox {opacity:0.5;}
@@ -73,8 +66,14 @@ select.select__select {
 .pagination ul { padding-top:20px;}
 .pagination li a { display:block; text-align:center; font-size:12px; {{ settings.bodycl |  color_lighten:20 }}; height:40px; width:40px; line-height:38px; border:1px solid {{ settings.color_borders}}; margin:0 4px; }
 .pagination li.active a { border:1px solid {{ settings.color_borders | color_darken:9}}; color:{{settings.bodycl}}; }
-	
-@media only screen and (min-width:1024px){
+
+@media only screen and (min-width:1025px){
+  .sb_popup .filterWrap > label { margin-bottom: 35px; }
+  .sb_popup .filterWrap {padding:20px 30px 25px;}
+  .activFilter .sb_popup { left:0; }
+  .sb_filter .closeFilter svg {width:24px; height:24px;}
+  
+	.filterDD .slider-container { width:240px !important;}
   .sb_filter { margin-right:40px; border-radius:{{settings.img_rad}}px; }
   .sb_right { margin:0 0 0 30px; }
 
@@ -96,14 +95,16 @@ select.select__select {
   .filterClr { max-width:280px;}
 
   .loadFilters .main-content { opacity:0.5; }
+  
+  .filterBx .flTtl svg {margin-right: -10px;}
 }
 
-.prRange { padding:8px 15px 8px 26px; line-height:18px; margin:0; border-radius:3px; min-width:100px; }
+.prRange { padding:5px 15px 5px 26px; line-height:18px; margin:0; min-width:90px; height: 36px;}
 
 .sortBy { background-color:transparent; padding:7px 25px 7px 15px; }
 
-.active-fl { color:var(--act_filter_cl); background-color:var(--act_filter_bg); display:inline-block; padding:5px 12px; border:1px solid var(--act_filter_bdr); border-radius:3px; white-space:nowrap; cursor:pointer; }
-.active-fl:hover { color:var(--act_filter_cl); opacity:0.8; }
+.active-fl { color:var(--act_filter_cl); background-color:var(--act_filter_bg); display:flex; align-items:center; gap: 5px; padding:4px 12px; border:1px solid var(--act_filter_bdr); border-radius:8px; white-space:nowrap; cursor:pointer; height: 30px;}
+.active-fl:hover { background: #000; color: #fff; border-color: #000; }
 .active-fl .at-icon { width:10px; height:10px; margin-left:5px; }
 .active-fl:only-child { display:none; }
 
@@ -131,7 +132,7 @@ select.select__select {
 .collection--empty { margin:50px; text-align:center; background: #fafafa; padding:40px; width: 100%;}
 .collection--empty .collection-product-count {display:none;}
 
-tc-range-slider { padding:0 10px; display:block; }
+tc-range-slider { padding:0 5px; display:block; }
 
 .banner_text { bottom:0; color:var(--cl); line-height: 1.4;}
 

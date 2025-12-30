@@ -26,14 +26,14 @@
   :root { 
     --filter_bg:{{ section_st.filter_bg }};	--tfilter_bdr:{{ section_st.flbdr }}; --ttl_fs:{{ section_st.ttl_fs }}px; --filterby:{{ section_st.ttl_fs | minus:1 }}px; --ttl_cl:{{ section_st.ttl_cl }};
     --opt_fs:{{ section_st.opt_fs }}px; --optp:{{ section_st.opt_fs | plus : 1 }}px; --opt_cl:{{ section_st.opt_cl }};
-    --filter_bdr:{{ section_st.filter_bdr }}; --act_filter_bdr:{{ section_st.act_filter_cl | color_modify:'alpha', 0.2 }}; --act_filter_cl:{{ section_st.act_filter_cl }}; --act_filter_bg:{{ section_st.act_filter_bg }};
+    --filter_bdr:{{ section_st.filter_bdr }}; --act_filter_bdr:{{ section_st.act_filter_cl }}; --act_filter_cl:{{ section_st.act_filter_cl }}; --act_filter_bg:{{ section_st.act_filter_bg }};
     --opt_cl_hov :{{ section_st.opt_cl_hov }}; --crsymbol:'{{ cart.currency.symbol }}'; --sidebar_bg:{{ section_st.sidebar_bg }};
-    --swatch_size :{{section_st.swatch_size}}px; --swatch_rounded:{{section_st.swatch_rounded}}px; {%- if section.settings.headings_cl != 'rgba(0,0,0,0)' and section.settings.headings_cl != blank -%}--all_text:{{section_st.headings_cl}}; {% endif %}
+    --swatch_size :{{section_st.swatch_size}}px; --swatch_rounded:{{section_st.swatch_rounded}}px;
+    /* {%- if section.settings.headings_cl != 'rgba(0,0,0,0)' and section.settings.headings_cl != blank -%}--all_text:{{section_st.headings_cl}}; {% endif %} */
   }
   
   {%- if section_st.dis_botbdr -%}
-  .flTtl {border-bottom:1px solid {{ section_st.flbtmbdr }}; padding-bottom:15px;}
-  .filterDD {margin:5px 0 25px;}
+  .filterDD {margin:5px 0 23px;}
   .filterBx {margin-bottom:0;}
   .sdBlock {margin-bottom:20px }
   {%- endif -%}
@@ -48,7 +48,7 @@
  {%- if section_st.tbg -%}
    .flTop { padding:10px 20px; background-color:var(--filter_bg); border:1px solid var(--tfilter_bdr); }
  {%- endif -%}
-   price-range.flList .field:before { content:'{{ cart.currency.symbol }}'; position:absolute; top:7px; {{ left_right }}:15px; }
+   price-range.flList .field:before { content:'{{ cart.currency.symbol }}'; position:absolute; top:8px; {{ left_right }}:15px; font-weight:500; color:var(--color-main-text); }
 {% endstyle %}
 {%- endcapture -%}
 {{- sct_styles | strip_newlines | remove:'	' -}}
@@ -56,8 +56,12 @@
 {%- paginate collection.products by section_st.prpp -%}
 
 {%- capture active_filters -%}
-  	<div id="activeFilters" class="active-facets fl f-wrap gap mb10" style="--gap:10px;">
-        <a href="{{ collection.url }}?sort_by={{ sort_by }}&pgview={% if pageurl == 'list' %}list{% else %}grid{% endif %}" class="active-fl removefl">{{ 'collections.general.clear_all' | t }}</a>
+  	<div id="activeFilters" class="active-facets fl f-wrap gap" style="--gap:10px;">
+      <button type="button" class="btn-filter fl f-aic fwm {% if section_st.sbpos != 'popup' %} hide-lg{% endif %}" area-label="{{ 'collections.general.filter_button' | t }}">
+        <svg class="at-icon mr5" fill="none" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m3 6.25c-.41421 0-.75.33579-.75.75s.33579.75.75.75zm0 10c-.41421 0-.75.3358-.75.75s.33579.75.75.75zm6 1.5c.41421 0 .75-.3358.75-.75s-.33579-.75-.75-.75zm12 0c.4142 0 .75-.3358.75-.75s-.3358-.75-.75-.75zm-6-11.5c-.4142 0-.75.33579-.75.75s.3358.75.75.75zm6 1.5c.4142 0 .75-.33579.75-.75s-.3358-.75-.75-.75zm-18 0h3v-1.5h-3zm0 10h6v-1.5h-6zm15 0h3v-1.5h-3zm-3-10h6v-1.5h-6zm2.25 9.25c0 1.2426-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.6789 3.75-3.75zm-2.25 2.25c-1.2426 0-2.25-1.0074-2.25-2.25h-1.5c0 2.0711 1.6789 3.75 3.75 3.75zm-2.25-2.25c0-1.2426 1.0074-2.25 2.25-2.25v-1.5c-2.0711 0-3.75 1.6789-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.0074 2.25 2.25h1.5c0-2.0711-1.6789-3.75-3.75-3.75zm-3.75-7.75c0 1.24264-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.67893 3.75-3.75zm-2.25 2.25c-1.24264 0-2.25-1.00736-2.25-2.25h-1.5c0 2.07107 1.67893 3.75 3.75 3.75zm-2.25-2.25c0-1.24264 1.00736-2.25 2.25-2.25v-1.5c-2.07107 0-3.75 1.67893-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.00736 2.25 2.25h1.5c0-2.07107-1.6789-3.75-3.75-3.75z" fill="#28303f"/></svg>
+          {{ 'collections.general.filter_button' | t }}
+      </button>
+      <a href="{{ collection.url }}?sort_by={{ sort_by }}&pgview={% if pageurl == 'list' %}list{% else %}grid{% endif %}" class="active-fl removefl">{{ 'collections.general.clear_all' | t }}</a>
         {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
                 <a class="active-fl removefl" href="{{ value.url_to_remove }}">{{ value.label | escape }} <svg class="at-icon"><use xlink:href="#icon-close"></use></svg></a>
@@ -246,16 +250,14 @@
                     </filters-form>
 				{%- endif -%}
             
-				<div class="tlbr fl f-jcsb f-aic mb10">                  	
+				<div class="tlbr fl f-jcsb f-aic pb20 grid gap10">
           {%- if section_st.filters -%}
-          <button type="button" class="btn-filter fl f-aic fwm mr15 {% if section_st.sbpos != 'popup' %} hide-lg{% endif %}" area-label="{{ 'collections.general.filter_button' | t }}">
-            <svg class="at-icon mr5" fill="none" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m3 6.25c-.41421 0-.75.33579-.75.75s.33579.75.75.75zm0 10c-.41421 0-.75.3358-.75.75s.33579.75.75.75zm6 1.5c.41421 0 .75-.3358.75-.75s-.33579-.75-.75-.75zm12 0c.4142 0 .75-.3358.75-.75s-.3358-.75-.75-.75zm-6-11.5c-.4142 0-.75.33579-.75.75s.3358.75.75.75zm6 1.5c.4142 0 .75-.33579.75-.75s-.3358-.75-.75-.75zm-18 0h3v-1.5h-3zm0 10h6v-1.5h-6zm15 0h3v-1.5h-3zm-3-10h6v-1.5h-6zm2.25 9.25c0 1.2426-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.6789 3.75-3.75zm-2.25 2.25c-1.2426 0-2.25-1.0074-2.25-2.25h-1.5c0 2.0711 1.6789 3.75 3.75 3.75zm-2.25-2.25c0-1.2426 1.0074-2.25 2.25-2.25v-1.5c-2.0711 0-3.75 1.6789-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.0074 2.25 2.25h1.5c0-2.0711-1.6789-3.75-3.75-3.75zm-3.75-7.75c0 1.24264-1.0074 2.25-2.25 2.25v1.5c2.0711 0 3.75-1.67893 3.75-3.75zm-2.25 2.25c-1.24264 0-2.25-1.00736-2.25-2.25h-1.5c0 2.07107 1.67893 3.75 3.75 3.75zm-2.25-2.25c0-1.24264 1.00736-2.25 2.25-2.25v-1.5c-2.07107 0-3.75 1.67893-3.75 3.75zm2.25-2.25c1.2426 0 2.25 1.00736 2.25 2.25h1.5c0-2.07107-1.6789-3.75-3.75-3.75z" fill="#28303f"/></svg>
-              {{ 'collections.general.filter_button' | t }}
-          </button>
+            <div class="action-filter fl f-aic f-wrap gap10">
+              {{ active_filters }}
+            </div>
           {%- endif -%}
           {{ productcount }}{{ pr_view }}{{ shorting }}
         </div>
-        {{ active_filters }}
 				{{ products_list | strip_newlines }}
         {%- if collection.description != blank and section_st.des_pos == "2" -%}<div class="rte cl_desc mt30">{{ collection.description }}</div>{%- endif -%}	
 			</div>          

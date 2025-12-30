@@ -221,30 +221,30 @@
   },
   "collections": {
     "general": {
-      "all": "All Collections",
-      "apply": "Apply",
-      "clear": "Clear",
-      "clear_all": "Clear All",
-      "empty": "No products found",
-      "filter_button": "Filters",
+      "all": "Tất cả bộ sưu tập",
+      "apply": "Áp dụng",
+      "clear": "Xóa",
+      "clear_all": "Xóa hết",
+      "empty": "Không tìm thấy sản phẩm",
+      "filter_button": "Bộ lọc",
       "filters_selected": {
-        "one": "{{ count }} selected",
-        "other": "{{ count }} selected"
+        "one": "Đã chọn {{ count }}",
+        "other": "Đã chọn {{ count }}"
       },
-      "max_price_html": "The highest price is {{ price }}",
+      "max_price_html": "Giá cao nhất là {{ price }}",
       "product_count": {
-        "one": "Showing {{ product_count }} of {{ count }} product",
-        "other": "Showing {{ product_count }} of {{ count }} products"
+        "one": "Hiển thị {{ product_count }} trên {{ count }} sản phẩm",
+        "other": "Hiển thị {{ product_count }} trên {{ count }} sản phẩm"
       },
-      "reset": "Reset",
-      "sort_button": "Sort",
-      "sort_by_label": "Sort by:",
-      "title": "Collection",
-      "use_fewer_filters_html": "Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">clear all</a>",
-      "no_matches": "Sorry, there are no products in this collection",
+      "reset": "Đặt lại",
+      "sort_button": "Sắp xếp",
+      "sort_by_label": "Sắp xếp theo:",
+      "title": "Bộ sưu tập",
+      "use_fewer_filters_html": "Sử dụng ít bộ lọc hơn hoặc <a class=\"{{ class }}\" href=\"{{ link }}\">xóa tất cả</a>",
+      "no_matches": "Xin lỗi, không có sản phẩm nào trong bộ sưu tập này",
       "items_with_count": {
-        "one": "{{ count }} item",
-        "other": "{{ count }} items"
+        "one": "{{ count }} sản phẩm",
+        "other": "{{ count }} sản phẩm"
       }
     }
   },
