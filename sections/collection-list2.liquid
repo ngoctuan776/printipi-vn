@@ -40,7 +40,11 @@
                 %}
                 
                 <div class="gitem{% if section_st.carousel %} swiper-slide{% endif %} {% render 'animate-data', css:true %}" {% render 'animate-data' %} {{ block.shopify_attributes }}>
-                      <a href="{{ blk_st.url | default:collection.url }}" class="db pr of_hidden brad{% if section_st.zoom %} zoom_hov{% endif %}" title="{{ blk_st.title }}" style="--rounded:{{ section_st.irad}}px;">
+                    {% if blk_st.collection != blank %}
+                        <a href="{{ blk_st.url | default:collection.url }}" class="db pr of_hidden brad{% if section_st.zoom %} zoom_hov{% endif %}" title="{{ blk_st.title }}" style="--rounded:{{ section_st.irad}}px;">
+                    {% else %}
+                        <div class="db pr of_hidden brad{% if section_st.zoom %} zoom_hov{% endif %}" style="--rounded:{{ section_st.irad}}px;">
+                    {% endif %}
                         <div class="img pr of_hidden overlay" style="--overlay:{{ section_st.img_ol}};">
                           {%- if collection_image != blank -%}
                             {{ collection_image | image_url: width: collection_image.width | image_tag: loading:'lazy', class:'imgFt', alt: img_alt, sizes:sizes, widths:"180,320,400,560,740,900,1200" }}
@@ -56,7 +60,11 @@
                             {% if blk_st.btntxt != blank %}<button class="btn mt20 {{ section_st.btn-size }} {{ section_st.btn-style }}"  type="button">{{ blk_st.btntxt }}</button>{% endif %}
                         </div>
                        </div>
+                    {% if blk_st.collection != blank %}
                       </a>
+                    {% else %}
+                      </div>
+                    {% endif %}
                 </div>
             {% endfor %}
             {% if section.blocks.size == 0 %}{% render 'no-blocks' %}{% endif %}
