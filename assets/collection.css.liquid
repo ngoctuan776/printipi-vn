@@ -94,11 +94,11 @@ select.select__select {
   .tlbr .tpShort { display:none; }
   .filterClr { max-width:280px;}
 
-  .loadFilters .main-content { opacity:0.5; }
-  
+  /* .loadFilters .main-content { opacity:0.5; } */
   .filterBx .flTtl svg {margin-right: -10px;}
 }
 
+.loadFilters .modalOverly {z-index: 669;}
 .prRange { padding:5px 15px 5px 26px; line-height:18px; margin:0; min-width:90px; height: 36px;}
 
 .sortBy { background-color:transparent; padding:7px 25px 7px 15px; }
@@ -118,7 +118,7 @@ select.select__select {
 
 @media only screen and (max-width:1024px){
   .flForm { height:100%; overflow:auto; }
-  .sb_popup, .sb_filter { width:300px; height:100%; padding:0; position:fixed; top:0; left:-105%; z-index:777; margin:0; flex-direction:column; background-color:var(--filter_bg); box-shadow:0 0 5px rgba(0,0,0,.3) }
+  .sb_popup, .sb_filter { width:300px; height:100%; padding:0; position:fixed; top:0; left:-105%; margin:0; flex-direction:column; background-color:var(--filter_bg); box-shadow:0 0 5px rgba(0,0,0,.3) }
   .activFilter .sb_filter { left:0; }
   .filterWrap { padding:20px; overflow:auto; max-height:100%; } 
   .prView, .flTop .tpShort { display:none; }
