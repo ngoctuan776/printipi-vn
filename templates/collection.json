@@ -352,8 +352,8 @@
         "fe1f3e3a-2385-4c5b-b338-ed0c295ba47a": {
           "type": "filter_by",
           "settings": {
-            "title": "Filter",
-            "flpcnt": false
+            "title": "Bộ lọc",
+            "flpcnt": true
           }
         },
         "c48c56f1-0620-4109-aef0-490223599f1d": {
@@ -417,14 +417,14 @@
         "optcase": "ttn",
         "opt_cl": "#000000",
         "opt_cl_hov": "#89ceb5",
-        "swatch_size": 18,
+        "swatch_size": 16,
         "swatch_rounded": 30,
         "filter_bdr": "#000000",
-        "act_filter_cl": "#ffffff",
-        "act_filter_bg": "#222222",
+        "act_filter_cl": "#000000",
+        "act_filter_bg": "#ffffff",
         "bar": "#eeeeee",
         "bara": "#111111",
-        "flcolumn": "Brand, Size",
+        "flcolumn": "",
         "sw": true,
         "npd": false,
         "bg": "#ffffff",

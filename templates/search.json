@@ -11,6 +11,7 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -23,8 +24,8 @@
         "c4f10dbd-b43f-47cf-add8-aed15f535658": {
           "type": "filter_by",
           "settings": {
-            "title": "",
-            "flpcnt": false
+            "title": "Bộ lọc",
+            "flpcnt": true
           }
         }
       },
@@ -32,16 +33,17 @@
         "c4f10dbd-b43f-47cf-add8-aed15f535658"
       ],
       "settings": {
-        "pcount": true,
+        "pcount": false,
         "gridicn": true,
         "sortby": true,
+        "gridlg": 5,
         "grid": 4,
         "gridtb": 3,
         "gridmb": 2,
-        "prpp": 12,
+        "prpp": 5,
         "pagination": "infinite",
         "filters": true,
-        "sbpos": "left",
+        "sbpos": "popup",
         "tbg": false,
         "filter_bg": "#ffffff",
         "flbdr": "#eeeeee",
@@ -63,22 +65,22 @@
         "swatch_size": 18,
         "swatch_rounded": 30,
         "filter_bdr": "#000000",
-        "act_filter_cl": "#000000",
-        "act_filter_bg": "#ffffff",
+        "act_filter_cl": "#ffffff",
+        "act_filter_bg": "#000000",
         "bar": "#eeeeee",
         "bara": "#333333",
-        "flcolumn": "Size",
-        "sw": false,
+        "flcolumn": "",
+        "sw": true,
         "npd": true,
         "bg": "",
         "bgg": "",
         "overlay": "#3d4246",
         "overlay_op": 0,
         "headings_cl": "#111111",
-        "sst": 50,
-        "ssb": 50,
-        "sstm": 25,
-        "ssbm": 25,
+        "sst": 30,
+        "ssb": 30,
+        "sstm": 20,
+        "ssbm": 20,
         "hidem": false,
         "hided": false
       }
