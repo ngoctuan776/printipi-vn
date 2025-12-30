@@ -17,25 +17,25 @@
       "hide_message": "Don’t show this popup again"
     },
     "search": {
-      "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
+      "no_results_html": "Không tìm thấy kết quả nào cho \"{{ terms }}\".",
       "results_with_count": {
-        "one": "{{ count }} result for \"{{ terms }}\"",
-        "other": "{{ count }} results for \"{{ terms }}\""
+        "one": "{{ count }} kết quả cho \"{{ terms }}\"",
+        "other": "{{ count }} kết quả cho \"{{ terms }}\""
       },
       "heading": {
-        "one": "Search result",
-        "other": "Search results"
+        "one": "Kết quả tìm kiếm",
+        "other": "Kết quả tìm kiếm"
       },
-      "placeholder": "Search products",
-      "placeholder_blog": "Search for article",
-      "tool_tip": "Search",
-      "submit": "Submit",
-      "close": "Close search",
-      "suggestions": "Suggestions",
-      "pages": "Pages",
-      "all": "See all results for \"{{ terms }}\"",
-      "page_label": "Page",
-      "article_label": "Article"
+      "placeholder": "Tìm kiếm sản phẩm",
+      "placeholder_blog": "Tìm kiếm bài viết",
+      "tool_tip": "Tìm kiếm",
+      "submit": "Gửi",
+      "close": "Đóng tìm kiếm",
+      "suggestions": "Gợi ý",
+      "pages": "Trang",
+      "all": "Xem tất cả kết quả cho \"{{ terms }}\"",
+      "page_label": "Trang",
+      "article_label": "Bài viết"
     },
     "breadcrumbs": {
       "home": "Home",
