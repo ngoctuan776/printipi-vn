@@ -71,10 +71,29 @@ class FiltersForm extends HTMLElement {
       this.priceRangeSlider();
       this.removeFilters();
       this.selectSort();
+      this.selectFilterTop();
   }
   selectSort(){
     var shortby = document.getElementById('SortBy');
     shortby.addEventListener('change', this.onFormSubmit.bind(this));
+  }
+  selectFilterTop(){
+    // Handle click filter top
+    const filterTop = document.querySelectorAll('.filter-top input');
+    filterTop.forEach((input) => {
+      input.addEventListener('change', (e) => {
+        // get values
+        const inputName = input.name;
+        const inputValue = input.value;
+        console.log('Filter changed:', inputName, inputValue);
+        // Find input hidden in form sidebar and trigger change
+        const sidebarInput = document.querySelector(`filters-form input[name="${inputName}"][value="${inputValue}"]`);
+        if (sidebarInput) {
+          sidebarInput.checked = input.checked;
+          sidebarInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
   }
   selectFilters(){
     var filters = this.querySelectorAll('input');
@@ -115,6 +134,7 @@ class FiltersForm extends HTMLElement {
         const html = new DOMParser().parseFromString(responseText, 'text/html'),
           products = document.getElementById('collectionPr'),
           filters = this.querySelector('.filterWrap'),
+          filterTop = document.querySelector('.filter-top'),
           counts = document.getElementById('itemsCount'),
           pagination = document.getElementById('pagination'),
           paginationSource =  html.querySelector('#pagination'),
@@ -124,6 +144,7 @@ class FiltersForm extends HTMLElement {
         if(activeFilters) activeFilters.innerHTML = html.querySelector('#activeFilters').innerHTML;
         if(products) products.innerHTML = html.querySelector('#collectionPr').innerHTML;
         if(filters) filters.innerHTML = html.querySelector('.filterWrap').innerHTML;
+        if(filterTop) filterTop.innerHTML = html.querySelector('.filter-top').innerHTML;
         if(pagination && paginationSource) {
           pagination.innerHTML = paginationSource.innerHTML;
         } else if(pagination) {
@@ -137,6 +158,7 @@ class FiltersForm extends HTMLElement {
         this.selectFilters();this.priceRangeSlider();this.removeFilters();pagination();
         if(theme.mlcurrency) currenciesChange(document.querySelectorAll('product-card span.money'));
         initializeVideos();
+        this.selectFilterTop();
         initializeScrollAnimationTrigger();
       })
       .catch((e) => {
@@ -211,6 +233,7 @@ document.body.addEventListener('click',(e) => {
 
 // Change sort dropdown title on selection
 document.addEventListener('DOMContentLoaded', function () {
+  // Handle sort by selection
   const realSelect = document.getElementById('SortBy');
   const btnTextSort = document.querySelector('[data-sort-by-text]');
   document.querySelectorAll('[data-filter-type="sort_by"] a.clOtp').forEach((item) => {

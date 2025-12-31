@@ -246,7 +246,7 @@
                     </filters-form>
 				{%- endif -%}
             
-				<div class="tlbr fl f-jcsb f-aic pb20 grid gap10">
+				<div class="tlbr fl f-jcsb f-aic pb20 gap10">
           {%- if section_st.filters -%}
             <div class="action-filter fl f-aic f-wrap gap10">
               <button type="button" class="btn-filter fl f-aic fwm {% if section_st.sbpos != 'popup' %} hide-lg{% endif %}" area-label="{{ 'collections.general.filter_button' | t }}">
@@ -270,8 +270,55 @@
 	{% endif %}
 {%- endfor -%}
 {%- endcapture -%}
+
+{% capture filter_top %}
+  {%- for filter in collection.filters -%}
+    {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+    {% assign labelFilter = filter.label | handleize %}
+    {% if labelFilter == 'design-style' %}
+      <div class="swiper-wrapper">
+      {%- for value in filter.values -%}
+        {%- if filter.presentation == 'swatch' -%}
+          {%- liquid
+            assign swatch = value.swatch
+            assign swatch_value = null
+            if swatch.image
+              assign image_url = swatch.image | image_url: width: 50
+              assign swatch_value = 'url(' | append: image_url | append: ')'
+            elsif swatch.color
+              assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+            endif
+          -%}
+          <div class="gitem swiper-slide color">
+            <label for="Filter-Top-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="m0 fl-checkbox">
+              <input type="radio" name="{{ value.param_name }}" value="{{ value.value }}" id="Filter-Top-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="custCheck dyfl" {%- if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %} form="CollectionFiltersForm">{{-  -}}
+              <span class="swt swt{{ value.value | handleize }} pr of_hidden clrbox" style="background:{{ swatch_value }};--color: {{ swatch_value }}"></span>
+              <span class="title rgTxt ft1">{{ value.label }}</span>
+            </label>
+          </div>
+      {%- else -%}
+          <div>{{-  -}}
+              <label for="Filter-Top-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="m0 fl-checkbox{% if value.count == 0 and value.active == false %} disabled{% endif %}">{{-  -}}
+                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" id="Filter-Top-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="custCheck dyfl"
+                    {%- if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %} form="CollectionFiltersForm">{{-  -}}
+                  <span class="checkbox"></span> {{ value.label | escape }}{% if blk_st.flpcnt %}<span class="prcnt">&nbsp;({{ value.count }})</span>{%- endif -%}
+              </label>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {% endif %}
+  {%- endfor -%}
+{% endcapture %}
 <div class="sec_cov{% if section_st.bgimg != blank %} bgImg lazyload{% endif %}" style="--sbg:{{ section_st.bg }};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px;--overlay:{{ section_st.overlay | color_modify: 'alpha', section_st.overlay_op }};"
-    {%- if section_st.bgimg != blank %} data-bgset="{{ section_st.bgimg | image_url: width: section_st.bgimg.width | image_tag: widths: '400,600,800,1000,1400,1600,2000,2400,3000' | split: 'srcset="' | last | split: '"' | first }}" data-sizes="auto" data-parent-fit="contain"{% endif %}> 
+    {%- if section_st.bgimg != blank %} data-bgset="{{ section_st.bgimg | image_url: width: section_st.bgimg.width | image_tag: widths: '400,600,800,1000,1400,1600,2000,2400,3000' | split: 'srcset="' | last | split: '"' | first }}" data-sizes="auto" data-parent-fit="contain"{% endif %}>
+  <div class="filter-top">
+    <div class="fw-sec">
+      <slide-section class="grid collection-grid swiper" data-swiper='{"slidesPerView":"auto", "loop":false}' style="--grid_gutter:8px;--grid_gutterm:5px;--grsp:4.0px;--grspm:2.5px;--psbtm:0;--psbtmm:0;--cl:#000000;--fs:12px;">
+        {{ filter_top }}
+      </slide-section>
+    </div>
+  </div>
     {{- collection_page | strip_newlines | remove:'  ' -}}
 </div>
 <script src="{{ 'collections.js' | asset_url }}" defer></script>

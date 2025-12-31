@@ -145,8 +145,10 @@ div.AirReviews-Blocks__ActionRate {height: auto;}
     margin-bottom: 4px;
 }
 #AirReviews-BlockWrapper .AirReviews-Widget__V2 #AirReviews-Collapsible {
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin: 0;
+}
+#AirReviews-BlockWrapper .AirReviews-Widget__V2 #AirReviews-Collapsible.active {
+    margin: 30px 0;
 }
 #AirReviews-BlockWrapper .AirReviews-Widget__V2 #AirReviews-Collapsible .AirReviews-TextField {
     height: 36px;

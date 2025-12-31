@@ -72,9 +72,15 @@
             -%}
       		{%- for filter in filters -%}
               {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+              {% assign labelFilter = filter.label | handleize %}
+              {% assign inputType = 'checkbox' %}
+              {% if labelFilter == 'design-style' %}
+                {% assign inputType = 'radio' %}
+              {% else  %}
+              {% endif %}
               {%- case filter.type -%}
                   {%- when 'boolean', 'list' -%}
-                      <details class="filterBx dyFilters pr js-filter" data-index="{{ forloop.index }}" {{ drower }}>
+                      <details class="filterBx dyFilters pr js-filter" data-index="{{ forloop.index }}" {{ drower }} data-filter-name="{{ filter.label | downcase | handleize }}">
                           <summary class="flTtl fl f-jcsb f-aic">
                               <span class="{{ section_st.bx_ttlw }} {{ section_st.bx_tcase }} {{ section_st.tff }}">
                                 {{- filter.label | escape -}}
@@ -115,8 +121,8 @@
                                     endif
                                   -%}
                                   <li class="color">
-                                    <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="m0 fl-checkbox{% if value.count == 0 and value.active == false %} disabled{% endif %}">
-                                    	<input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" id="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="custCheck dyfl"
+                                    <label for="Filter-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="m0 fl-checkbox{% if value.count == 0 and value.active == false %} disabled{% endif %}">
+                                    	<input type="{{ inputType }}" name="{{ value.param_name }}" value="{{ value.value }}" id="Filter-{{ filter.label | escape | handleize }}-{{ forloop.index }}" class="custCheck dyfl"
                                             {%- if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>{{-  -}}
                                         <span class="swt swt{{ value.value | handleize }} pr of_hidden clrbox" style="background:{{ swatch_value }};--color: {{ swatch_value }}"></span>
                                         <span class="tooltip-label top">{{ value.label }}</span>
