@@ -31,7 +31,7 @@
             "fw": "600",
             "lh": 20,
             "tcase": "none",
-            "bm": 10
+            "bm": 5
           }
         },
         "sku_DHQA7t": {
@@ -63,7 +63,7 @@
             "brad": 3,
             "tax_msg": false,
             "ship_msg": false,
-            "bm": 20
+            "bm": 25
           }
         },
         "d3f45ea4-ab08-46d0-ab08-3771d2eb15d3": {
@@ -124,6 +124,7 @@
         },
         "text_9kPwFi": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "",
             "cl": "#333333",
@@ -138,7 +139,7 @@
             "sold": false,
             "cltype": "cs",
             "othervr": "sw",
-            "bm": 15
+            "bm": 30
           }
         },
         "ccd4e61d-1477-4664-bd33-351a9aa1ec00": {
@@ -293,8 +294,8 @@
         "page_width": 1400,
         "sst": 30,
         "ssb": 30,
-        "sstm": 0,
-        "ssbm": 0,
+        "sstm": 15,
+        "ssbm": 15,
         "bg": "#ffffff",
         "sw": true
       }
@@ -435,8 +436,8 @@
         "bgg": "",
         "sst": 0,
         "ssb": 0,
-        "sstm": 15,
-        "ssbm": 15
+        "sstm": 0,
+        "ssbm": 0
       }
     },
     "tabs": {
@@ -576,7 +577,7 @@
         "bgg": "",
         "headings_cl": "#000000",
         "sst": 0,
-        "ssb": 40,
+        "ssb": 15,
         "sstm": 15,
         "ssbm": 15,
         "hidem": false,

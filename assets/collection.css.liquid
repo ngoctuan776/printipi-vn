@@ -2,6 +2,9 @@
 #Collection.npd .page-title, #Collection.npd .rte, #Collection.npd #main-collection-filters, #Collection.npd .tlbr, #Collection.npd .tlbr .active-facets  { padding-left:20px; padding-right:20px;}
   
 .sidebar {width:300px;}
+filters-form.sidebar [data-filter-name="design-style"] {
+  display: none;
+}
 .sb_filter .closeFilter {background: #FFFFFF; color: var(--wdtcl); cursor: pointer; position: absolute; top: 20px; right: 18px; z-index: 666; padding: 0;}
 .sb_popup { width:250px; height:100%; position:fixed; top:0; left:-105%; z-index:668; box-shadow:0 0 5px rgba(0,0,0,.3) }
 .sb_popup.active { left:0 }
@@ -98,7 +101,7 @@ select.select__select {
   .filterBx .flTtl svg {margin-right: -10px;}
 }
 
-.loadFilters .modalOverly {z-index: 669;}
+.loadFilters .modalOverly {z-index: 669;display: block;}
 .prRange { padding:5px 15px 5px 26px; line-height:18px; margin:0; min-width:90px; height: 36px;}
 
 .sortBy { background-color:transparent; padding:7px 25px 7px 15px; }
@@ -149,4 +152,39 @@ tc-range-slider { padding:0 5px; display:block; }
   background: #f2f2f2;
   align-items: center;
   border-radius: 4px;
+}
+
+/* Filter top */
+.filter-top {
+  margin-bottom: 15px;
+}
+.filter-top .gitem {
+  width: auto;
+}
+.filter-top .gitem label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #DDDDDD;
+  border-radius: 60px;
+  height: 46px;
+  padding: 0 20px 0 0;
+  transition: 0.3s;
+  overflow: hidden;
+}
+.filter-top .gitem label.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.filter-top .gitem .swt {
+  width: 46px;
+  height: 46px;
+  border-radius: 100%;
+  transition: 0.3s;
+}
+.filter-top .gitem label:hover .swt {
+  transform: scale(1.1);
+}
+.filter-top .gitem label:has(input:checked) {
+  border-color: var(--color-main);
 }

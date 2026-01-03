@@ -415,6 +415,7 @@
       "view_in_space": "View in your space",
       "view_in_space_label": "View in your space, loads item in augmented reality window",
       "view_full_details": "View More Details",
+      "gallery": "Gallery",
       "quantity": {
         "label": "Quantity",
         "input_label": "Quantity for {{ product }}",

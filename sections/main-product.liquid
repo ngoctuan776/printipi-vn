@@ -217,667 +217,677 @@
 	{%- endcapture -%}
 
 	<div class="grid f-ais product-single{% if product.metafields.teeinblue.platform_product or product.metafields.teeinblue.campaign_version %} product-single-tee{% endif %}">
-		{%- if product.metafields.teeinblue.platform_product or product.metafields.teeinblue.campaign_version -%}
-			<div class="gitem product__images-wrapper f-aic primgSlider">
-				{% for image in product.images %}
-					{% assign is_associated = false %}
-					
-					{% for variant in product.variants %}
-					{% if variant.image.id == image.id %}
-						{% assign is_associated = true %}
-						{% break %}
-					{% endif %}
-					{% endfor %}
-					{% if is_associated == false %}
-						<div class="item">
-							<a data-id="{{ image.id }}" data-pswp-width="{{ image.width }}" data-pswp-height="{{ image.height }}"
-                             {% if section_st.prlightbox %}href="{{ image | image_url: width: image.width }}"{% else %}role="link" aria-disabled="true"{% endif %}>
-							<img src="{{ image | img_url: 'medium' }}" alt="{{ image.alt | escape }}" loading="lazy" />
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-		{%- endif -%}
-		<div class="gitem product__media-wrapper {{ pimgcol_wd }} pr_photoes">{{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }}</div>
+		<div class="col-media gitem">
+			{%- if product.metafields.teeinblue.platform_product or product.metafields.teeinblue.campaign_version -%}
+				<div class="product__images-wrapper f-aic primgSlider">
+					<h3 class="title">{{ 'products.product.gallery' | t }}</h3>
+					<div class="list-item-images">
+						{% for image in product.images %}
+							{% assign is_associated = false %}
+							
+							{% for variant in product.variants %}
+							{% if variant.image.id == image.id %}
+								{% assign is_associated = true %}
+								{% break %}
+							{% endif %}
+							{% endfor %}
+							{% if is_associated == false %}
+								<div class="item">
+									<a data-id="{{ image.id }}" data-pswp-width="{{ image.width }}" data-pswp-height="{{ image.height }}"
+										{% if section_st.prlightbox %}href="{{ image | image_url: width: image.width }}"{% else %}role="link" aria-disabled="true"{% endif %}>
+									<img src="{{ image | img_url: 'medium' }}" alt="{{ image.alt | escape }}" loading="lazy" />
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			{%- endif -%}
+			<div class="product__media-wrapper {{ pimgcol_wd }} pr_photoes">{{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }}</div>
+		</div>
 		<div class="product__info {% unless section_st.prstyle == "5" %}gitem {{ pdescol_wd }}{% endunless %} pr_meta pr{% if section_st.image-col == "lg" %} small_view{% endif %}">
 			<product-info id="ProductInfo-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" class="product__info-container db wrap-product-info">
-				{%- for block in section.blocks -%}
-					{%- assign blk_st = block.settings -%}
-					{%- case block.type -%}
-					{%- when 'hr' -%}
-						<hr class="mt0 mb{{ blk_st.bm }}" style="border-color: {{ blk_st.hrc }}" />
-					{%- when 'title' -%}
-						<h1 class="rgTxt {{ blk_st.tff }} mb{{ blk_st.bm }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
-					{%- when 'subtitle' -%}
-						<div {{ block.shopify_attributes }} class="{{ blk_st.tcase }} mb{{ blk_st.bm }}">{{ product.metafields.descriptors.subtitle }}</div>								
-					{%- when 'price' -%}
-						{%- unless settings.hide-price -%}
-							<div id="price-{{ section.id }}" role="status" class="priceSingle mb{{ blk_st.bm }}" style="--pcl:{{ blk_st.pcl }};--pcls:{{ blk_st.pcls }};--fs:{{ blk_st.fs }}px; --fsm:{{ blk_st.fsm }}px;--pfw:{{ blk_st.pfw }};--salet:{{ blk_st.salet }};--salebg:{{ blk_st.salebg }};--bfs:{{ blk_st.bfs }}px;--brad:{{ blk_st.brad }}px;" {{ block.shopify_attributes }}>
-								{%- liquid
-									assign compareprice = current_variant.compare_at_price
-									assign price = current_variant.price
-									assign money_price = price | money
-									if settings.curCode
-										assign money_price = price | money_with_currency
-									endif
-								-%}
-								<p class="mb5 fl f-aic price__container">
-									{%- if compareprice > price -%}
-										<span class="hidden_txt">{{ 'products.product.regular_price' | t }}</span>
-										<span class="pr_price price-item orpr sale">{{ money_price }}</span>
-										<s class="pr_price cmpr">{{ compareprice | money }}</s>
-									{%- else -%}
-										<span class="hidden_txt">{{ 'products.product.regular_price' | t }}</span>
-										<span class="pr_price price-item orpr">{{ money_price }}</span>
-										<s class="pr_price cmpr hide">{{ compareprice | money }}</s>
-									{%- endif -%}
-
-									{%- if blk_st.saved and compareprice != blank -%}
-										<span class="salebadge {{ blk_st.fw }}{% unless current_variant.compare_at_price > price %} hide{% endunless %}">			
-											{% comment %} <span itemprop="name">{{ 'products.product.you_save' | t }} </span><span id="save">{{ compareprice | minus: price | money }}</span> {% endcomment %}                                            
-											<span class="off"><span>-{{ compareprice | minus: price | times: 100 | divided_by: compareprice }}</span>%</span>
-										</span>
-									{%- endif -%}
-								</p>
-								<span class="price__unit{% unless current_variant.unit_price_measurement %} hide{% endunless %}">
-									<br />
-									<span data-unit-price>{{ current_variant.unit_price | money }}</span> /
-									<span data-unit-base>
-										{%- if current_variant.unit_price_measurement -%}
-											{%- if current_variant.unit_price_measurement.reference_value != 1 -%}{{ current_variant.unit_price_measurement.reference_value }}{%- endif -%}
-											{{ current_variant.unit_price_measurement.reference_unit }}
-										{%- endif -%}
-									</span>
-								</span>
-								{%- if blk_st.tax_msg and shop.taxes_included or blk_st.ship_msg and shop.shipping_policy.body != blank -%}
-									<div class="product__policies" data-product-policies>
-										{% if blk_st.tax_msg and shop.taxes_included %}{{ 'products.product.include_taxes' | t }} &nbsp;{% endif %}
-										{% if blk_st.ship_msg and shop.shipping_policy.body != blank %}{{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}{% endif %}
-									</div>
-								{%- endif -%}
-								<div {{ block.shopify_attributes }}>
-									{%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-									{%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-									<input type="hidden" name="id" value="{{ current_variant.id }}">
-									{{ form | payment_terms }}
-									{%- endform -%}
-								</div>
-							</div>
-						{%- endunless -%}
-					{%- when 'text' -%}
-						<div class="rgTxt mb{{ blk_st.bm }} rte" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;" {{ block.shopify_attributes }}>
-							{{ blk_st.text }}
-						</div>
-					{%- when 'rating' -%}
-						{% liquid
-							assign rating = product.metafields.air_reviews_product.review_avg
-							assign rating_count = product.metafields.air_reviews_product.review_count
-							if rating == blank and settings.show_empty_rating == true
-							assign rating = 0
-							assign rating_count = 0
-							endif
-						-%}
-						<div class="product__info-wl-r fl f-aic mb{{ blk_st.bm }}">
-							<div class="rating-wrapper fl f-aic">
-								<div class="rating_icons">
-									<div class="item-icons rating__active" style="width:calc({{ rating }} * 100% / 5);">
-										{%- for star in (1..5) -%}
-										{% render "icon-start-active" %}
-										{%- endfor -%}
-									</div>
-									<div class="item-icons rating__main">
-										{%- for star in (1..5) -%}
-											{% render "icon-start-default" %}
-										{%- endfor -%}
-									</div>
-								</div>
-								<span class="rating-avg">{{ rating }}</span>
-								<span class="rating-count fs-10 lh-20">({{ rating_count }})</span>
-							</div>
-							{%- if settings.wishlist -%}
-								<product-card class="fl">
-									<button type="button" class="btn btnNone btn2 pr wishlist addwishlist" data-url="{{pages[settings.wishlist_page].url}}" data-id="{{ product.id }}" aria-label="{{ 'products.wishlist.add_to_wishlist' | t }}">
-									<span class="txt"><svg class="at-icon wishicon color-text"><use class="add" xlink:href="#icon-wishlist"></use><use class="added" xlink:href="#icon-remove"></use></svg></span>
-									<span class="text color-text fs-10 lh-20" data-tooltip-label>{{ 'products.wishlist.add_to_wishlist' | t}}</span>
-									<svg class="at-icon at-spin color-text"><use xlink:href="#icon-loading"></use></svg>
-									</button>
-								</product-card>
-							{%- endif -%}
-						</div>
-					{%- when 'spoint' -%}
-						<div class="mb{{ blk_st.bm }} salepoint rgTxt fl{%  if blk_st.atc %} f-jcc{% endif %}" style="--icns:18px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;" {{ block.shopify_attributes }}>
-							{% if blk_st.sicon != blank %}
-								<img class="at-icon mr5" loading="lazy" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" />
-							{% else %}
-									{% render 'icons', icon: blk_st.icon %}
-							{% endif %}
-							<span>{{ blk_st.text }}</span>
-						</div>
-					{%- when 'featured-text' -%}
-					<div class="featured-text mb{{ blk_st.bm }} rgTxt fl f-jcc" style="--rounded:{{ blk_st.brad }}px;--icns:20px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;--tpds:{{ blk_st.tpd | plus : 5 }}px;" {{ block.shopify_attributes }}>
-						{%  if blk_st.text != blank %}
-						<div class="tc fl1 brad">
-								{% if blk_st.sicon != blank %}
-									<img class="at-icon mb5" loading="lazy" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" />
-								{% else %}
-									{% render 'icons', icon: blk_st.icon %}
-								{% endif %}
-								{{ blk_st.text }}
-						</div>
-						{% endif %}
-						{%  if blk_st.text2 != blank %}
-						<div class="tc fl1 brad">
-								{% if blk_st.sicon2 != blank %}<img loading="lazy" class="at-icon mb5" src="{{ blk_st.sicon2 | image_url: width: '60' }}" width="18" height="18" alt="" />
-								{% else %}
-									{% render 'icons', icon: blk_st.icon2 %}
-								{% endif %}
-								{{ blk_st.text2 }}
-						</div>
-						{% endif %}
-						{%  if blk_st.text3 != blank %}
-						<div class="tc fl1 brad">
-								{% if blk_st.sicon3 != blank %}<img loading="lazy" class="at-icon mb5" src="{{ blk_st.sicon3 | image_url: width: '60' }}" width="18" height="18" alt="" />
-								{% else %}
-									{% render 'icons', icon: blk_st.icon3 %}
-								{% endif %}
-								{{ blk_st.text3 }}
-						</div>
-						{% endif %}
-					</div>
-					{%- when 'coltabs' -%}
-						<details class="sumtabs mb{{ blk_st.bm }}{% if blk_st.tbdr %} tbdr{% endif %}{% if blk_st.bbdr %} bbdr{% endif %}" style="--icns:18px;--tfs:{{ blk_st.tfs }}px;;--fw:{{ blk_st.fw }};--bdrcl:{{ blk_st.bdrcl }}" {% if block.settings.tbopen %}open=""{% endif %}>  
-							<summary class="pr fl f-aic" {{ block.shopify_attributes }}>							
-								{% if blk_st.sicon != blank %}
-									<span><img loading="lazy" class="at-icon mr10" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" /></span>
-								{% else %}
-									<span>{% render 'icons', blk_st:blk_st, icon:blk_st.icon %}</span>
-								{% endif %}
-								{{ blk_st.title }} <svg class="at-icon ml_auto arw"><use xlink:href="#icon-arrow"></use></svg>
-							</summary>
-							<div class="rte mb20{% if blk_st.tabicon != blank %} pdside mb20{% endif %}" {{ block.shopify_attributes }}>
-								{% if blk_st.opt == 'des' %}
-									{{ product.description }}
-								{% elsif blk_st.opt contains "size" %}
-										{%- assign prtype = product.type | handleize | append: "-size-chart" -%}
-										{%- assign prbrand = product.vendor | handleize | append: "-size-chart" -%}
-										{%- if product.metafields.custom.sizechart != blank -%}
-											{{ product.metafields.custom.sizechart }}
-										{%- elsif settings.sizechart_type == "type" and pages[prtype].content != empty -%}
-											{{ pages[prtype].content }}
-										{%- elsif settings.sizechart_type == "brand" and pages[prbrand].content != empty -%}
-											{{ pages[prbrand].content }}
-										{%- else -%}
-											{{ pages[settings.sizechart_page].content }}
-										{%- endif -%}
-								{% elsif blk_st.richtxt contains "metafield-multi_line_text_field" %}
-									<div class="rte">{{ blk_st.richtxt }}</div>
-								{% else %}
-									{{ blk_st.richtxt }}
-								{% endif %}
-							</div>
-						</details>
-					{%- when 'vendor' -%}            
-						<div class="mb{{ blk_st.bm }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;" {{ block.shopify_attributes }}>
-							{%- liquid
-								assign vname = product.vendor | url_param_escape
-								assign vlink = routes.collections_url | append: '/vendors?q=' | append: vname
-								for coll in product.collections
-									if coll.title == product.vendor
-										assign vlink = coll.url
-										break
-									endif
-								endfor
-								assign img_name = product.vendor | handleize | append:'.png'
-								assign img_src = img_name | file_img_url: '200x'
-							-%}
-							<a class="vendorLink" href="{{ vlink }}">
-								{% if img_src contains '?v=' and blk_st.img %}
-									{% # theme-check-disable RemoteAsset %}
-									<img class="vendImg" loading="lazy" src="{{ img_src }}" width="{{ blk_st.lwd }}" height="100" alt="{{ product.vendor }}">
-									{% # theme-check-enable RemoteAsset %}
-								{% else %}
-									{{ product.vendor }}
-								{% endif %}
-							</a>
-						</div>
-					{%- when 'variants' -%}
-						{%- render 'variant-picker', product:product, block:block, section_id:section.id, product_form_id:product_form_id, size_options:size_options -%}
-					{%- when 'pco' -%}
-						{% render 'custom-options', blk_st:blk_st, product_form_id:product_form_id, %}
-					{%- when 'inventory' -%}
-						{% capture inventory_block %}
-							<div id="Quantity-Form-{{ section.id }}" class="product-form__quantity mb{{ blk_st.bm }}">
-								{%- assign cart_qty = cart | item_count_for_variant: current_variant.id -%}
-								<label class="quantity__label form__label{% if block.settings.qlbl %} hidden_txt{% endif %}" for="Quantity-{{ section.id }}">
-									{{ 'products.product.quantity.label' | t }}
-									<span class="quantity__rules-cart no-js-hidden{% if cart_qty == 0 %} hidden{% endif %}"><span class="loading__spinner hidden"><svg class="at-icon at-spin"><use xlink:href="#icon-loading"></use></svg></span><span> ({{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}})</span></span>
-								</label>
-								<div class="price-per-item__container">
-									<div class="fl f-wrap gap" style="--gap:20px;">
-										{% if blk_st.qty_sel %}
-										<quantity-input class="qtyField quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
-											<button type="button" class="qtyBtn linkQty minus" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title }}">{% render 'icon-minus' %}</button>
-											<input class="pr_input qty linkInput mianQty border-none" type="number" name="quantity" id="Quantity-{{ section.id }}" data-cart-quantity="{{ cart_qty }}"
-												data-min="{{ current_variant.quantity_rule.min }}" min="{{ current_variant.quantity_rule.min }}"
-												{% if current_variant.quantity_rule.max != null %}
-													data-max="{{ current_variant.quantity_rule.max }}" max="{{ current_variant.quantity_rule.max }}"
-												{% endif %}
-												step="{{ current_variant.quantity_rule.increment }}" value="{{ current_variant.quantity_rule.min }}" form="{{ product_form_id }}">
-											<button type="button" class="qtyBtn linkQty plus" name="plus" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title }}">{% render 'icon-plus' %}</button>
-										</quantity-input>
-										{% endif %}
-
-										{% if blk_st.inv %}
-										{%- liquid
-											if current_variant.available and current_variant.inventory_quantity < 1 and current_variant.inventory_management == "shopify"
-												assign classes = 'preorder'
-												assign clr = blk_st.instock
-												assign qmsg = 'products.product.pre_order' | t
-											elsif current_variant.available and current_variant.inventory_quantity < blk_st.maxqty and current_variant.inventory_quantity > 0
-												assign classes = 'lowstock'
-												assign clr = blk_st.lstock
-												assign qmsg = 'products.product.quantity_message' | t: items: current_variant.inventory_quantity
-											elsif current_variant.available
-												assign classes = 'instock'
-												assign clr = blk_st.instock
-												assign qmsg = 'products.product.available' | t
-											else
-												assign classes = 'outstock'
-												assign clr = blk_st.ostock
-												assign qmsg = 'products.product.unavailable' | t
-											endif
-										-%}
-										<div id="Inventory-{{ section.id }}" class="fl f-aic stockLbl {{ classes }}{% if blk_st.fcase %} ttu{% endif %}" role="status">
-											<span class="fl f-aic stockLbl" style="--cl:{{ clr }};--stockf:{{ blk_st.fs }}px;--font-style:{{ blk_st.font-style }};">
-												{% if blk_st.anim %}<span class="animcir pr"></span>{% endif %}
-												<span>{{ qmsg }}</span>
-											</span>
-										</div>
-										{% endif %}
-									</div>
+				<div class="list-item-info">
+					{%- for block in section.blocks -%}
+						{%- assign blk_st = block.settings -%}
+						{%- case block.type -%}
+						{%- when 'hr' -%}
+							<hr class="mt0 mb{{ blk_st.bm }}" style="border-color: {{ blk_st.hrc }}" />
+						{%- when 'title' -%}
+							<h1 class="rgTxt {{ blk_st.tff }} mb{{ blk_st.bm }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+						{%- when 'subtitle' -%}
+							<div {{ block.shopify_attributes }} class="{{ blk_st.tcase }} mb{{ blk_st.bm }}">{{ product.metafields.descriptors.subtitle }}</div>								
+						{%- when 'price' -%}
+							{%- unless settings.hide-price -%}
+								<div id="price-{{ section.id }}" role="status" class="priceSingle mb{{ blk_st.bm }}" style="--pcl:{{ blk_st.pcl }};--pcls:{{ blk_st.pcls }};--fs:{{ blk_st.fs }}px; --fsm:{{ blk_st.fsm }}px;--pfw:{{ blk_st.pfw }};--salet:{{ blk_st.salet }};--salebg:{{ blk_st.salebg }};--bfs:{{ blk_st.bfs }}px;--brad:{{ blk_st.brad }}px;" {{ block.shopify_attributes }}>
 									{%- liquid
-										assign volume_pricing_array = current_variant.quantity_price_breaks | sort: 'quantity' | reverse
-										assign current_qty_for_volume_pricing = cart_qty | plus: current_variant.quantity_rule.min
-										if cart_qty > 0
-											assign current_qty_for_volume_pricing = cart_qty | plus: current_variant.quantity_rule.increment
+										assign compareprice = current_variant.compare_at_price
+										assign price = current_variant.price
+										assign money_price = price | money
+										if settings.curCode
+											assign money_price = price | money_with_currency
 										endif
 									-%}
-									{%- if product.quantity_price_breaks_configured? -%}
-										<price-per-item class="no-js-hidden" id="Price-Per-Item-{{ section.id }}" data-section-id="{{ section.id }}" data-variant-id="{{ current_variant.id }}">
-											{%- if current_variant.quantity_price_breaks.size > 0 -%}
-												{%- assign variant_price_compare = current_variant.compare_at_price -%}
-												<div class="price-per-item">
-													{%- if variant_price_compare -%}
-														<dl class="price-per-item--current">
-															<dt class="visually-hidden">{{ 'products.product.regular_price' | t }}</dt>
-															<dd><s class="variant-item__old-price">{{ variant_price_compare | money_with_currency }}</s></dd>
-														</dl>
-													{%- endif -%}
-													{%- if current_qty_for_volume_pricing < volume_pricing_array.last.minimum_quantity -%}
-														{%- assign variant_price = current_variant.price | money_with_currency -%}
-														<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span>
-													{%- else -%}
-														{%- for price_break in volume_pricing_array -%}
-															{%- if current_qty_for_volume_pricing >= price_break.minimum_quantity -%}
-																{%- assign price_break_price = price_break.price | money_with_currency -%}
-																<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: price_break_price -}}</span>
-																{%- break -%}
-															{%- endif -%}
-														{%- endfor -%}
-													{%- endif -%}
-												</div>
-											{%- else -%}
-												{%- assign variant_price = current_variant.price | money_with_currency -%}
-												{%- assign variant_price_compare = current_variant.compare_at_price -%}
-												<div class="price-per-item">
-													{%- if variant_price_compare -%}
-														<dl class="price-per-item--current">
-															<dt class="visually-hidden">{{ 'products.product.regular_price' | t }}</dt>
-															<dd><s class="variant-item__old-price">{{ variant_price_compare | money_with_currency }}</s></dd>
-															<dt class="visually-hidden">{{ 'products.product.sale_price' | t }}</dt>
-															<dd><span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span></dd>
-														</dl>
-													{%- else -%}
-														<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span>
-													{%- endif -%}
-												</div>
-											{%- endif -%}
-										</price-per-item>
-									{%- endif -%}
-								</div>
-								<div class="quantity__rules caption no-js-hidden" id="Quantity-Rules-{{ section.id }}">
-									{%- if current_variant.quantity_rule.increment > 1 -%}
-										<span class="divider">{{- 'products.product.quantity.multiples_of' | t: quantity: current_variant.quantity_rule.increment -}}</span>
-									{%- endif -%}
-									{%- if current_variant.quantity_rule.min > 1 -%}
-										<span class="divider">{{- 'products.product.quantity.minimum_of' | t: quantity: current_variant.quantity_rule.min -}}</span>
-									{%- endif -%}
-									{%- if current_variant.quantity_rule.max != null -%}
-										<span class="divider">{{- 'products.product.quantity.maximum_of' | t: quantity: current_variant.quantity_rule.max -}}</span>
-									{%- endif -%}
-								</div>
-								{%- if product.quantity_price_breaks_configured? -%}
-									<volume-pricing class="parent-display no-js-hidden" id="Volume-{{ section.id }}">
-										{%- if current_variant.quantity_price_breaks.size > 0 -%}
-											<span class="caption-large">{{ 'products.product.volume_pricing.title' | t }}</span>
-											<ul class="list-unstyled no-js-hidden">
-												<li>
-													<span>{{ current_variant.quantity_rule.min }}+</span>
-													{%- assign price = current_variant.price | money_with_currency -%}
-													<span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: variant_price }}">{{- 'sections.quick_order_list.each_html' | t: money: price -}}</span>
-												</li>
-												{%- for price_break in current_variant.quantity_price_breaks -%}
-													{%- assign price_break_price = price_break.price | money_with_currency -%}
-													<li class="{%- if forloop.index >= 3 -%}show-more-item hidden{%- endif -%}">
-														<span>{{- price_break.minimum_quantity -}}<span aria-hidden="true">+</span></span>
-														<span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: price_break_price }}">{{- 'sections.quick_order_list.each_html' | t: money: price_break_price -}}</span>
-													</li>
-												{%- endfor -%}
-											</ul>
-											{%- if current_variant.quantity_price_breaks.size >= 3 -%}
-												<show-more-button>
-													<button class="button-show-more link underlined-link" id="Show-More-{{ section.id }}" type="button"><span class="label-show-more label-text"><span aria-hidden="true">+ </span>{{ 'products.product.volume_pricing.show_more' | t }}</span></button>
-												</show-more-button>
-											{%- endif -%}
+									<p class="mb5 fl f-aic price__container">
+										{%- if compareprice > price -%}
+											<span class="hidden_txt">{{ 'products.product.regular_price' | t }}</span>
+											<span class="pr_price price-item orpr sale">{{ money_price }}</span>
+											<s class="pr_price cmpr">{{ compareprice | money }}</s>
+										{%- else -%}
+											<span class="hidden_txt">{{ 'products.product.regular_price' | t }}</span>
+											<span class="pr_price price-item orpr">{{ money_price }}</span>
+											<s class="pr_price cmpr hide">{{ compareprice | money }}</s>
 										{%- endif -%}
-									</volume-pricing>
+
+										{%- if blk_st.saved and compareprice != blank -%}
+											<span class="salebadge {{ blk_st.fw }}{% unless current_variant.compare_at_price > price %} hide{% endunless %}">			
+												{% comment %} <span itemprop="name">{{ 'products.product.you_save' | t }} </span><span id="save">{{ compareprice | minus: price | money }}</span> {% endcomment %}                                            
+												<span class="off"><span>-{{ compareprice | minus: price | times: 100 | divided_by: compareprice }}</span>%</span>
+											</span>
+										{%- endif -%}
+									</p>
+									<span class="price__unit{% unless current_variant.unit_price_measurement %} hide{% endunless %}">
+										<br />
+										<span data-unit-price>{{ current_variant.unit_price | money }}</span> /
+										<span data-unit-base>
+											{%- if current_variant.unit_price_measurement -%}
+												{%- if current_variant.unit_price_measurement.reference_value != 1 -%}{{ current_variant.unit_price_measurement.reference_value }}{%- endif -%}
+												{{ current_variant.unit_price_measurement.reference_unit }}
+											{%- endif -%}
+										</span>
+									</span>
+									{%- if blk_st.tax_msg and shop.taxes_included or blk_st.ship_msg and shop.shipping_policy.body != blank -%}
+										<div class="product__policies" data-product-policies>
+											{% if blk_st.tax_msg and shop.taxes_included %}{{ 'products.product.include_taxes' | t }} &nbsp;{% endif %}
+											{% if blk_st.ship_msg and shop.shipping_policy.body != blank %}{{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}{% endif %}
+										</div>
+									{%- endif -%}
+									<div {{ block.shopify_attributes }}>
+										{%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+										{%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+										<input type="hidden" name="id" value="{{ current_variant.id }}">
+										{{ form | payment_terms }}
+										{%- endform -%}
+									</div>
+								</div>
+							{%- endunless -%}
+						{%- when 'text' -%}
+							<div class="rgTxt mb{{ blk_st.bm }} rte" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;" {{ block.shopify_attributes }}>
+								{{ blk_st.text }}
+							</div>
+						{%- when 'rating' -%}
+							{% liquid
+								assign rating = product.metafields.air_reviews_product.review_avg
+								assign rating_count = product.metafields.air_reviews_product.review_count
+								if rating == blank and settings.show_empty_rating == true
+								assign rating = 0
+								assign rating_count = 0
+								endif
+							-%}
+							<div class="product__info-wl-r fl f-aic mb{{ blk_st.bm }}">
+								<div class="rating-wrapper fl f-aic">
+									<div class="rating_icons">
+										<div class="item-icons rating__active" style="width:calc({{ rating }} * 100% / 5);">
+											{%- for star in (1..5) -%}
+											{% render "icon-start-active" %}
+											{%- endfor -%}
+										</div>
+										<div class="item-icons rating__main">
+											{%- for star in (1..5) -%}
+												{% render "icon-start-default" %}
+											{%- endfor -%}
+										</div>
+									</div>
+									<span class="rating-avg">{{ rating }}</span>
+									<span class="rating-count fs-10 lh-20">({{ rating_count }})</span>
+								</div>
+								{%- if settings.wishlist -%}
+									<product-card class="fl">
+										<button type="button" class="btn btnNone btn2 pr wishlist addwishlist" data-url="{{pages[settings.wishlist_page].url}}" data-id="{{ product.id }}" aria-label="{{ 'products.wishlist.add_to_wishlist' | t }}">
+										<span class="txt"><svg class="at-icon wishicon color-text"><use class="add" xlink:href="#icon-wishlist"></use><use class="added" xlink:href="#icon-remove"></use></svg></span>
+										<svg class="at-icon at-spin color-text"><use xlink:href="#icon-loading"></use></svg>
+										<span class="text color-text fs-10 lh-20" data-tooltip-label>{{ 'products.wishlist.add_to_wishlist' | t}}</span>										
+										</button>
+									</product-card>
 								{%- endif -%}
 							</div>
-						{% endcapture %}
-					{%- when 'cta' -%}
-						{%- if sizechartall -%}
-							<p class="mb15">
-								<a href="#sizechart" class="sizelink popup-link" aria-haspopup="dialog">
-									<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M341.7,113.1c-47.6,0-82.1,21.2-82.1,50.3c0,29.2,34.5,50.3,82.1,50.3c46.8,0,82.1-21.6,82.1-50.3S388.5,113.1,341.7,113.1 z M401.9,163.4c0,10.8-25.3,26.9-60.3,26.9c-36.2,0-60.3-15.7-60.3-26.1c0-10.8,25.3-26.9,60.3-26.9 C377.9,137.3,401.9,153,401.9,163.4z"/><path d="M499,286.7c-6.4,0-10.9,5-10.9,12.1v39.1c0,13.1-3.6,25.3-10.2,34.3c-18.4,24.7-57.4,40.6-109.7,44.8 c-47.8,4.3-96.1-2.6-139.5-19.8c-41.3-17-83.5-25.8-125.5-26.2v-158c13.9,0.1,27.3,1.1,39.9,3v98.8c0,7.1,4.5,12.1,10.9,12.1 s10.9-5,10.9-12.1v-94.2c11.3,2.3,23.7,5.8,37.6,10.6v61.1c0,7.1,4.5,12.1,10.9,12.1c6.4,0,10.9-5,10.9-12.1v-52.8l1.3,0.5 c12.3,4.3,24,8.5,36.3,11.5v58.2c0,7.1,4.5,12.1,10.9,12.1c6.4,0,10.9-5,10.9-12.1V256c12.6,2.2,25.4,4.3,37.6,5.3v98.6 c0,7.1,4.5,12.1,10.9,12.1s10.9-5,10.9-12.1v-99.2c11.6-0.1,23.2-0.8,37.6-2.3v53.7c0,7.1,4.5,12.1,10.9,12.1 c6.4,0,10.9-5,10.9-12.1v-57.3c13.4-2.9,26.3-5.9,37.6-10.7v36.5c0,7.1,4.5,23.7,10.9,23.7c6.4,0,10.9-5,10.9-12.1v-58.9 c10.1-6.1,18.4-12.7,25.8-20.5v42.5c-0.4,3.3,0.3,6.3,2,8.6c1.9,2.5,4.8,3.8,8.1,3.8c6.4,0,10.9-5,10.9-12.1v-91.1 c0-26.6-17.5-51.1-49.2-69.1c-31.1-17.6-73.1-27.3-118.2-27.3s-87.1,9.7-118.2,27.3c-31.8,18-49.2,42.5-49.2,69.1v33.9 C125,186,84,187.5,58,191.1c-28.2,3.9-46.4,11-49.3,12.5c-3.7,1.5-6.6,6.4-6.6,11v183.2c0,4.1,1.8,7.8,4.9,10.1 c3,2.2,6.7,2.6,10.2,1c0.2-0.1,0.5-0.2,0.8-0.3c21.6-7.6,100-29.2,203,12.4c38.3,15.4,78.5,23.1,119.9,23.1 c9.4,0,18.9-0.4,28.5-1.2c60.2-5.3,102.2-23.5,125-54.2c10.2-14.1,15.6-31.4,15.6-49.9v-39.9C509.9,291.7,505.4,286.7,499,286.7z M196.1,164.3c0-18.1,15.4-36.2,42.3-49.9c28.1-14.3,64.8-22.1,103.3-22.1c38.5,0,75.2,7.9,103.3,22.1 c26.9,13.7,42.3,31.9,42.3,49.9c0,50.9-95.3,72.1-146.3,72.1c-38.5,0-75-7.9-102.9-22.1C211.4,200.5,196.1,182.3,196.1,164.3z M80.3,213.8v158.1c-25.4,1.8-45.1,6.1-56.4,9.2V223.2C31.7,220.6,51.3,215,80.3,213.8z"/></svg>
-									{{ 'products.product.size_chart' | t }}
-								</a>
-							</p>
-						{%- endif -%}
-						{%- unless settings.catalog-mode -%}
-							<div class="ctabtn mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
+						{%- when 'spoint' -%}
+							<div class="mb{{ blk_st.bm }} salepoint rgTxt fl{%  if blk_st.atc %} f-jcc{% endif %}" style="--icns:18px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;" {{ block.shopify_attributes }}>
+								{% if blk_st.sicon != blank %}
+									<img class="at-icon mr5" loading="lazy" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" />
+								{% else %}
+										{% render 'icons', icon: blk_st.icon %}
+								{% endif %}
+								<span>{{ blk_st.text }}</span>
+							</div>
+						{%- when 'featured-text' -%}
+						<div class="featured-text mb{{ blk_st.bm }} rgTxt fl f-jcc" style="--rounded:{{ blk_st.brad }}px;--icns:20px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;--tpds:{{ blk_st.tpd | plus : 5 }}px;" {{ block.shopify_attributes }}>
+							{%  if blk_st.text != blank %}
+							<div class="tc fl1 brad">
+									{% if blk_st.sicon != blank %}
+										<img class="at-icon mb5" loading="lazy" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" />
+									{% else %}
+										{% render 'icons', icon: blk_st.icon %}
+									{% endif %}
+									{{ blk_st.text }}
+							</div>
+							{% endif %}
+							{%  if blk_st.text2 != blank %}
+							<div class="tc fl1 brad">
+									{% if blk_st.sicon2 != blank %}<img loading="lazy" class="at-icon mb5" src="{{ blk_st.sicon2 | image_url: width: '60' }}" width="18" height="18" alt="" />
+									{% else %}
+										{% render 'icons', icon: blk_st.icon2 %}
+									{% endif %}
+									{{ blk_st.text2 }}
+							</div>
+							{% endif %}
+							{%  if blk_st.text3 != blank %}
+							<div class="tc fl1 brad">
+									{% if blk_st.sicon3 != blank %}<img loading="lazy" class="at-icon mb5" src="{{ blk_st.sicon3 | image_url: width: '60' }}" width="18" height="18" alt="" />
+									{% else %}
+										{% render 'icons', icon: blk_st.icon3 %}
+									{% endif %}
+									{{ blk_st.text3 }}
+							</div>
+							{% endif %}
+						</div>
+						{%- when 'coltabs' -%}
+							<details class="sumtabs mb{{ blk_st.bm }}{% if blk_st.tbdr %} tbdr{% endif %}{% if blk_st.bbdr %} bbdr{% endif %}" style="--icns:18px;--tfs:{{ blk_st.tfs }}px;;--fw:{{ blk_st.fw }};--bdrcl:{{ blk_st.bdrcl }}" {% if block.settings.tbopen %}open=""{% endif %}>  
+								<summary class="pr fl f-aic" {{ block.shopify_attributes }}>							
+									{% if blk_st.sicon != blank %}
+										<span><img loading="lazy" class="at-icon mr10" src="{{ blk_st.sicon | image_url: width: '60' }}" width="18" height="18" alt="" /></span>
+									{% else %}
+										<span>{% render 'icons', blk_st:blk_st, icon:blk_st.icon %}</span>
+									{% endif %}
+									{{ blk_st.title }} <svg class="at-icon ml_auto arw"><use xlink:href="#icon-arrow"></use></svg>
+								</summary>
+								<div class="rte mb20{% if blk_st.tabicon != blank %} pdside mb20{% endif %}" {{ block.shopify_attributes }}>
+									{% if blk_st.opt == 'des' %}
+										{{ product.description }}
+									{% elsif blk_st.opt contains "size" %}
+											{%- assign prtype = product.type | handleize | append: "-size-chart" -%}
+											{%- assign prbrand = product.vendor | handleize | append: "-size-chart" -%}
+											{%- if product.metafields.custom.sizechart != blank -%}
+												{{ product.metafields.custom.sizechart }}
+											{%- elsif settings.sizechart_type == "type" and pages[prtype].content != empty -%}
+												{{ pages[prtype].content }}
+											{%- elsif settings.sizechart_type == "brand" and pages[prbrand].content != empty -%}
+												{{ pages[prbrand].content }}
+											{%- else -%}
+												{{ pages[settings.sizechart_page].content }}
+											{%- endif -%}
+									{% elsif blk_st.richtxt contains "metafield-multi_line_text_field" %}
+										<div class="rte">{{ blk_st.richtxt }}</div>
+									{% else %}
+										{{ blk_st.richtxt }}
+									{% endif %}
+								</div>
+							</details>
+						{%- when 'vendor' -%}            
+							<div class="mb{{ blk_st.bm }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;" {{ block.shopify_attributes }}>
 								{%- liquid
-									assign gift_card_recipient_feature_active = false
-									if block.settings.gift_recipient and product.gift_card?
-										assign gift_card_recipient_feature_active = true
-									endif
-
-									assign show_dynamic_checkout = false
-									if blk_st.dynamic_btn and gift_card_recipient_feature_active == false
-										assign show_dynamic_checkout = true
-									endif
+									assign vname = product.vendor | url_param_escape
+									assign vlink = routes.collections_url | append: '/vendors?q=' | append: vname
+									for coll in product.collections
+										if coll.title == product.vendor
+											assign vlink = coll.url
+											break
+										endif
+									endfor
+									assign img_name = product.vendor | handleize | append:'.png'
+									assign img_src = img_name | file_img_url: '200x'
 								-%}
-								<product-form class="db product-form" data-hide-errors="{{ gift_card_recipient_feature_active }}" data-section-id="{{ section.id }}">
-									<div class="product-form__error-message-wrapper ermsg mb15" role="alert" hidden>
-										{{ 'icon-error.svg' | inline_asset_content }} <span class="product-form__error-message"></span>
-									</div>
-									{%- form 'product', product, id: product_form_id, class: 'form', novalidate: validate, data-type: 'add-to-cart-form' -%}
-										<input type="hidden" name="id" value="{{ current_variant.id }}" {% if current_variant.available == false %}disabled{% endif %} class="product-variant-id">
+								<a class="vendorLink" href="{{ vlink }}">
+									{% if img_src contains '?v=' and blk_st.img %}
+										{% # theme-check-disable RemoteAsset %}
+										<img class="vendImg" loading="lazy" src="{{ img_src }}" width="{{ blk_st.lwd }}" height="100" alt="{{ product.vendor }}">
+										{% # theme-check-enable RemoteAsset %}
+									{% else %}
+										{{ product.vendor }}
+									{% endif %}
+								</a>
+							</div>
+						{%- when 'variants' -%}
+							{%- render 'variant-picker', product:product, block:block, section_id:section.id, product_form_id:product_form_id, size_options:size_options -%}
+						{%- when 'pco' -%}
+							{% render 'custom-options', blk_st:blk_st, product_form_id:product_form_id, %}
+						{%- when 'inventory' -%}
+							{% capture inventory_block %}
+								<div id="Quantity-Form-{{ section.id }}" class="product-form__quantity mb{{ blk_st.bm }}">
+									{%- assign cart_qty = cart | item_count_for_variant: current_variant.id -%}
+									<label class="quantity__label form__label{% if block.settings.qlbl %} hidden_txt{% endif %}" for="Quantity-{{ section.id }}">
+										{{ 'products.product.quantity.label' | t }}
+										<span class="quantity__rules-cart no-js-hidden{% if cart_qty == 0 %} hidden{% endif %}"><span class="loading__spinner hidden"><svg class="at-icon at-spin"><use xlink:href="#icon-loading"></use></svg></span><span> ({{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}})</span></span>
+									</label>
+									<div class="price-per-item__container">
+										<div class="fl f-wrap gap" style="--gap:20px;">
+											{% if blk_st.qty_sel %}
+											<quantity-input class="qtyField quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
+												<button type="button" class="qtyBtn linkQty minus" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title }}">{% render 'icon-minus' %}</button>
+												<input class="pr_input qty linkInput mianQty border-none" type="number" name="quantity" id="Quantity-{{ section.id }}" data-cart-quantity="{{ cart_qty }}"
+													data-min="{{ current_variant.quantity_rule.min }}" min="{{ current_variant.quantity_rule.min }}"
+													{% if current_variant.quantity_rule.max != null %}
+														data-max="{{ current_variant.quantity_rule.max }}" max="{{ current_variant.quantity_rule.max }}"
+													{% endif %}
+													step="{{ current_variant.quantity_rule.increment }}" value="{{ current_variant.quantity_rule.min }}" form="{{ product_form_id }}">
+												<button type="button" class="qtyBtn linkQty plus" name="plus" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title }}">{% render 'icon-plus' %}</button>
+											</quantity-input>
+											{% endif %}
 
-										{%- if gift_card_recipient_feature_active -%}
-											{%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
-										{%- endif -%}
-
-										{% if product.metafields.custom.external_link_text != blank and product.metafields.custom.external_link != blank %} 
-												<a href="{{ product.metafields.custom.external_link }}"  class="exlink btn pr_btn {{ block.settings.ext-btn }}" target="_blank">{{ product.metafields.custom.external_link_text }}</a>
-										{% else %}
-										<div class="product-form__buttons">
+											{% if blk_st.inv %}
 											{%- liquid
-												assign check_against_inventory = true
-												if current_variant.inventory_management != 'shopify' or current_variant.inventory_policy == 'continue'
-													assign check_against_inventory = false
-												endif
-												if current_variant.quantity_rule.min > current_variant.inventory_quantity and check_against_inventory
-													assign quantity_rule_soldout = true
+												if current_variant.available and current_variant.inventory_quantity < 1 and current_variant.inventory_management == "shopify"
+													assign classes = 'preorder'
+													assign clr = blk_st.instock
+													assign qmsg = 'products.product.pre_order' | t
+												elsif current_variant.available and current_variant.inventory_quantity < blk_st.maxqty and current_variant.inventory_quantity > 0
+													assign classes = 'lowstock'
+													assign clr = blk_st.lstock
+													assign qmsg = 'products.product.quantity_message' | t: items: current_variant.inventory_quantity
+												elsif current_variant.available
+													assign classes = 'instock'
+													assign clr = blk_st.instock
+													assign qmsg = 'products.product.available' | t
+												else
+													assign classes = 'outstock'
+													assign clr = blk_st.ostock
+													assign qmsg = 'products.product.unavailable' | t
 												endif
 											-%}
-											<div class="fl gap" style="--gap:10px;">
-												{%- if inventory_block != blank -%}{{ inventory_block }}{%- endif -%}
-												<button id="ProductSubmitButton-{{ section.id }}" type="submit" name="add" class="btn {{ block.settings.atc-style }} pr_btn product-form__submit btn-has-icon"
-													{% if current_variant.available == false or quantity_rule_soldout %}disabled{% endif %}>
-													{%- render 'icon-cart' -%}
-													<span class="txt">
-														{%- if current_variant.available == false or quantity_rule_soldout -%}
-															{{ 'products.product.sold_out' | t }}
-														{%- elsif current_variant.available and current_variant.inventory_quantity < 1 and current_variant.inventory_management == "shopify" -%}
-															{{ 'products.product.pre_order' | t }}
-														{%- else -%}
-															{{ 'products.product.add_to_cart' | t }}
-														{%- endif -%}
-													</span>
-													<div class="loading__spinner hidden"><svg class="at-icon at-spin"><use xlink:href="#icon-loading"></use></svg></div>
-												</button>
+											<div id="Inventory-{{ section.id }}" class="fl f-aic stockLbl {{ classes }}{% if blk_st.fcase %} ttu{% endif %}" role="status">
+												<span class="fl f-aic stockLbl" style="--cl:{{ clr }};--stockf:{{ blk_st.fs }}px;--font-style:{{ blk_st.font-style }};">
+													{% if blk_st.anim %}<span class="animcir pr"></span>{% endif %}
+													<span>{{ qmsg }}</span>
+												</span>
 											</div>
-											{%- if show_dynamic_checkout -%}
-												{%- if settings.terms_checkbox -%}
-													<label for="prTerms" class="cart_term fl mb15 f-aic">
-														<input type="checkbox" name="tearm" id="prTerms" class="checkbox custCheck tearmCheck" value="tearm" />
-														<span class="checkbox"></span> {{ settings.terms_text }}
-													</label>
-												{%- endif -%}
-												<div style="--btnbg :{{ blk_st.btnbg }};--btntext :{{ blk_st.btntext }};--btnbdr :{{ blk_st.btnbdr }};">{{ form | payment_button }}</div>
-											{%- endif -%}
+											{% endif %}
 										</div>
-										{% endif %}
-									
-									{%- endform -%}
-								</product-form>
-							</div>
-						{%- else -%}
-							<button type="button" class="btn pr_btn btn-enquire fl f-aic f-jcc popup-link mb{{ blk_st.bm }}" data-popup="inquiry" aria-haspopup="dialog">
-								<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28zm7.67-24h-16c-6.627 0-12-5.373-12-12v-.381c0-70.343 77.44-63.619 77.44-107.408 0-20.016-17.761-40.211-57.44-40.211-29.144 0-44.265 9.649-59.211 28.692-3.908 4.98-11.054 5.995-16.248 2.376l-13.134-9.15c-5.625-3.919-6.86-11.771-2.645-17.177C185.658 133.514 210.842 116 255.67 116c52.32 0 97.44 29.751 97.44 80.211 0 67.414-77.44 63.849-77.44 107.408V304c0 6.627-5.373 12-12 12zM256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8z"/></svg>
-								{{ 'products.enquiry.link' | t }}
-							</button>
-						{%- endunless -%}
-						{%- liquid
-							assign is_backinstock = false
-							for variant in product.variants
-							unless variant.available
-								assign is_backinstock = true
-							endunless
-							endfor
-						-%}
-						{%- if blk_st.bis and is_backinstock -%}
-							{%- render 'back-in-stock', blk_st: blk_st, product:product, current_variant:current_variant -%}
-						{%- endif -%}
-					{%- when 'link-popup' -%}
-						<div class="poplink f-wrap mb15" style="--fs:{{ blk_st.fs }};--cl:{{ blk_st.cl }};--bg:{{ blk_st.clbg }};--fw:{{ blk_st.fw }};--brad:{{ blk_st.brad }}px;--bdr:{{ blk_st.bdr }};" {{ block.shopify_attributes }}>
-							<a href="#lp{{ block.id }}" class="fl popup-link mr15 {{ blk_st.lstyle }}" data-popup="lp{{ block.id }}" aria-haspopup="dialog">
-								{% if blk_st.icon != blank %}<img style="color:{{ blk_st.cl }};" class="at-icon" loading="lazy" src="{{ blk_st.icon | image_url: width: '60' }}" width="18" height="18" alt="" />{% endif %} 
-								{{ blk_st.text }}
-							</a>
-							<div id="lp{{ block.id }}" class="tinglebox pp-hide cm">
-								{%  if blk_st.opt == "page" %}{{ pages[blk_st.page].content }}{%  else %}{{ blk_st.poptext }}{%  endif %}
-							</div>
-						</div>
-					{%- when 'countdown' %}
-						{% if product.metafields.custom.countdown != blank %}
-						<div class="timer fl f-wrap f-aic {{ blk_st.cds }} mb{{ blk_st.bm }}{% if blk_st.iscenter %} f-jcc{% endif %}" style="--bg:{{ blk_st.bg }};--rounded:{{blk_st.brad }}px" {{ block.shopify_attributes }}>
-							{%- if blk_st.clbl != blank -%}<label style="color:{{ blk_st.cl }}">{{ blk_st.clbl }}</label>{%- endif -%}
-							<countdown-time id="countdown" class="atCounter {{ blk_st.cds }} fl f-aic{% if blk_st.cds != 'inline_timer' %} w_100{% endif %}{% if blk_st.iscenter %} f-jcc{% endif %}{% if blk_st.text_ttu %} ttu{% endif %}" data-date="{{ product.metafields.custom.countdown }}" style="--cl:{{ blk_st.tcl }};--fs:{{ blk_st.fs }}px;--fsl:{{ blk_st.tfs }}px;--fw:{{ blk_st.fw }};--border:{{ blk_st.border }};">
-								<span><span class="tm days">00</span> {{ 'date_formats.days' | t }}</span><span class="timerdot">:</span>
-								<span><span class="tm hours">00</span> {{ 'date_formats.hours' | t }}</span><span class="timerdot">:</span>
-								<span><span class="tm minutes">00</span> {{ 'date_formats.minuts' | t }}</span><span class="timerdot">:</span>
-								<span><span class="tm seconds">00</span> {{ 'date_formats.seconds' | t }}</span>
-							</countdown-time>
-						</div>
-						{%- endif -%}
-															
-					{%- when 'order' -%}
-						{%- assign ordermsg = blk_st.omsg | replace: '[orders]','<strong id="odItems"></strong>' | replace: '[hours]','<strong id="odTime"></strong>' -%}
-						<div class="fl orderMsg mb{{ blk_st.bm }}" style="color:{{ blk_st.cl }};" data-user="{{ blk_st.orders }}" data-time="{{ blk_st.otime }}" {{ block.shopify_attributes }}>
-							{% if blk_st.icon %}<svg class="at-icon mr10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 391.41 503.7"><path d="M269.77,309.75c11.73,9.79,25.45,16.65,39.59,16.65,22.79,0,41.54-9.08,52.81-25.55C369,290.8,372.68,278.75,373,265a125.71,125.71,0,0,1,13.79,16.43,159,159,0,0,1,25.88,60.86c7.46,39.15,2.47,95.62-63.74,142.36a13,13,0,1,0,15,21.27c32.47-22.92,55.07-50.54,67.19-82.09,10.31-26.85,12.77-56.73,7.11-86.42a183.14,183.14,0,0,0-30.21-71c-14.18-20-30.83-34.45-46.9-40.68-9.82-2.47-23.9-.23-17.27,15.54,9.54,22.71,1.8,37.62-3.23,45-6.26,9.16-17.38,14.21-31.31,14.21-7.48,0-15.34-3.43-21.56-9.4-5.84-5.6-9.32-12.61-9.32-18.77,0-12.9,5.27-24.15,19.44-41.5l.08-.1.08-.11c11.76-16.82,24.3-37.52,24.3-70.5,0-29.74-11.37-61.44-32-89.26A201.41,201.41,0,0,0,207.07,5.59a12.8,12.8,0,0,0-5.07-1,13,13,0,0,0-10.23,21.08c19,24.08,24,47.5,15.81,73.71-8.34,26.59-29.78,53.55-49.65,76.41-6.87,7.91-14,15.79-21.52,24.13-17,18.82-34.52,38.25-49,57.91-25.61,34.69-37.54,64.53-37.54,93.92A178.37,178.37,0,0,0,83.07,455.93c22.9,32.1,48.61,47,56,50.86a13,13,0,0,0,12-23.11c-12.46-6.48-31.29-21.14-46.75-42.86a150.75,150.75,0,0,1-28.4-89.1c0-23.54,10.31-48.47,32.44-78.45C122.06,254.66,138.05,237,155,218.21c7.47-8.27,15.17-16.8,22.62-25.36,21.63-24.9,45.07-54.54,54.84-85.71C238.47,87.85,239,69,234,50.82c38.17,28.45,62.35,70.34,62.35,109.16,0,25.43-9.27,40.8-19.6,55.58C276.74,215.56,224.11,271.67,269.77,309.75Z" transform="translate(-49.84 -4.56)"/><path d="M321.56,384c-.38,0-.75,0-1.13.05a13,13,0,0,0-11.62,10.28c-5.89,27.86-24.27,39.14-39.5,40.4-1,.08-1.95.13-2.91.13-6.35,0-12.18-1.77-16.4-5-4.8-3.65-7.24-8.91-7.24-15.63,0-21-4.8-42-13.53-59.15-10-19.75-25.08-34.31-43.51-42.1a12.8,12.8,0,0,0-5.07-1,13,13,0,0,0-12.38,17c6.42,19.81,2.38,35.44-5.66,52.81-5.15,11.14-11.56,25-11.56,41.36,0,17.12,6,34.53,17.83,51.75,9.53,13.88,20.36,24.06,26.2,29.55A13,13,0,0,0,213.45,486l0,0,0,0c-11.78-11.29-36.29-34.79-36.29-62.78,0-10.26,3.69-18.34,8.36-28.56,4.18-9.15,10.63-25.34,12-40.83,12.15,15,19.22,36.89,19.22,60.47,0,14.85,6.22,27.77,17.51,36.36,8.72,6.64,20.16,10.29,32.19,10.29,1.67,0,3.37-.07,5-.21a66.37,66.37,0,0,0,42-20.21c-.25,2.24-.57,4.45-1,6.61-2.36,12.68-8.4,29.27-23.77,36.28a13,13,0,1,0,10.81,23.69c19.94-9.09,33.63-28.7,38.56-55.21,3.8-20.43,2.09-43.28-4.46-59.65A13,13,0,0,0,321.56,384Z" transform="translate(-49.84 -4.56)"/></svg> {% endif %}
-							<div> {{ ordermsg }}</div>
-						</div>
-						<script>document.getElementById("odItems").innerHTML = Math.floor(Math.random() * {{ blk_st.orders }}) + 1;document.getElementById("odTime").innerHTML = Math.floor(Math.random() * {{ blk_st.otime }}) + 1;</script>
-					{%- when 'visitor' -%} 
-						{%- assign visitormsg = blk_st.visitors_msg | replace: '[visitors]','<strong id="uersView"></strong>' -%}
-						<div class="fl f-aic user_view mb{{ blk_st.bm }}" style="color:{{ blk_st.cl }};--bg:{{ blk_st.bg }};--ccl:{{ blk_st.ccl }};" data-user="{{ settings.visitors }}" data-time="{{ blk_st.visitors_time | times:1000 }}" {{ block.shopify_attributes }}>
-							{{ visitormsg }}
-						</div>
-						<script>document.getElementById("uersView").innerHTML = Math.floor(Math.random() * {{ blk_st.visitors }}) + 1;setInterval(function(){ document.getElementById("uersView").innerHTML = Math.floor(Math.random() * {{ blk_st.visitors }}) + 1 }, {{ blk_st.visitors_time | times:1000 }});</script>
-								
-					{%- when 'shiptime' -%}
-						{%- liquid
-							if product.metafields.custom.shipping_days != blank
-								assign days = product.metafields.custom.shipping_days | split: "/"
-							else
-								assign days = blk_st.estimate_ship | split: "/"
-							endif
-							assign day_1 = days[0] | times: 86400
-							assign day_2 = days[1] | times: 86400
-							assign day_1_day = "now" | date: "%s" | plus: day_1 | date: '%A'
-							if day_1_day == 'Saturday'
-								assign day_1 = days[0] | plus: 2 | times: 86400
-								assign day_2 = days[1] | plus: 2 | times: 86400
-							elsif day_1_day == 'Sunday'
-								assign day_1 = days[0] | plus: 1 | times: 86400
-								assign day_2 = days[1] | plus: 1 | times: 86400
-							endif
+										{%- liquid
+											assign volume_pricing_array = current_variant.quantity_price_breaks | sort: 'quantity' | reverse
+											assign current_qty_for_volume_pricing = cart_qty | plus: current_variant.quantity_rule.min
+											if cart_qty > 0
+												assign current_qty_for_volume_pricing = cart_qty | plus: current_variant.quantity_rule.increment
+											endif
+										-%}
+										{%- if product.quantity_price_breaks_configured? -%}
+											<price-per-item class="no-js-hidden" id="Price-Per-Item-{{ section.id }}" data-section-id="{{ section.id }}" data-variant-id="{{ current_variant.id }}">
+												{%- if current_variant.quantity_price_breaks.size > 0 -%}
+													{%- assign variant_price_compare = current_variant.compare_at_price -%}
+													<div class="price-per-item">
+														{%- if variant_price_compare -%}
+															<dl class="price-per-item--current">
+																<dt class="visually-hidden">{{ 'products.product.regular_price' | t }}</dt>
+																<dd><s class="variant-item__old-price">{{ variant_price_compare | money_with_currency }}</s></dd>
+															</dl>
+														{%- endif -%}
+														{%- if current_qty_for_volume_pricing < volume_pricing_array.last.minimum_quantity -%}
+															{%- assign variant_price = current_variant.price | money_with_currency -%}
+															<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span>
+														{%- else -%}
+															{%- for price_break in volume_pricing_array -%}
+																{%- if current_qty_for_volume_pricing >= price_break.minimum_quantity -%}
+																	{%- assign price_break_price = price_break.price | money_with_currency -%}
+																	<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: price_break_price -}}</span>
+																	{%- break -%}
+																{%- endif -%}
+															{%- endfor -%}
+														{%- endif -%}
+													</div>
+												{%- else -%}
+													{%- assign variant_price = current_variant.price | money_with_currency -%}
+													{%- assign variant_price_compare = current_variant.compare_at_price -%}
+													<div class="price-per-item">
+														{%- if variant_price_compare -%}
+															<dl class="price-per-item--current">
+																<dt class="visually-hidden">{{ 'products.product.regular_price' | t }}</dt>
+																<dd><s class="variant-item__old-price">{{ variant_price_compare | money_with_currency }}</s></dd>
+																<dt class="visually-hidden">{{ 'products.product.sale_price' | t }}</dt>
+																<dd><span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span></dd>
+															</dl>
+														{%- else -%}
+															<span class="price-per-item--current">{{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}</span>
+														{%- endif -%}
+													</div>
+												{%- endif -%}
+											</price-per-item>
+										{%- endif -%}
+									</div>
+									<div class="quantity__rules caption no-js-hidden" id="Quantity-Rules-{{ section.id }}">
+										{%- if current_variant.quantity_rule.increment > 1 -%}
+											<span class="divider">{{- 'products.product.quantity.multiples_of' | t: quantity: current_variant.quantity_rule.increment -}}</span>
+										{%- endif -%}
+										{%- if current_variant.quantity_rule.min > 1 -%}
+											<span class="divider">{{- 'products.product.quantity.minimum_of' | t: quantity: current_variant.quantity_rule.min -}}</span>
+										{%- endif -%}
+										{%- if current_variant.quantity_rule.max != null -%}
+											<span class="divider">{{- 'products.product.quantity.maximum_of' | t: quantity: current_variant.quantity_rule.max -}}</span>
+										{%- endif -%}
+									</div>
+									{%- if product.quantity_price_breaks_configured? -%}
+										<volume-pricing class="parent-display no-js-hidden" id="Volume-{{ section.id }}">
+											{%- if current_variant.quantity_price_breaks.size > 0 -%}
+												<span class="caption-large">{{ 'products.product.volume_pricing.title' | t }}</span>
+												<ul class="list-unstyled no-js-hidden">
+													<li>
+														<span>{{ current_variant.quantity_rule.min }}+</span>
+														{%- assign price = current_variant.price | money_with_currency -%}
+														<span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: variant_price }}">{{- 'sections.quick_order_list.each_html' | t: money: price -}}</span>
+													</li>
+													{%- for price_break in current_variant.quantity_price_breaks -%}
+														{%- assign price_break_price = price_break.price | money_with_currency -%}
+														<li class="{%- if forloop.index >= 3 -%}show-more-item hidden{%- endif -%}">
+															<span>{{- price_break.minimum_quantity -}}<span aria-hidden="true">+</span></span>
+															<span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: price_break_price }}">{{- 'sections.quick_order_list.each_html' | t: money: price_break_price -}}</span>
+														</li>
+													{%- endfor -%}
+												</ul>
+												{%- if current_variant.quantity_price_breaks.size >= 3 -%}
+													<show-more-button>
+														<button class="button-show-more link underlined-link" id="Show-More-{{ section.id }}" type="button"><span class="label-show-more label-text"><span aria-hidden="true">+ </span>{{ 'products.product.volume_pricing.show_more' | t }}</span></button>
+													</show-more-button>
+												{%- endif -%}
+											{%- endif -%}
+										</volume-pricing>
+									{%- endif -%}
+								</div>
+							{% endcapture %}
+						{%- when 'cta' -%}
+							{% capture cta_action %}
+								{%- if sizechartall -%}
+									<p class="mb15">
+										<a href="#sizechart" class="sizelink popup-link" aria-haspopup="dialog">
+											<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M341.7,113.1c-47.6,0-82.1,21.2-82.1,50.3c0,29.2,34.5,50.3,82.1,50.3c46.8,0,82.1-21.6,82.1-50.3S388.5,113.1,341.7,113.1 z M401.9,163.4c0,10.8-25.3,26.9-60.3,26.9c-36.2,0-60.3-15.7-60.3-26.1c0-10.8,25.3-26.9,60.3-26.9 C377.9,137.3,401.9,153,401.9,163.4z"/><path d="M499,286.7c-6.4,0-10.9,5-10.9,12.1v39.1c0,13.1-3.6,25.3-10.2,34.3c-18.4,24.7-57.4,40.6-109.7,44.8 c-47.8,4.3-96.1-2.6-139.5-19.8c-41.3-17-83.5-25.8-125.5-26.2v-158c13.9,0.1,27.3,1.1,39.9,3v98.8c0,7.1,4.5,12.1,10.9,12.1 s10.9-5,10.9-12.1v-94.2c11.3,2.3,23.7,5.8,37.6,10.6v61.1c0,7.1,4.5,12.1,10.9,12.1c6.4,0,10.9-5,10.9-12.1v-52.8l1.3,0.5 c12.3,4.3,24,8.5,36.3,11.5v58.2c0,7.1,4.5,12.1,10.9,12.1c6.4,0,10.9-5,10.9-12.1V256c12.6,2.2,25.4,4.3,37.6,5.3v98.6 c0,7.1,4.5,12.1,10.9,12.1s10.9-5,10.9-12.1v-99.2c11.6-0.1,23.2-0.8,37.6-2.3v53.7c0,7.1,4.5,12.1,10.9,12.1 c6.4,0,10.9-5,10.9-12.1v-57.3c13.4-2.9,26.3-5.9,37.6-10.7v36.5c0,7.1,4.5,23.7,10.9,23.7c6.4,0,10.9-5,10.9-12.1v-58.9 c10.1-6.1,18.4-12.7,25.8-20.5v42.5c-0.4,3.3,0.3,6.3,2,8.6c1.9,2.5,4.8,3.8,8.1,3.8c6.4,0,10.9-5,10.9-12.1v-91.1 c0-26.6-17.5-51.1-49.2-69.1c-31.1-17.6-73.1-27.3-118.2-27.3s-87.1,9.7-118.2,27.3c-31.8,18-49.2,42.5-49.2,69.1v33.9 C125,186,84,187.5,58,191.1c-28.2,3.9-46.4,11-49.3,12.5c-3.7,1.5-6.6,6.4-6.6,11v183.2c0,4.1,1.8,7.8,4.9,10.1 c3,2.2,6.7,2.6,10.2,1c0.2-0.1,0.5-0.2,0.8-0.3c21.6-7.6,100-29.2,203,12.4c38.3,15.4,78.5,23.1,119.9,23.1 c9.4,0,18.9-0.4,28.5-1.2c60.2-5.3,102.2-23.5,125-54.2c10.2-14.1,15.6-31.4,15.6-49.9v-39.9C509.9,291.7,505.4,286.7,499,286.7z M196.1,164.3c0-18.1,15.4-36.2,42.3-49.9c28.1-14.3,64.8-22.1,103.3-22.1c38.5,0,75.2,7.9,103.3,22.1 c26.9,13.7,42.3,31.9,42.3,49.9c0,50.9-95.3,72.1-146.3,72.1c-38.5,0-75-7.9-102.9-22.1C211.4,200.5,196.1,182.3,196.1,164.3z M80.3,213.8v158.1c-25.4,1.8-45.1,6.1-56.4,9.2V223.2C31.7,220.6,51.3,215,80.3,213.8z"/></svg>
+											{{ 'products.product.size_chart' | t }}
+										</a>
+									</p>
+								{%- endif -%}
+								{%- unless settings.catalog-mode -%}
+									<div class="ctabtn mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
+										{%- liquid
+											assign gift_card_recipient_feature_active = false
+											if block.settings.gift_recipient and product.gift_card?
+												assign gift_card_recipient_feature_active = true
+											endif
 
-							assign day_2_day = "now" | date: "%s" | plus: day_2 | date: '%A'
-							if day_2_day == 'Saturday'
-								assign day_2 = days[1] | plus: 2 | times: 86400
-							elsif day_2_day == 'Sunday'
-								assign day_2 = days[1] | plus: 1 | times: 86400
-							endif 
-						-%}
-						{% capture startdate %}<b>{{ "now" | date: "%s" | plus: day_1 | time_tag: format: 'day_month' }}</b>{% endcapture %}
-						{% capture enddate %}<b>{{ "now" | date: "%s" | plus: day_2 | time_tag: format: 'day_month' }}</b>{% endcapture %}
-						<div class="fl shippingMsg mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
-							{% if blk_st.shipmsg_ico %}
-								<svg class="at-icon mr10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 64h-48V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H128V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h352c8.8 0 16 7.2 16 16v48H32v-48c0-8.8 7.2-16 16-16zm352 384H48c-8.8 0-16-7.2-16-16V192h384v272c0 8.8-7.2 16-16 16zM148 320h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 96h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm192 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12z"/></svg>
-							{% endif %}
-							<span>{{ blk_st.estimate_shipping_msg | replace:'[startdate]', startdate | replace:'[enddate]',enddate }}</span>
-						</div>
-					{%- when 'shortdes' -%}  
-						<div class="pr_desc rte mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
-							{% if blk_st.des_type == 'shortd' %}{{ product.metafields.custom.short_des }}{% else %}{{ product.description }}{% endif %}
-						</div>
-					{%- when 'freeship' -%}
-						<div class="freeShipMsg mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
-							{%- liquid 
-								assign freeship_rate = settings.freeship | times: 100 | default: 0
-								assign remain_amount = freeship_rate | minus: cart.total_price
-								assign free_amount = remain_amount | money
-								assign shipbar = remain_amount | times:100 | divided_by:freeship_rate
-							-%}
-							{% if settings.ship_ico %}<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M382.2,118.3h-66V81.6c0-7-5.5-12.7-12.3-12.7H12.3C5.5,68.8,0,74.5,0,81.6v301.6c0,7,5.5,12.7,12.3,12.7h41.2 c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3H345c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3h41.2 c6.8,0,12.3-5.7,12.3-12.7V252.6C512,178.6,453.8,118.3,382.2,118.3z M406,241c-16.1,0-29.2-13.6-29.2-30.2v-66.9h5.4 c53.3,0,98.9,42.5,104.6,97.2H406z M406,266.5h81.3v103.9h-28.8c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3h-28.9 V143.8h36v66.9C352.1,241.5,376.3,266.5,406,266.5z M435.1,383.2c0,19-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5s15-34.5,33.4-34.5 S435.1,364.1,435.1,383.2z M291.5,313.8v56.7H167c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3H24.6v-56.7H291.5z M110.2,348.6c18.4,0,33.4,15.5,33.4,34.5s-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5S91.8,348.6,110.2,348.6z M291.5,94.3v194H24.6 v-194H291.5z"></path></svg> {% endif %}
-							{% if remain_amount > 0 %}{{ settings.free_ship_msg | replace: '[price]', free_amount }}{% else %}{{ settings.got_free_ship }}{% endif %}
-							{% if settings.progress_bar %}<div class="shipBar"><span class="db anim" style="width:calc(100% - {{ shipbar }}%);"></span></div>{% endif %}
-						</div>
-					{%- when 'pickup' -%}
-						{%- assign pick_up_availabilities = current_variant.store_availabilities | where: 'pick_up_enabled', true -%}
-						<pickup-availability class="product__pickup-availabilities quick-add-hidden db mb{{ blk_st.bm }} brad of_hidden" style="--rounded:{{ blk_st.brad }}px;--bg:{{ blk_st.bg }};;--icon:{{ blk_st.icon }};--cl:{{ blk_st.text }}" {% if current_variant.available and pick_up_availabilities.size > 0 %}available{% endif %}
-						data-root-url="{{ routes.root_url }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-has-only-default-variant="{{ product.has_only_default_variant }}" data-product-page-color-scheme="gradient color-{{ section_st.color_scheme }}" {{ block.shopify_attributes }}>
-						<template>
-							<pickup-availability-preview class="pickup-availability-preview">
-							<span class="svg-wrapper">{{- 'icon-unavailable.svg' | inline_asset_content -}}</span>
-							<div class="pickup-availability-info">
-								<p class="caption-large">{{ 'products.pickup_availability.unavailable' | t }}</p>
-								<button class="pickup-availability-button link link--text underlined-link">{{ 'products.pickup_availability.refresh' | t }}</button>
-							</div>
-							</pickup-availability-preview>
-						</template>
-						</pickup-availability>
-						<script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
-						
-					{%- when 'img' -%}     
-						{%- if blk_st.pimg != blank -%}
-							<div class="trust_badge mb{{ blk_st.bm }}{% if blk_st.img_align %} tc{% endif %}{% if blk_st.add_bg %} pd30{% endif %}" style="--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};--brad:{{ blk_st.brad}}px" {{ block.shopify_attributes }}>
-								{% if blk_st.title != blank %}<span class="db mb15 fwm">{{ blk_st.title }}</span>{% endif %}
-								{% if blk_st.pimg_url != blank %}<a href="{{ blk_st.pimg_url }}">{% endif %}
-									{% capture sizes %}(max-width: {{ blk_st.imgwd | times: 2 }}px) 50vw, {{ blk_st.imgwd }}px{% endcapture %}
-									{% capture widths %}{{ blk_st.imgwd }}, {{ blk_st.imgwd | times: 1.5 | round }}, {{ blk_st.imgwd | times: 2 }}{% endcapture %}
-									{%- assign imght = blk_st.imgwd | divided_by: blk_st.pimg.aspect_ratio -%}
-									{{ blk_st.pimg | image_url: width:blk_st.pimg.width | image_tag: loading:'lazy', width:blk_st.imgwd, height:imght, class:'imgAt', sizes:sizes, widths:widths }}
-								{% if blk_st.pimg_url != blank %}</a>{% endif %}
-							</div>
-						{%- endif -%}
-					{%- when 'sku' -%} 
-						<p class="product-sku mb{{ blk_st.bm }}{% if current_variant.sku.size == 0 %} hidden{% endif %}" id="Sku-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-							<span class="lbl">{{ 'products.product.sku' | t }}</span> <span class="variant-sku">{{ current_variant.sku }}</span>
-						</p>
-					{%- when 'cl' -%}
-						{%- liquid
-							assign found_a_collection = false
-							assign exclusions = 'frontpage,all' | split: ','
-							if collection and collection.all_products_count > 1
-								unless exclusions contains collection.handle
-									assign found_a_collection = true 
-								endunless
-							endif
-							
-							unless found_a_collection
-								for c in product.collections
-									unless exclusions contains c.handle or c.all_products_count < 2
-										assign found_a_collection = true
-										assign collection = c
-										break
+											assign show_dynamic_checkout = false
+											if blk_st.dynamic_btn and gift_card_recipient_feature_active == false
+												assign show_dynamic_checkout = true
+											endif
+										-%}
+										<product-form class="db product-form" data-hide-errors="{{ gift_card_recipient_feature_active }}" data-section-id="{{ section.id }}">
+											<div class="product-form__error-message-wrapper ermsg mb15" role="alert" hidden>
+												{{ 'icon-error.svg' | inline_asset_content }} <span class="product-form__error-message"></span>
+											</div>
+											{%- form 'product', product, id: product_form_id, class: 'form', novalidate: validate, data-type: 'add-to-cart-form' -%}
+												<input type="hidden" name="id" value="{{ current_variant.id }}" {% if current_variant.available == false %}disabled{% endif %} class="product-variant-id">
+
+												{%- if gift_card_recipient_feature_active -%}
+													{%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+												{%- endif -%}
+
+												{% if product.metafields.custom.external_link_text != blank and product.metafields.custom.external_link != blank %} 
+														<a href="{{ product.metafields.custom.external_link }}"  class="exlink btn pr_btn {{ block.settings.ext-btn }}" target="_blank">{{ product.metafields.custom.external_link_text }}</a>
+												{% else %}
+												<div class="product-form__buttons">
+													{%- liquid
+														assign check_against_inventory = true
+														if current_variant.inventory_management != 'shopify' or current_variant.inventory_policy == 'continue'
+															assign check_against_inventory = false
+														endif
+														if current_variant.quantity_rule.min > current_variant.inventory_quantity and check_against_inventory
+															assign quantity_rule_soldout = true
+														endif
+													-%}
+													<div class="fl gap" style="--gap:10px;">
+														{%- if inventory_block != blank -%}{{ inventory_block }}{%- endif -%}
+														<button id="ProductSubmitButton-{{ section.id }}" type="submit" name="add" class="btn {{ block.settings.atc-style }} pr_btn product-form__submit btn-has-icon"
+															{% if current_variant.available == false or quantity_rule_soldout %}disabled{% endif %}>
+															{%- render 'icon-cart' -%}
+															<span class="txt">
+																{%- if current_variant.available == false or quantity_rule_soldout -%}
+																	{{ 'products.product.sold_out' | t }}
+																{%- elsif current_variant.available and current_variant.inventory_quantity < 1 and current_variant.inventory_management == "shopify" -%}
+																	{{ 'products.product.pre_order' | t }}
+																{%- else -%}
+																	{{ 'products.product.add_to_cart' | t }}
+																{%- endif -%}
+															</span>
+															<div class="loading__spinner hidden"><svg class="at-icon at-spin"><use xlink:href="#icon-loading"></use></svg></div>
+														</button>
+													</div>
+													{%- if show_dynamic_checkout -%}
+														{%- if settings.terms_checkbox -%}
+															<label for="prTerms" class="cart_term fl mb15 f-aic">
+																<input type="checkbox" name="tearm" id="prTerms" class="checkbox custCheck tearmCheck" value="tearm" />
+																<span class="checkbox"></span> {{ settings.terms_text }}
+															</label>
+														{%- endif -%}
+														<div style="--btnbg :{{ blk_st.btnbg }};--btntext :{{ blk_st.btntext }};--btnbdr :{{ blk_st.btnbdr }};">{{ form | payment_button }}</div>
+													{%- endif -%}
+												</div>
+												{% endif %}
+											
+											{%- endform -%}
+										</product-form>
+									</div>
+								{%- else -%}
+									<button type="button" class="btn pr_btn btn-enquire fl f-aic f-jcc popup-link mb{{ blk_st.bm }}" data-popup="inquiry" aria-haspopup="dialog">
+										<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28zm7.67-24h-16c-6.627 0-12-5.373-12-12v-.381c0-70.343 77.44-63.619 77.44-107.408 0-20.016-17.761-40.211-57.44-40.211-29.144 0-44.265 9.649-59.211 28.692-3.908 4.98-11.054 5.995-16.248 2.376l-13.134-9.15c-5.625-3.919-6.86-11.771-2.645-17.177C185.658 133.514 210.842 116 255.67 116c52.32 0 97.44 29.751 97.44 80.211 0 67.414-77.44 63.849-77.44 107.408V304c0 6.627-5.373 12-12 12zM256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8z"/></svg>
+										{{ 'products.enquiry.link' | t }}
+									</button>
+								{%- endunless -%}
+								{%- liquid
+									assign is_backinstock = false
+									for variant in product.variants
+									unless variant.available
+										assign is_backinstock = true
 									endunless
-								endfor
-							endunless 
-						-%}
-						{%- if found_a_collection -%}
-							<div class="product-meta meta{{ blk_st.stl }} fl f-wrap mb{{blk_st.bm}} gap" style="--gap:8px;--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};" {{ block.shopify_attributes }}>
-								{%- if blk_st.collections != blank -%}<span class="lbl">{{ blk_st.collections }}</span>{%- endif -%}
-								{%- for c in product.collections limit:10 -%}
-									{%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
-										<a class="fl" href="{{ c.url }}">{{ c.title }}{% if blk_st.stl == "1" %}{% unless forloop.last %}, {% endunless %}{%- else -%}<span class="tick ml5">&#x2714; </span>{%- endif -%}</a>
-									{%- endunless -%}
-								{%- endfor -%}
+									endfor
+								-%}
+								{%- if blk_st.bis and is_backinstock -%}
+									{%- render 'back-in-stock', blk_st: blk_st, product:product, current_variant:current_variant -%}
+								{%- endif -%}
+							{% endcapture %}
+						{%- when 'link-popup' -%}
+							<div class="poplink f-wrap mb15" style="--fs:{{ blk_st.fs }};--cl:{{ blk_st.cl }};--bg:{{ blk_st.clbg }};--fw:{{ blk_st.fw }};--brad:{{ blk_st.brad }}px;--bdr:{{ blk_st.bdr }};" {{ block.shopify_attributes }}>
+								<a href="#lp{{ block.id }}" class="fl popup-link mr15 {{ blk_st.lstyle }}" data-popup="lp{{ block.id }}" aria-haspopup="dialog">
+									{% if blk_st.icon != blank %}<img style="color:{{ blk_st.cl }};" class="at-icon" loading="lazy" src="{{ blk_st.icon | image_url: width: '60' }}" width="18" height="18" alt="" />{% endif %} 
+									{{ blk_st.text }}
+								</a>
+								<div id="lp{{ block.id }}" class="tinglebox pp-hide cm">
+									{%  if blk_st.opt == "page" %}{{ pages[blk_st.page].content }}{%  else %}{{ blk_st.poptext }}{%  endif %}
+								</div>
 							</div>
-						{%- endif -%}
-
-					{%- when 'tags' -%}
-						{%- if product.tags.size > 0 -%}
-							<div class="product-meta meta{{ blk_st.stl }} fl f-wrap mb{{blk_st.bm}} gap" style="--gap:8px;--gapm:8px;--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};" {{ block.shopify_attributes }}>
-								{%- if blk_st.tags != blank -%}<span class="lbl">{{ blk_st.tags }}</span> {%- endif -%}
-								{%- for collection in product.collections limit:1 -%}
-									{%- for tag in product.tags limit:10 -%}<a class="fl" href="{{ collection.url }}?constraint={{ tag | handle }}">{{ tag | remove:'type ' | remove:'Type ' }}{%  if blk_st.stl == "1" %}{% unless forloop.last %}, {% endunless %}{% else %} <span class="tick ml5">&#x2714;</span> {% endif %}</a>{%- endfor -%}
-								{%- endfor -%}
+						{%- when 'countdown' %}
+							{% if product.metafields.custom.countdown != blank %}
+							<div class="timer fl f-wrap f-aic {{ blk_st.cds }} mb{{ blk_st.bm }}{% if blk_st.iscenter %} f-jcc{% endif %}" style="--bg:{{ blk_st.bg }};--rounded:{{blk_st.brad }}px" {{ block.shopify_attributes }}>
+								{%- if blk_st.clbl != blank -%}<label style="color:{{ blk_st.cl }}">{{ blk_st.clbl }}</label>{%- endif -%}
+								<countdown-time id="countdown" class="atCounter {{ blk_st.cds }} fl f-aic{% if blk_st.cds != 'inline_timer' %} w_100{% endif %}{% if blk_st.iscenter %} f-jcc{% endif %}{% if blk_st.text_ttu %} ttu{% endif %}" data-date="{{ product.metafields.custom.countdown }}" style="--cl:{{ blk_st.tcl }};--fs:{{ blk_st.fs }}px;--fsl:{{ blk_st.tfs }}px;--fw:{{ blk_st.fw }};--border:{{ blk_st.border }};">
+									<span><span class="tm days">00</span> {{ 'date_formats.days' | t }}</span><span class="timerdot">:</span>
+									<span><span class="tm hours">00</span> {{ 'date_formats.hours' | t }}</span><span class="timerdot">:</span>
+									<span><span class="tm minutes">00</span> {{ 'date_formats.minuts' | t }}</span><span class="timerdot">:</span>
+									<span><span class="tm seconds">00</span> {{ 'date_formats.seconds' | t }}</span>
+								</countdown-time>
 							</div>
-						{%- endif -%}   
+							{%- endif -%}
+																
+						{%- when 'order' -%}
+							{%- assign ordermsg = blk_st.omsg | replace: '[orders]','<strong id="odItems"></strong>' | replace: '[hours]','<strong id="odTime"></strong>' -%}
+							<div class="fl orderMsg mb{{ blk_st.bm }}" style="color:{{ blk_st.cl }};" data-user="{{ blk_st.orders }}" data-time="{{ blk_st.otime }}" {{ block.shopify_attributes }}>
+								{% if blk_st.icon %}<svg class="at-icon mr10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 391.41 503.7"><path d="M269.77,309.75c11.73,9.79,25.45,16.65,39.59,16.65,22.79,0,41.54-9.08,52.81-25.55C369,290.8,372.68,278.75,373,265a125.71,125.71,0,0,1,13.79,16.43,159,159,0,0,1,25.88,60.86c7.46,39.15,2.47,95.62-63.74,142.36a13,13,0,1,0,15,21.27c32.47-22.92,55.07-50.54,67.19-82.09,10.31-26.85,12.77-56.73,7.11-86.42a183.14,183.14,0,0,0-30.21-71c-14.18-20-30.83-34.45-46.9-40.68-9.82-2.47-23.9-.23-17.27,15.54,9.54,22.71,1.8,37.62-3.23,45-6.26,9.16-17.38,14.21-31.31,14.21-7.48,0-15.34-3.43-21.56-9.4-5.84-5.6-9.32-12.61-9.32-18.77,0-12.9,5.27-24.15,19.44-41.5l.08-.1.08-.11c11.76-16.82,24.3-37.52,24.3-70.5,0-29.74-11.37-61.44-32-89.26A201.41,201.41,0,0,0,207.07,5.59a12.8,12.8,0,0,0-5.07-1,13,13,0,0,0-10.23,21.08c19,24.08,24,47.5,15.81,73.71-8.34,26.59-29.78,53.55-49.65,76.41-6.87,7.91-14,15.79-21.52,24.13-17,18.82-34.52,38.25-49,57.91-25.61,34.69-37.54,64.53-37.54,93.92A178.37,178.37,0,0,0,83.07,455.93c22.9,32.1,48.61,47,56,50.86a13,13,0,0,0,12-23.11c-12.46-6.48-31.29-21.14-46.75-42.86a150.75,150.75,0,0,1-28.4-89.1c0-23.54,10.31-48.47,32.44-78.45C122.06,254.66,138.05,237,155,218.21c7.47-8.27,15.17-16.8,22.62-25.36,21.63-24.9,45.07-54.54,54.84-85.71C238.47,87.85,239,69,234,50.82c38.17,28.45,62.35,70.34,62.35,109.16,0,25.43-9.27,40.8-19.6,55.58C276.74,215.56,224.11,271.67,269.77,309.75Z" transform="translate(-49.84 -4.56)"/><path d="M321.56,384c-.38,0-.75,0-1.13.05a13,13,0,0,0-11.62,10.28c-5.89,27.86-24.27,39.14-39.5,40.4-1,.08-1.95.13-2.91.13-6.35,0-12.18-1.77-16.4-5-4.8-3.65-7.24-8.91-7.24-15.63,0-21-4.8-42-13.53-59.15-10-19.75-25.08-34.31-43.51-42.1a12.8,12.8,0,0,0-5.07-1,13,13,0,0,0-12.38,17c6.42,19.81,2.38,35.44-5.66,52.81-5.15,11.14-11.56,25-11.56,41.36,0,17.12,6,34.53,17.83,51.75,9.53,13.88,20.36,24.06,26.2,29.55A13,13,0,0,0,213.45,486l0,0,0,0c-11.78-11.29-36.29-34.79-36.29-62.78,0-10.26,3.69-18.34,8.36-28.56,4.18-9.15,10.63-25.34,12-40.83,12.15,15,19.22,36.89,19.22,60.47,0,14.85,6.22,27.77,17.51,36.36,8.72,6.64,20.16,10.29,32.19,10.29,1.67,0,3.37-.07,5-.21a66.37,66.37,0,0,0,42-20.21c-.25,2.24-.57,4.45-1,6.61-2.36,12.68-8.4,29.27-23.77,36.28a13,13,0,1,0,10.81,23.69c19.94-9.09,33.63-28.7,38.56-55.21,3.8-20.43,2.09-43.28-4.46-59.65A13,13,0,0,0,321.56,384Z" transform="translate(-49.84 -4.56)"/></svg> {% endif %}
+								<div> {{ ordermsg }}</div>
+							</div>
+							<script>document.getElementById("odItems").innerHTML = Math.floor(Math.random() * {{ blk_st.orders }}) + 1;document.getElementById("odTime").innerHTML = Math.floor(Math.random() * {{ blk_st.otime }}) + 1;</script>
+						{%- when 'visitor' -%} 
+							{%- assign visitormsg = blk_st.visitors_msg | replace: '[visitors]','<strong id="uersView"></strong>' -%}
+							<div class="fl f-aic user_view mb{{ blk_st.bm }}" style="color:{{ blk_st.cl }};--bg:{{ blk_st.bg }};--ccl:{{ blk_st.ccl }};" data-user="{{ settings.visitors }}" data-time="{{ blk_st.visitors_time | times:1000 }}" {{ block.shopify_attributes }}>
+								{{ visitormsg }}
+							</div>
+							<script>document.getElementById("uersView").innerHTML = Math.floor(Math.random() * {{ blk_st.visitors }}) + 1;setInterval(function(){ document.getElementById("uersView").innerHTML = Math.floor(Math.random() * {{ blk_st.visitors }}) + 1 }, {{ blk_st.visitors_time | times:1000 }});</script>
+									
+						{%- when 'shiptime' -%}
+							{%- liquid
+								if product.metafields.custom.shipping_days != blank
+									assign days = product.metafields.custom.shipping_days | split: "/"
+								else
+									assign days = blk_st.estimate_ship | split: "/"
+								endif
+								assign day_1 = days[0] | times: 86400
+								assign day_2 = days[1] | times: 86400
+								assign day_1_day = "now" | date: "%s" | plus: day_1 | date: '%A'
+								if day_1_day == 'Saturday'
+									assign day_1 = days[0] | plus: 2 | times: 86400
+									assign day_2 = days[1] | plus: 2 | times: 86400
+								elsif day_1_day == 'Sunday'
+									assign day_1 = days[0] | plus: 1 | times: 86400
+									assign day_2 = days[1] | plus: 1 | times: 86400
+								endif
 
-					{%- when 'customc' -%}
-						<div class="mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>{{ blk_st.custom_liquid }}</div>
-					{%- when 'complementary' -%}
-						{%- liquid
-							assign dscolumn = 100 | minus: pimgsize
-							assign cmcolumn = 100.00 | divided_by: dscolumn | times: 1
-							assign cmdivide = 1.00 | divided_by: cmcolumn | round: 2
-						%}
-						{%- capture comp_img_sizes -%}
-							(min-width:1024px) calc((({{ cnt_width }} - 70px * {{ cmcolumn | minus: 1 }}) * {{ cmdivide }}) / {{ blk_st.grid }}),(min-width:768px) calc((({{ cnt_width }} - 70px * {{ cmcolumn | minus: 1 }}) * {{ cmdivide }}) / {{ blk_st.gridtb }}), calc(100vw / {{ blk_st.gridmb }})
-						{%- endcapture -%}
-						{% render 'complementary', product: product, sectionId: section.id, blk_st: blk_st, sizes:comp_img_sizes %}
-					{%- when 'more-color' -%}
-						{% render 'more-colors', product: product, sectionId: section.id, block: block.settings %}
-					{%- when 'addons' -%}
-						<div class="addonLinks fl f-wrap gap mb{{ blk_st.bm }}" {{ block.shopify_attributes }} style="--cl:{{ blk_st.cl }};--clh:{{ blk_st.clh }};--fs:{{ blk_st.fs }}px;--fw:{{ blk_st.fw }};--icns:{{ blk_st.fs | plus:4 }}px;--gap:20px;">
-							{%- if blk_st.askpr and settings.catalog-mode == false -%}
-								<button type="button" class="ask-ques rgTxt popup-link btnNone" data-popup="inquiry" aria-haspopup="dialog" aria-label="{{ 'products.enquiry.link' | t }}">
-									<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28zm7.67-24h-16c-6.627 0-12-5.373-12-12v-.381c0-70.343 77.44-63.619 77.44-107.408 0-20.016-17.761-40.211-57.44-40.211-29.144 0-44.265 9.649-59.211 28.692-3.908 4.98-11.054 5.995-16.248 2.376l-13.134-9.15c-5.625-3.919-6.86-11.771-2.645-17.177C185.658 133.514 210.842 116 255.67 116c52.32 0 97.44 29.751 97.44 80.211 0 67.414-77.44 63.849-77.44 107.408V304c0 6.627-5.373 12-12 12zM256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8z"/></svg>
-									{{ 'products.enquiry.link' | t }}
-								</button>
+								assign day_2_day = "now" | date: "%s" | plus: day_2 | date: '%A'
+								if day_2_day == 'Saturday'
+									assign day_2 = days[1] | plus: 2 | times: 86400
+								elsif day_2_day == 'Sunday'
+									assign day_2 = days[1] | plus: 1 | times: 86400
+								endif 
+							-%}
+							{% capture startdate %}<b>{{ "now" | date: "%s" | plus: day_1 | time_tag: format: 'day_month' }}</b>{% endcapture %}
+							{% capture enddate %}<b>{{ "now" | date: "%s" | plus: day_2 | time_tag: format: 'day_month' }}</b>{% endcapture %}
+							<div class="fl shippingMsg mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
+								{% if blk_st.shipmsg_ico %}
+									<svg class="at-icon mr10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 64h-48V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H128V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h352c8.8 0 16 7.2 16 16v48H32v-48c0-8.8 7.2-16 16-16zm352 384H48c-8.8 0-16-7.2-16-16V192h384v272c0 8.8-7.2 16-16 16zM148 320h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 96h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm192 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12z"/></svg>
+								{% endif %}
+								<span>{{ blk_st.estimate_shipping_msg | replace:'[startdate]', startdate | replace:'[enddate]',enddate }}</span>
+							</div>
+						{%- when 'shortdes' -%}  
+							<div class="pr_desc rte mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
+								{% if blk_st.des_type == 'shortd' %}{{ product.metafields.custom.short_des }}{% else %}{{ product.description }}{% endif %}
+							</div>
+						{%- when 'freeship' -%}
+							<div class="freeShipMsg mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>
+								{%- liquid 
+									assign freeship_rate = settings.freeship | times: 100 | default: 0
+									assign remain_amount = freeship_rate | minus: cart.total_price
+									assign free_amount = remain_amount | money
+									assign shipbar = remain_amount | times:100 | divided_by:freeship_rate
+								-%}
+								{% if settings.ship_ico %}<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M382.2,118.3h-66V81.6c0-7-5.5-12.7-12.3-12.7H12.3C5.5,68.8,0,74.5,0,81.6v301.6c0,7,5.5,12.7,12.3,12.7h41.2 c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3H345c5.7,27.5,29.3,47.3,56.7,47.3c27.3,0,50.9-19.8,56.7-47.3h41.2 c6.8,0,12.3-5.7,12.3-12.7V252.6C512,178.6,453.8,118.3,382.2,118.3z M406,241c-16.1,0-29.2-13.6-29.2-30.2v-66.9h5.4 c53.3,0,98.9,42.5,104.6,97.2H406z M406,266.5h81.3v103.9h-28.8c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3h-28.9 V143.8h36v66.9C352.1,241.5,376.3,266.5,406,266.5z M435.1,383.2c0,19-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5s15-34.5,33.4-34.5 S435.1,364.1,435.1,383.2z M291.5,313.8v56.7H167c-5.7-27.5-29.3-47.3-56.7-47.3c-27.3,0-50.9,19.8-56.7,47.3H24.6v-56.7H291.5z M110.2,348.6c18.4,0,33.4,15.5,33.4,34.5s-15,34.5-33.4,34.5s-33.4-15.5-33.4-34.5S91.8,348.6,110.2,348.6z M291.5,94.3v194H24.6 v-194H291.5z"></path></svg> {% endif %}
+								{% if remain_amount > 0 %}{{ settings.free_ship_msg | replace: '[price]', free_amount }}{% else %}{{ settings.got_free_ship }}{% endif %}
+								{% if settings.progress_bar %}<div class="shipBar"><span class="db anim" style="width:calc(100% - {{ shipbar }}%);"></span></div>{% endif %}
+							</div>
+						{%- when 'pickup' -%}
+							{%- assign pick_up_availabilities = current_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+							<pickup-availability class="product__pickup-availabilities quick-add-hidden db mb{{ blk_st.bm }} brad of_hidden" style="--rounded:{{ blk_st.brad }}px;--bg:{{ blk_st.bg }};;--icon:{{ blk_st.icon }};--cl:{{ blk_st.text }}" {% if current_variant.available and pick_up_availabilities.size > 0 %}available{% endif %}
+							data-root-url="{{ routes.root_url }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-has-only-default-variant="{{ product.has_only_default_variant }}" data-product-page-color-scheme="gradient color-{{ section_st.color_scheme }}" {{ block.shopify_attributes }}>
+							<template>
+								<pickup-availability-preview class="pickup-availability-preview">
+								<span class="svg-wrapper">{{- 'icon-unavailable.svg' | inline_asset_content -}}</span>
+								<div class="pickup-availability-info">
+									<p class="caption-large">{{ 'products.pickup_availability.unavailable' | t }}</p>
+									<button class="pickup-availability-button link link--text underlined-link">{{ 'products.pickup_availability.refresh' | t }}</button>
+								</div>
+								</pickup-availability-preview>
+							</template>
+							</pickup-availability>
+							<script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+							
+						{%- when 'img' -%}     
+							{%- if blk_st.pimg != blank -%}
+								<div class="trust_badge mb{{ blk_st.bm }}{% if blk_st.img_align %} tc{% endif %}{% if blk_st.add_bg %} pd30{% endif %}" style="--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};--brad:{{ blk_st.brad}}px" {{ block.shopify_attributes }}>
+									{% if blk_st.title != blank %}<span class="db mb15 fwm">{{ blk_st.title }}</span>{% endif %}
+									{% if blk_st.pimg_url != blank %}<a href="{{ blk_st.pimg_url }}">{% endif %}
+										{% capture sizes %}(max-width: {{ blk_st.imgwd | times: 2 }}px) 50vw, {{ blk_st.imgwd }}px{% endcapture %}
+										{% capture widths %}{{ blk_st.imgwd }}, {{ blk_st.imgwd | times: 1.5 | round }}, {{ blk_st.imgwd | times: 2 }}{% endcapture %}
+										{%- assign imght = blk_st.imgwd | divided_by: blk_st.pimg.aspect_ratio -%}
+										{{ blk_st.pimg | image_url: width:blk_st.pimg.width | image_tag: loading:'lazy', width:blk_st.imgwd, height:imght, class:'imgAt', sizes:sizes, widths:widths }}
+									{% if blk_st.pimg_url != blank %}</a>{% endif %}
+								</div>
+							{%- endif -%}
+						{%- when 'sku' -%} 
+							<p class="product-sku mb{{ blk_st.bm }}{% if current_variant.sku.size == 0 %} hidden{% endif %}" id="Sku-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+								<span class="lbl">{{ 'products.product.sku' | t }}</span> <span class="variant-sku">{{ current_variant.sku }}</span>
+							</p>
+						{%- when 'cl' -%}
+							{%- liquid
+								assign found_a_collection = false
+								assign exclusions = 'frontpage,all' | split: ','
+								if collection and collection.all_products_count > 1
+									unless exclusions contains collection.handle
+										assign found_a_collection = true 
+									endunless
+								endif
+								
+								unless found_a_collection
+									for c in product.collections
+										unless exclusions contains c.handle or c.all_products_count < 2
+											assign found_a_collection = true
+											assign collection = c
+											break
+										endunless
+									endfor
+								endunless 
+							-%}
+							{%- if found_a_collection -%}
+								<div class="product-meta meta{{ blk_st.stl }} fl f-wrap mb{{blk_st.bm}} gap" style="--gap:8px;--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};" {{ block.shopify_attributes }}>
+									{%- if blk_st.collections != blank -%}<span class="lbl">{{ blk_st.collections }}</span>{%- endif -%}
+									{%- for c in product.collections limit:10 -%}
+										{%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
+											<a class="fl" href="{{ c.url }}">{{ c.title }}{% if blk_st.stl == "1" %}{% unless forloop.last %}, {% endunless %}{%- else -%}<span class="tick ml5">&#x2714; </span>{%- endif -%}</a>
+										{%- endunless -%}
+									{%- endfor -%}
+								</div>
 							{%- endif -%}
 
-							{%- if blk_st.isdr and pages[blk_st.page].content != blank -%}
-									<button type="button" class="ask-ques rgTxt popup-link btnNone" data-popup="delivery-return" aria-haspopup="dialog" aria-label="{{ 'products.enquiry.link' | t }}">
-									<svg class="at-icon mr5" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.7134 6.6398c-.1384-.19751-.3224-.35876-.5363-.47013s-.4515-.16957-.6926-.16967h-3.7345v-2.25c-.0004-.39769-.1586-.77896-.4398-1.06017-.2812-.2812-.6625-.43938-1.0602-.43983h-12c-.39769.00045-.77896.15863-1.06017.43983-.281205.28121-.439383.66248-.43983 1.06017v15.375h2.48822c.13178.7361.5182 1.4023 1.09164 1.8822s1.29739.7429 2.04514.7429 1.4717-.263 2.04514-.7429.95986-1.1461 1.09164-1.8822h4.97642c.1318.7361.5182 1.4023 1.0917 1.8822.5734.4799 1.2973.7429 2.0451.7429s1.4717-.263 2.0451-.7429c.5735-.4799.9599-1.1461 1.0917-1.8822h2.4882v-8.5068c.0004-.2309-.0707-.4562-.2033-.64512zm-18.46434-2.8898h12.00094v8.25h-12zm4.12594 16.5c-.33376 0-.66002-.099-.93752-.2844-.27751-.1854-.4938-.449-.62153-.7573-.12772-.3084-.16114-.6477-.09603-.975.06512-.3274.22584-.628.46184-.864s.53668-.3968.86402-.4619c.32735-.0651.66665-.0317.975.0961.30835.1277.5719.344.75733.6215.18542.2775.28439.6037.28439.9375-.0005.4474-.17845.8763-.49481 1.1927s-.74529.4943-1.19269.4948zm11.25 0c-.3338 0-.66-.099-.9375-.2844s-.4938-.449-.6215-.7573c-.1278-.3084-.1612-.6477-.0961-.975.0651-.3274.2259-.628.4619-.864s.5366-.3968.864-.4619c.3273-.0651.6666-.0317.975.0961.3083.1277.5719.344.7573.6215s.2844.6037.2844.9375c-.0005.4474-.1784.8763-.4948 1.1927s-.7453.4943-1.1927.4948zm4.125-2.625h-1.0784c-.2004-.6516-.6045-1.2217-1.1528-1.6267-.5484-.405-1.2121-.6236-1.8938-.6236s-1.3454.2186-1.8938.6236c-.5483.405-.9524.9751-1.1528 1.6267h-5.15681c-.20044-.6516-.60449-1.2217-1.15282-1.6267-.54834-.405-1.21208-.6236-1.89377-.6236s-1.34543.2186-1.89377.6236c-.54833.405-.95238.9751-1.15282 1.6267h-1.07841v-4.125h19.5zm0-5.625h-6v-4.5h3.7345l2.2655 3.2364z" fill="rgb(0,0,0)"/></svg>
-									{{ 'products.product.delivery_return' | t }}
-								</button>
-								<div id="delivery-return" class="tinglebox pp-hide rte cm">{{ pages[blk_st.page].content }}</div>
-							{%- endif -%}
-							{%- if blk_st.share -%}
-								{%- assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin -%}
-								{%- render 'social-sharing', blk_st:blk_st, share_link:share_url, share_title: product.title, share_permalink: product.url, share_image: product -%}
-							{%- endif -%}
-						</div>
-					{%- when '@app' -%}
-						{% render block %}
-					{%- endcase -%}
-				{%- endfor -%}
+						{%- when 'tags' -%}
+							{%- if product.tags.size > 0 -%}
+								<div class="product-meta meta{{ blk_st.stl }} fl f-wrap mb{{blk_st.bm}} gap" style="--gap:8px;--gapm:8px;--cl:{{blk_st.cl}};--bg:{{blk_st.bg}};" {{ block.shopify_attributes }}>
+									{%- if blk_st.tags != blank -%}<span class="lbl">{{ blk_st.tags }}</span> {%- endif -%}
+									{%- for collection in product.collections limit:1 -%}
+										{%- for tag in product.tags limit:10 -%}<a class="fl" href="{{ collection.url }}?constraint={{ tag | handle }}">{{ tag | remove:'type ' | remove:'Type ' }}{%  if blk_st.stl == "1" %}{% unless forloop.last %}, {% endunless %}{% else %} <span class="tick ml5">&#x2714;</span> {% endif %}</a>{%- endfor -%}
+									{%- endfor -%}
+								</div>
+							{%- endif -%}   
+
+						{%- when 'customc' -%}
+							<div class="mb{{ blk_st.bm }}" {{ block.shopify_attributes }}>{{ blk_st.custom_liquid }}</div>
+						{%- when 'complementary' -%}
+							{%- liquid
+								assign dscolumn = 100 | minus: pimgsize
+								assign cmcolumn = 100.00 | divided_by: dscolumn | times: 1
+								assign cmdivide = 1.00 | divided_by: cmcolumn | round: 2
+							%}
+							{%- capture comp_img_sizes -%}
+								(min-width:1024px) calc((({{ cnt_width }} - 70px * {{ cmcolumn | minus: 1 }}) * {{ cmdivide }}) / {{ blk_st.grid }}),(min-width:768px) calc((({{ cnt_width }} - 70px * {{ cmcolumn | minus: 1 }}) * {{ cmdivide }}) / {{ blk_st.gridtb }}), calc(100vw / {{ blk_st.gridmb }})
+							{%- endcapture -%}
+							{% render 'complementary', product: product, sectionId: section.id, blk_st: blk_st, sizes:comp_img_sizes %}
+						{%- when 'more-color' -%}
+							{% render 'more-colors', product: product, sectionId: section.id, block: block.settings %}
+						{%- when 'addons' -%}
+							<div class="addonLinks fl f-wrap gap mb{{ blk_st.bm }}" {{ block.shopify_attributes }} style="--cl:{{ blk_st.cl }};--clh:{{ blk_st.clh }};--fs:{{ blk_st.fs }}px;--fw:{{ blk_st.fw }};--icns:{{ blk_st.fs | plus:4 }}px;--gap:20px;">
+								{%- if blk_st.askpr and settings.catalog-mode == false -%}
+									<button type="button" class="ask-ques rgTxt popup-link btnNone" data-popup="inquiry" aria-haspopup="dialog" aria-label="{{ 'products.enquiry.link' | t }}">
+										<svg class="at-icon mr5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28zm7.67-24h-16c-6.627 0-12-5.373-12-12v-.381c0-70.343 77.44-63.619 77.44-107.408 0-20.016-17.761-40.211-57.44-40.211-29.144 0-44.265 9.649-59.211 28.692-3.908 4.98-11.054 5.995-16.248 2.376l-13.134-9.15c-5.625-3.919-6.86-11.771-2.645-17.177C185.658 133.514 210.842 116 255.67 116c52.32 0 97.44 29.751 97.44 80.211 0 67.414-77.44 63.849-77.44 107.408V304c0 6.627-5.373 12-12 12zM256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8z"/></svg>
+										{{ 'products.enquiry.link' | t }}
+									</button>
+								{%- endif -%}
+
+								{%- if blk_st.isdr and pages[blk_st.page].content != blank -%}
+										<button type="button" class="ask-ques rgTxt popup-link btnNone" data-popup="delivery-return" aria-haspopup="dialog" aria-label="{{ 'products.enquiry.link' | t }}">
+										<svg class="at-icon mr5" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.7134 6.6398c-.1384-.19751-.3224-.35876-.5363-.47013s-.4515-.16957-.6926-.16967h-3.7345v-2.25c-.0004-.39769-.1586-.77896-.4398-1.06017-.2812-.2812-.6625-.43938-1.0602-.43983h-12c-.39769.00045-.77896.15863-1.06017.43983-.281205.28121-.439383.66248-.43983 1.06017v15.375h2.48822c.13178.7361.5182 1.4023 1.09164 1.8822s1.29739.7429 2.04514.7429 1.4717-.263 2.04514-.7429.95986-1.1461 1.09164-1.8822h4.97642c.1318.7361.5182 1.4023 1.0917 1.8822.5734.4799 1.2973.7429 2.0451.7429s1.4717-.263 2.0451-.7429c.5735-.4799.9599-1.1461 1.0917-1.8822h2.4882v-8.5068c.0004-.2309-.0707-.4562-.2033-.64512zm-18.46434-2.8898h12.00094v8.25h-12zm4.12594 16.5c-.33376 0-.66002-.099-.93752-.2844-.27751-.1854-.4938-.449-.62153-.7573-.12772-.3084-.16114-.6477-.09603-.975.06512-.3274.22584-.628.46184-.864s.53668-.3968.86402-.4619c.32735-.0651.66665-.0317.975.0961.30835.1277.5719.344.75733.6215.18542.2775.28439.6037.28439.9375-.0005.4474-.17845.8763-.49481 1.1927s-.74529.4943-1.19269.4948zm11.25 0c-.3338 0-.66-.099-.9375-.2844s-.4938-.449-.6215-.7573c-.1278-.3084-.1612-.6477-.0961-.975.0651-.3274.2259-.628.4619-.864s.5366-.3968.864-.4619c.3273-.0651.6666-.0317.975.0961.3083.1277.5719.344.7573.6215s.2844.6037.2844.9375c-.0005.4474-.1784.8763-.4948 1.1927s-.7453.4943-1.1927.4948zm4.125-2.625h-1.0784c-.2004-.6516-.6045-1.2217-1.1528-1.6267-.5484-.405-1.2121-.6236-1.8938-.6236s-1.3454.2186-1.8938.6236c-.5483.405-.9524.9751-1.1528 1.6267h-5.15681c-.20044-.6516-.60449-1.2217-1.15282-1.6267-.54834-.405-1.21208-.6236-1.89377-.6236s-1.34543.2186-1.89377.6236c-.54833.405-.95238.9751-1.15282 1.6267h-1.07841v-4.125h19.5zm0-5.625h-6v-4.5h3.7345l2.2655 3.2364z" fill="rgb(0,0,0)"/></svg>
+										{{ 'products.product.delivery_return' | t }}
+									</button>
+									<div id="delivery-return" class="tinglebox pp-hide rte cm">{{ pages[blk_st.page].content }}</div>
+								{%- endif -%}
+								{%- if blk_st.share -%}
+									{%- assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin -%}
+									{%- render 'social-sharing', blk_st:blk_st, share_link:share_url, share_title: product.title, share_permalink: product.url, share_image: product -%}
+								{%- endif -%}
+							</div>
+						{%- when '@app' -%}
+							{% render block %}
+						{%- endcase -%}
+					{%- endfor -%}
+				</div>
+				{{ cta_action }}
 			</product-info>
 		</div>
 	</div>
