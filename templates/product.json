@@ -295,7 +295,7 @@
         "sst": 30,
         "ssb": 30,
         "sstm": 15,
-        "ssbm": 15,
+        "ssbm": 20,
         "bg": "#ffffff",
         "sw": true
       }
@@ -571,7 +571,7 @@
         "arrow": true,
         "arrowm": false,
         "dot": false,
-        "dotm": true,
+        "dotm": false,
         "sw": true,
         "bg": "#ffffff",
         "bgg": "",
@@ -623,7 +623,7 @@
         "subtitle": "",
         "enable_custom_ratio": false,
         "primg_ratio": "140",
-        "prbox_style": "grid_1",
+        "prbox_style": "grid_4",
         "gridlg": 6,
         "grid": 4,
         "gridtb": 3,

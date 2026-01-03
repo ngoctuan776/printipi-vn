@@ -384,7 +384,7 @@
       "settings": {
         "clttl": false,
         "climg": false,
-        "des_pos": "2",
+        "des_pos": "0",
         "talign": false,
         "enable_custom_ratio": true,
         "primg_ratio": "auto",
