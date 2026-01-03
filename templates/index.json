@@ -26,7 +26,7 @@
         "collection_yNX4Ch": {
           "type": "collection",
           "settings": {
-            "collection": "test",
+            "collection": "",
             "image": "shopify://shop_images/cl1.jpg",
             "pretitle": "Polo",
             "title": "",
@@ -113,7 +113,7 @@
         "cl": "#ffffff",
         "img_ol": "rgba(0,0,0,0)",
         "carousel": true,
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,

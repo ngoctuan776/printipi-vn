@@ -289,6 +289,7 @@
         "collection_yXRBkk",
         "collection_QPrUjR"
       ],
+      "disabled": true,
       "name": "Collection List",
       "settings": {
         "title": "",
@@ -431,9 +432,9 @@
         "bgg": "",
         "overlay": "#111111",
         "overlay_op": 0.9,
-        "sst": 15,
+        "sst": 30,
         "ssb": 30,
-        "sstm": 10,
+        "sstm": 15,
         "ssbm": 20,
         "hidem": false,
         "hided": false
