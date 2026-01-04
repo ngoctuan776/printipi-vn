@@ -82,7 +82,7 @@
         "gap": 30,
         "sm_rc_viewed": true,
         "rcv_name": "Sản phẩm đã xem",
-        "rcv_link": "shopify://collections",
+        "rcv_link": "shopify://pages/san-pham-da-xem",
         "rcv_icon": "recently_viewed",
         "sm_wishlist": true,
         "mwl_name": "Yêu thích",
