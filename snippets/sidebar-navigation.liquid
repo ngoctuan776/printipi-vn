@@ -16,6 +16,7 @@
     endcapture
 -%}
 <ul id="main_nav" class="sidebar-menu-list {% if ishmb %}{% else %}fl1 fl f-wrap f-col {{ nav_align }} {% endif %}">
+    {% assign active_used = false %}
     {% for block in secblk %}
       {%- liquid
         assign blk_st = block.settings
@@ -24,13 +25,18 @@
       -%}
       {%- capture link_level_1 -%}
         {% assign menu_path = ttlink | split: '?' | first %}
-        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" class="{% if request.path == menu_path %}active{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
+        {% assign is_active = false %}
+        {% if request.path == menu_path and active_used == false %}
+          {% assign is_active = true %}
+          {% assign active_used = true %}
+        {% endif %}
+        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" class="{% if is_active %}active{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %} data-rqp="{{ request.path }}" data-menu-p="{{ menu_path }}">
           {%- if blk_st.icon != blank -%}
             {% render 'icons-list-menu', icon_name: blk_st.icon %}
           {%- endif -%}
           {{ blk_st.title | split: '[' | first }}
           {% if blk_st.title contains '[label' %}<span class="lbl {{ label }}">{{ settings[label] }}</span>{% endif %}
-          {% if settings.navarw %}{{ arrow }}{% endif %}
+          <div class="menu-icon" data-m-submenu-toggle data-target="toggle-{{ block.id }}">{{ arrow }}</div>
         </a>
       {%- endcapture -%}
     {%- case block.type -%}
@@ -50,8 +56,8 @@
     {%- when 'm1' -%}
     {%- if blk_st.title != blank -%}
     <li class="lvl1 parent{% if blk_st.cwd %} ctsize{% endif %}" {%- if request.design_mode -%}id="mm{{ block.id }}"{%- endif -%} {{ block.shopify_attributes }}>{{ link_level_1 }}
-      <div class="{{ mmclass }} st1{% if blk_st.callPos == "right" %} fl f-ais{% endif %}{% if blk_st.cwd %} {{ blk_st.mmal }}{% else %} mmfull block{{ block.id }}{% endif %}"{% if blk_st.cwd %}style="width:{{ blk_st.bxwd }}px;"{% endif %}>
-          {% unless blk_st.bxsz %}<div class="w_100 page-width{% if blk_st.callPos == "right" %} fl f-ais{%- endif -%}">{% endunless %}
+      <div class="sub-menu-lv1 {{ mmclass }} st1{% if blk_st.callPos == "right" %} fl f-ais{% endif %}{% if blk_st.cwd %} {{ blk_st.mmal }}{% else %} mmfull block{{ block.id }}{% endif %}"{% if blk_st.cwd %}style="width:{{ blk_st.bxwd }}px;"{% endif %} id="toggle-{{ block.id }}">
+          {% unless blk_st.bxsz %}<div class="w_100{% if blk_st.callPos == "right" %} fl f-ais{%- endif -%}">{% endunless %}
           {%- capture img_columns -%}
             {%- liquid
                 assign column = 100.00 | divided_by: blk_st.colWd | times: 1
@@ -273,7 +279,7 @@
     {%- endif -%}
     
     {%- when 'dd' -%}
-    {%- if blk_st.title != blank -%}<li class="lvl1 parent ddmenu">{{ link_level_1 }}<ul class="ddmenu">{% for link in linklists[blk_st.menu].links %}{% render 'mm-dropdown',link:link %}{% endfor %}</ul></li>{%- endif -%}
+    {%- if blk_st.title != blank -%}<li class="lvl1 parent ddmenu">{{ link_level_1 }}<ul class="sub-menu-lv1 ddmenu" id="toggle-{{ block.id }}">{% for link in linklists[blk_st.menu].links %}{% render 'mm-dropdown',link:link %}{% endfor %}</ul></li>{%- endif -%}
 
     {%- endcase -%}
     {%- endfor -%}

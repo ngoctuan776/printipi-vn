@@ -140,7 +140,7 @@
     </a>
     
     <div class="pr_lbl fl f-col pa z1">
-      <div class="icon-edit fl f-aic f-jcc">{% render 'icon-edit' %}</div>
+      {% comment %} <div class="icon-edit fl f-aic f-jcc">{% render 'icon-edit' %}</div> {% endcomment %}
       {%- if settings.pr_lbl -%} 
         {%- if settings.lbl_sale and product.compare_at_price > product.price -%}
           <span class="lbl sale">

@@ -142,6 +142,7 @@
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 14px;
   margin-bottom: 30px;
+  width: 100%;
 }
 @media only screen and (max-width:576px) {
   .product-single:not(.product-single-tee) .product__info {
@@ -333,12 +334,19 @@
     max-width: 600px;
   }
 }
-@media only screen and (min-width:2450px) {
+@media only screen and (min-width:2100px) {
+  .product-single-tee .product__media-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+/* @media only screen and (min-width:2450px) {
   .sec_cov {
     max-width: 2400px;
     margin: 0 auto;
   }
-}
+} */
 
 /* Custom photoswipe thumbs */
 .pswp__scroll-wrap .pswp__item img {

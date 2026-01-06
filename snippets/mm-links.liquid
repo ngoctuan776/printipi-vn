@@ -20,7 +20,7 @@
 {%- else -%}
   <li class="gitem lvl-1{% if link.active or link.child_active %} active{% endif %}">
     {%- assign label_1 = link.title |  split: '[label' | last | split: ']' | first | prepend: "nm_lbl" -%}
-    <a href="{{ link.url }}" class="snav lvl-1">{{ link.title | split: '[' | first }}{% if link.title contains '[label' %}<span class="lbl {{ label_1 }}">{{ settings[label_1] }}</span>{% endif %}</a>
+    <a href="{{ link.url }}" class="m-title snav lvl-1">{{ link.title | split: '[' | first }}{% if link.title contains '[label' %}<span class="lbl {{ label_1 }}">{{ settings[label_1] }}</span>{% endif %}</a>
     {%- if link.links != blank -%}
     <ul class="subLinks">
       {%- for childlink in link.links -%}

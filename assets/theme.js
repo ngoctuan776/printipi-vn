@@ -998,3 +998,148 @@ document.addEventListener("DOMContentLoaded", function() {
       html.classList.remove('actMbNav','showOverly');
   });
 });
+
+/**
+ * Submenu Position Handler
+ */
+(function() {
+  const CONFIG = {
+    parentSelector: '.lvl1.parent',
+    submenuSelector: '.sub-menu-lv1',
+    scrollContainerSelector: '.sidebar-wrapper > div',
+    debounceDelay: 100,
+    viewportPadding: 0
+  };
+
+  function updateSubmenuPositions() {
+    const parentItems = document.querySelectorAll(CONFIG.parentSelector);
+
+    parentItems.forEach(function(parent) {
+      const submenu = parent.querySelector(CONFIG.submenuSelector);
+      if (!submenu) return;
+
+      const rect = parent.getBoundingClientRect();
+      const submenuHeight = submenu.offsetHeight;
+      const submenuWidth = submenu.offsetWidth;
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+
+      // top position
+      let top = rect.top;
+      if (top + submenuHeight > viewportHeight - CONFIG.viewportPadding) {
+        top = Math.max(CONFIG.viewportPadding, viewportHeight - submenuHeight - CONFIG.viewportPadding);
+      }
+
+      // left position
+      let left = rect.right;
+      if (left + submenuWidth > viewportWidth - CONFIG.viewportPadding) {
+        // Hiển thị bên trái nếu không đủ chỗ bên phải
+        left = rect.left - submenuWidth;
+      }
+
+      submenu.style.top = top + 'px';
+      submenu.style.left = left + 'px';
+    });
+  }
+
+  /**
+   * Debounce function để tối ưu performance
+   * @param {Function} func - Hàm cần debounce
+   * @param {number} wait - Thời gian chờ (ms)
+   * @returns {Function}
+   */
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    };
+  }
+
+  function init() {
+    updateSubmenuPositions();
+
+    window.addEventListener('resize', debounce(updateSubmenuPositions, CONFIG.debounceDelay));
+
+    // Cập nhật khi scroll sidebar
+    const scrollContainer = document.querySelector(CONFIG.scrollContainerSelector);
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', updateSubmenuPositions);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+/**
+ * Mobile menu toggle
+ */
+(function(){
+  const root = document.querySelector('.sidebar-menu-list');
+
+  function animateOpen(el){
+    el.style.display = "block";
+    el.style.overflow = "hidden";
+    el.style.height = "0px";
+
+    const full = el.scrollHeight + "px";
+    requestAnimationFrame(() => {
+      el.style.height = full;
+    });
+
+    el.addEventListener("transitionend", function end(e){
+      if (e.target !== el) return;
+      el.style.height = "auto";
+      el.style.overflow = "";
+      el.removeEventListener("transitionend", end);
+    });
+  }
+
+  function animateClose(el){
+    el.style.overflow = "hidden";
+    const full = el.scrollHeight + "px";
+    el.style.height = full;
+
+    requestAnimationFrame(() => {
+      el.style.height = "0px";
+    });
+
+    el.addEventListener("transitionend", function end(e){
+      if (e.target !== el) return;
+      el.style.display = "";
+      el.removeEventListener("transitionend", end);
+    });
+  }
+
+  function toggleSubmenu(btn){
+    const targetId = btn.dataset.target;
+    const box = document.getElementById(targetId);
+    if (!box) return;
+
+    const elLi = btn.closest('li');
+    const isOpen = elLi.classList.contains('is-open');
+
+    if (isOpen){
+      elLi.classList.remove('is-open');
+      animateClose(box);
+    } else {
+      elLi.classList.add('is-open');
+      animateOpen(box);
+    }
+  }
+
+  root.querySelectorAll('[data-m-submenu-toggle]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      toggleSubmenu(btn);
+    });
+  });
+})();
