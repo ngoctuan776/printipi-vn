@@ -105,10 +105,37 @@
     },
     "footer": {
       "type": "footer",
+      "blocks": {
+        "hmenu_pP7Hgd": {
+          "type": "hmenu",
+          "settings": {
+            "hidem": false,
+            "hide_desk": false,
+            "menu": "footer-menu",
+            "talign": "tc",
+            "bdr_top": false,
+            "bdr_btm": false,
+            "bdr": "#000000",
+            "btmmr": false,
+            "width": "wd75"
+          }
+        },
+        "copyright_UeBAHL": {
+          "type": "copyright",
+          "settings": {
+            "copyright_text": "© MION CO., LTD. All Rights Reserved",
+            "width": "wd30"
+          }
+        }
+      },
+      "block_order": [
+        "hmenu_pP7Hgd",
+        "copyright_UeBAHL"
+      ],
       "settings": {
         "sw": true,
-        "space": false,
-        "copyright_text": "© 2026 Designed by MION. All Rights Reserved",
+        "space": true,
+        "copyright_text": "",
         "show_designby": false,
         "show_payment": false,
         "payimgwd": 300,
