@@ -21,19 +21,45 @@
             "icon": "home"
           }
         },
-        "slink_LDdr4k": {
-          "type": "slink",
+        "m1_ekW6nT": {
+          "type": "m1",
           "settings": {
             "title": "Sản phẩm",
             "url": "shopify://collections",
-            "icon": "products"
+            "icon": "products",
+            "newtab": false,
+            "menu": "san-pham",
+            "mcol": 2,
+            "callPos": "right",
+            "colWd": 50,
+            "icol": 2,
+            "iTtl1": "",
+            "imgurl1": "",
+            "iTtl2": "",
+            "imgurl2": "",
+            "iTtl3": "",
+            "imgurl3": "",
+            "iTtl4": "",
+            "imgurl4": "",
+            "icnbr": 0,
+            "overlay_lbl": false,
+            "ttcl": "#111111",
+            "ttbg": "#ffffff",
+            "ttfs": 13,
+            "ttfw": "600",
+            "ttla": "tc",
+            "cwd": true,
+            "bxwd": "410",
+            "mmal": "left",
+            "bxsz": false
           }
         },
-        "slink_xjqmkm": {
-          "type": "slink",
+        "dd_djU4Xe": {
+          "type": "dd",
           "settings": {
             "title": "Chủ đề",
-            "url": "shopify://collections/frontpage",
+            "url": "shopify://collections",
+            "menu": "ch",
             "icon": "themes"
           }
         },
@@ -64,8 +90,8 @@
       },
       "block_order": [
         "home_qCC7QH",
-        "slink_LDdr4k",
-        "slink_xjqmkm",
+        "m1_ekW6nT",
+        "dd_djU4Xe",
         "slink_VWbCYN",
         "slink_wXcBA4",
         "slink_MLCVqN"
