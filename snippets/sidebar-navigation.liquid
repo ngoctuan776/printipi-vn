@@ -16,6 +16,7 @@
     endcapture
 -%}
 <ul id="main_nav" class="sidebar-menu-list {% if ishmb %}{% else %}fl1 fl f-wrap f-col {{ nav_align }} {% endif %}">
+    {% assign active_used = false %}
     {% for block in secblk %}
       {%- liquid
         assign blk_st = block.settings
@@ -24,7 +25,12 @@
       -%}
       {%- capture link_level_1 -%}
         {% assign menu_path = ttlink | split: '?' | first %}
-        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" class="{% if request.path == menu_path %}active{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %}>
+        {% assign is_active = false %}
+        {% if request.path == menu_path and active_used == false %}
+          {% assign is_active = true %}
+          {% assign active_used = true %}
+        {% endif %}
+        <a href="{% if ttlink != blank %}{{ ttlink }}{% else %}#{% endif %}" class="{% if is_active %}active{% endif %}" {% if blk_st.title contains '[new]' %} target="_blank" {% endif %} data-rqp="{{ request.path }}" data-menu-p="{{ menu_path }}">
           {%- if blk_st.icon != blank -%}
             {% render 'icons-list-menu', icon_name: blk_st.icon %}
           {%- endif -%}
