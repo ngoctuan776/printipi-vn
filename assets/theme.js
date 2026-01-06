@@ -998,3 +998,83 @@ document.addEventListener("DOMContentLoaded", function() {
       html.classList.remove('actMbNav','showOverly');
   });
 });
+
+/**
+ * Submenu Position Handler
+ */
+(function() {
+  const CONFIG = {
+    parentSelector: '.lvl1.parent',
+    submenuSelector: '.sub-menu-lv1',
+    scrollContainerSelector: '.sidebar-wrapper > div',
+    debounceDelay: 100,
+    viewportPadding: 0
+  };
+
+  function updateSubmenuPositions() {
+    const parentItems = document.querySelectorAll(CONFIG.parentSelector);
+
+    parentItems.forEach(function(parent) {
+      const submenu = parent.querySelector(CONFIG.submenuSelector);
+      if (!submenu) return;
+
+      const rect = parent.getBoundingClientRect();
+      const submenuHeight = submenu.offsetHeight;
+      const submenuWidth = submenu.offsetWidth;
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+
+      // top position
+      let top = rect.top;
+      if (top + submenuHeight > viewportHeight - CONFIG.viewportPadding) {
+        top = Math.max(CONFIG.viewportPadding, viewportHeight - submenuHeight - CONFIG.viewportPadding);
+      }
+
+      // left position
+      let left = rect.right;
+      if (left + submenuWidth > viewportWidth - CONFIG.viewportPadding) {
+        // Hiển thị bên trái nếu không đủ chỗ bên phải
+        left = rect.left - submenuWidth;
+      }
+
+      submenu.style.top = top + 'px';
+      submenu.style.left = left + 'px';
+    });
+  }
+
+  /**
+   * Debounce function để tối ưu performance
+   * @param {Function} func - Hàm cần debounce
+   * @param {number} wait - Thời gian chờ (ms)
+   * @returns {Function}
+   */
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    };
+  }
+
+  function init() {
+    updateSubmenuPositions();
+
+    window.addEventListener('resize', debounce(updateSubmenuPositions, CONFIG.debounceDelay));
+
+    // Cập nhật khi scroll sidebar
+    const scrollContainer = document.querySelector(CONFIG.scrollContainerSelector);
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', updateSubmenuPositions);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
