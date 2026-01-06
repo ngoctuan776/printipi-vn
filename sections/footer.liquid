@@ -139,6 +139,12 @@
                             {{ block_title }}
                             {% render 'social-media' %}
                         </div>
+                    {% when 'copyright' %}
+                      <div class="gitem gitem-copyright ft_block wd50-md {{ block_st.width }}-lg{% if block_st.hidem %} hide-sm{% endif %}{% if block_st.hide_desk %} hide-md hide-lg{% endif %} {% render 'animate-data', css:true %}" {% render 'animate-data' %} {{ block.shopify_attributes }}>
+                        {% if block_st.copyright_text != blank %}
+                          {% assign year = "now" | date: "%Y" %}{% assign insert_year = year %}{{  block_st.copyright_text | replace:"[year]", insert_year }}
+                        {% endif %}
+                      </div>
                     {% when 'hrline' %}						
                         <div class="gitem ft_block w_100 {% if block_st.hidem %}hide-sm{% endif %}"><hr class="hide-sm {% render 'animate-data', css:true %}{% if block_st.hide_desk %} hide-md hide-lg{% endif %}" {% render 'animate-data' %} style="border-bottom:1px solid {{ block_st.lineclr }}; margin:{{ block_st.mar }}px 0;" {{ block.shopify_attributes }} /></div>
                     {%- endcase -%}                
@@ -151,7 +157,7 @@
             <div class="{% if section_st.sw %}fw-sec{% else %}page-width{% endif %} fl f-aic f-col f-row-md">            
             {% if section_st.copyright_text != blank %}
                 <div class="fl1{% if section_st.show_payment %} wd50-md mb10 mb0-sm tl-md{% endif %}">
-                     {% assign year = "now" | date: "%Y" %}{% assign insert_year = year %}{{  section_st.copyright_text | replace:"[year]", insert_year }}   
+                    {% assign year = "now" | date: "%Y" %}{% assign insert_year = year %}{{  section_st.copyright_text | replace:"[year]", insert_year }}
                     {% if section_st.show_designby %}<span class="designBy">{% if section_st.copyright_text != blank %} | {% endif %}Designed by <a href="https://www.adornthemes.com" target="_blank">AdornThemes</a></span>{% endif %}
                 </div>
             {% endif %}
@@ -171,1004 +177,1314 @@
 {%- endcapture -%}
 {{- footer | strip_newlines | remove: "  " | remove: "	" -}}
 {%- schema -%}
-  {
-    "name": "Footer",
-    "class": "ss-footer",
-    "settings": [	
-	  {
-		"type":"checkbox",
-		"id":"sw",
-		"label":"Fullwidth?",
-		"default": false
-	  },
-	  {
-		"type":"checkbox",
-		"id":"space",
-		"label":"Equal space blocks?",
-		"default": false
-	  },
- 	  {
-        	"type": "textarea",
-        	"id": "copyright_text",
-        	"label": "Copyright Text",
-        	"default": "© 2025,Revone. All Rights Reserved."
-      	},
+{
+  "name": "Footer",
+  "class": "ss-footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "sw",
+      "label": "Fullwidth?",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "space",
+      "label": "Equal space blocks?",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2025,Revone. All Rights Reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_designby",
+      "label": "Give credit to theme developer?",
+      "default": true,
+      "info": "Show design by in footer"
+    },
+    {
+      "type": "header",
+      "content": "Payment Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Show Payment Icons?",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "payimg",
+      "label": "Payment Icon Image",
+      "info": "Optional"
+    },
+    {
+      "type": "range",
+      "id": "payimgwd",
+      "label": "Image Max Width",
+      "default": 300,
+      "min": 100,
+      "max": 600,
+      "step": 5,
+      "unit": "px",
+      "visible_if": "{{ section.settings.payimg != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "configure",
+      "label": "Appearance :",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Title"
+        },
+        {
+          "value": "2",
+          "label": "Text & Links"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "tcl",
+      "label": "Color",
+      "default": "#000",
+      "visible_if": "{{section.settings.configure == '1' }}"
+    },
+    {
+      "type": "select",
+      "id": "ff",
+      "label": "Font",
+      "default": "ft1",
+      "options": [
+        {
+          "value": "ft1",
+          "label": "Font 1"
+        },
+        {
+          "value": "ft2",
+          "label": "Font 2"
+        },
+        {
+          "value": "ft3",
+          "label": "Font 3"
+        }
+      ],
+      "visible_if": "{{section.settings.configure == '1' }}"
+    },
+    {
+      "type": "range",
+      "id": "tfs",
+      "label": "Font Size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "visible_if": "{{section.settings.configure == '1' }}"
+    },
+    {
+      "type": "range",
+      "id": "tfsm",
+      "label": "Font Size (Mobile)",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 13,
+      "unit": "px",
+      "visible_if": "{{section.settings.configure == '1' }}"
+    },
+    {
+      "type": "select",
+      "id": "tfw",
+      "label": "Font Weight",
+      "default": "500",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "visible_if": "{{section.settings.configure == '1' }}"
+    },
+    {
+      "type": "color",
+      "id": "cl",
+      "label": "Color",
+      "default": "#000",
+      "visible_if": "{{section.settings.configure == '2' }}"
+    },
+    {
+      "type": "color",
+      "id": "clh",
+      "label": "Links Hover",
+      "default": "#666",
+      "visible_if": "{{section.settings.configure == '2' }}"
+    },
+    {
+      "type": "range",
+      "id": "fs",
+      "label": "Font Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 13,
+      "unit": "px",
+      "visible_if": "{{section.settings.configure == '2' }}"
+    },
+    {
+      "type": "range",
+      "id": "fsm",
+      "label": "Font Size (Mobile)",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 13,
+      "unit": "px",
+      "visible_if": "{{section.settings.configure == '2' }}"
+    },
+    {
+      "type": "color",
+      "id": "icn",
+      "label": "Icon",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "ifs",
+      "label": "Icon Size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color_background",
+      "id": "bgg",
+      "label": "Gradient Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bgimg",
+      "label": "Background image",
+      "info": "This is optional"
+    },
+    {
+      "type": "select",
+      "id": "bgrep",
+      "label": "Background Repeat",
+      "default": "inherit",
+      "info": "[how to repeat the background image](https:\/\/w3schools.com\/cssref\/pr_background-repeat.asp)",
+      "options": [
+        {
+          "value": "no-repeat",
+          "label": "No Repeat"
+        },
+        {
+          "value": "repeat",
+          "label": "All Sides"
+        },
+        {
+          "value": "repeat-x",
+          "label": "Horizontally"
+        },
+        {
+          "value": "repeat-y",
+          "label": "Vertically"
+        },
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        }
+      ],
+      "visible_if": "{{section.settings.bgimg != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "bgpos",
+      "label": "Background Position",
+      "default": "center_center",
+      "info": "[position of the background images](https:\/\/w3schools.com\/cssref\/pr_background-position.asp)",
+      "options": [
+        {
+          "value": "left_top",
+          "label": "Left Top"
+        },
+        {
+          "value": "left_center",
+          "label": "Left Center"
+        },
+        {
+          "value": "left_bottom",
+          "label": "Left Bottom"
+        },
+        {
+          "value": "center_top",
+          "label": "Center Top"
+        },
+        {
+          "value": "center_center",
+          "label": "Center Center"
+        },
+        {
+          "value": "center_bottom",
+          "label": "Center Bottom"
+        }
+      ],
+      "visible_if": "{{section.settings.bgimg != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "bgsz",
+      "label": "Background Size",
+      "default": "auto",
+      "info": "[Specifies the size of the background image](https:\/\/w3schools.com\/cssref\/css3_pr_background-size.asp)",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "visible_if": "{{section.settings.bgimg != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "bgat",
+      "label": "Background Attachment",
+      "default": "inherit",
+      "info": "[Specifies background image is fixed or scrolls with page](https:\/\/w3schools.com\/cssref\/pr_background-attachment.asp)",
+      "options": [
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        },
+        {
+          "value": "scroll",
+          "label": "Scroll"
+        },
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        }
+      ],
+      "visible_if": "{{section.settings.bgimg != blank }}"
+    },
+    {
+      "type": "color",
+      "id": "bdr",
+      "label": "Top Border",
+      "default": "#eee"
+    },
+    {
+      "type": "color",
+      "id": "bdrm",
+      "label": "Border (mobile)",
+      "default": "#f9f9f9"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
         {
           "type": "checkbox",
-          "id": "show_designby",
-          "label": "Give credit to theme developer?",
-          "default": true,
-		  "info":"Show design by in footer"
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
         },
-		{
-			"type":"header",
-        	"content":"Payment Options"
-		},
-      	{
-        	"type": "checkbox",
-        	"id": "show_payment",
-        	"label": "Show Payment Icons?",
-        	"default": true
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
         },
-		{
-          "type": "image_picker",
-          "id": "payimg",
-          "label": "Payment Icon Image",
-          "info": "Optional"
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Menu Title",
+          "default": "Informations"
         },
-		{
-            "type": "range",
-            "id": "payimgwd",
-            "label": "Image Max Width",
-            "default": 300,
-            "min": 100,
-            "max": 600,
-            "step": 5,
-            "unit": "px",
-             "visible_if": "{{ section.settings.payimg != blank }}"
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu",
+          "default": "main-menu"
         },
         {
           "type": "select",
-          "id": "configure",
-          "label": "Appearance :",
-          "default": "1",
+          "id": "width",
+          "label": "Block width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
           "options": [
-              {
-                "value": "1",
-                "label": "Title"
-              },
-              {
-                "value": "2",
-                "label": "Text & Links"
-              }
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
           ]
-      },        
-      {
-        "type": "color",
-        "id": "tcl",
-        "label": "Color",
-        "default": "#000",
-        "visible_if": "{{section.settings.configure == '1' }}"
-      },
-      {
-        "type": "select",
-        "id": "ff",
-        "label": "Font",
-        "default": "ft1",
-        "options": [
-          {
-            "value": "ft1",
-            "label": "Font 1"
-          },
-          {
-            "value": "ft2",
-            "label": "Font 2"
-          },
-          {
-            "value": "ft3",
-            "label": "Font 3"
-          }
-        ],
-        "visible_if": "{{section.settings.configure == '1' }}"
-      },
-      {
-        "type": "range",
-        "id": "tfs",
-        "label": "Font Size",
-        "min": 10,
-        "max": 50,
-        "step": 1,
-        "default": 14,
-        "unit": "px",
-        "visible_if": "{{section.settings.configure == '1' }}"
-      },
-      {
-        "type": "range",
-        "id": "tfsm",
-        "label": "Font Size (Mobile)",
-        "min": 10,
-        "max": 50,
-        "step": 1,
-        "default": 13,
-        "unit": "px",
-        "visible_if": "{{section.settings.configure == '1' }}"
-      },
-      {
-        "type": "select",
-        "id": "tfw",
-        "label": "Font Weight",
-        "default": "500",
-        "options": [
-          {
-            "value": "300",
-            "label": "Light"
-          },
-          {
-            "value": "400",
-            "label": "Regular"
-          },
-          {
-            "value": "500",
-            "label": "Medium"
-          },
-          {
-            "value": "600",
-            "label": "Semi Bold"
-          },
-          {
-            "value": "700",
-            "label": "Bold"
-          }
-        ],
-        "visible_if": "{{section.settings.configure == '1' }}"
-      },
-      {
-        "type": "color",
-        "id": "cl",
-        "label": "Color",
-        "default": "#000",
-        "visible_if": "{{section.settings.configure == '2' }}"
-      },
-      {
-        "type": "color",
-        "id": "clh",
-        "label": "Links Hover",
-        "default": "#666",
-        "visible_if": "{{section.settings.configure == '2' }}"
-      },
-      {
-        "type": "range",
-        "id": "fs",
-        "label": "Font Size",
-        "min": 10,
-        "max": 30,
-        "step": 1,
-        "default": 13,
-        "unit": "px",
-        "visible_if": "{{section.settings.configure == '2' }}"
-      },
-      {
-        "type": "range",
-        "id": "fsm",
-        "label": "Font Size (Mobile)",
-        "min": 10,
-        "max": 30,
-        "step": 1,
-        "default": 13,
-        "unit": "px",
-        "visible_if": "{{section.settings.configure == '2' }}"
-      },
-      {
-        "type": "color",
-        "id": "icn",
-        "label": "Icon",
-        "default": "#000"
-      },
-      {
-        "type": "range",
-        "id": "ifs",
-        "label": "Icon Size",
-        "min": 10,
-        "max": 50,
-        "step": 1,
-        "default": 14,
-        "unit": "px"
-      },
-      {
-        "type": "color",
-        "id": "bg",
-        "label": "Background",
-        "default": "#f5f5f5"
-      },
-      {
-        "type": "color_background",
-        "id": "bgg",
-        "label": "Gradient Background"
-      },
-      {
-        "type": "image_picker",
-        "id": "bgimg",
-        "label": "Background image",
-        "info": "This is optional"
-      },
-      {
-        "type": "select",
-        "id": "bgrep",
-        "label": "Background Repeat",
-        "default": "inherit",
-        "info": "[how to repeat the background image](https:\/\/w3schools.com\/cssref\/pr_background-repeat.asp)",
-        "options": [
-          {
-            "value": "no-repeat",
-            "label": "No Repeat"
-          },
-          {
-            "value": "repeat",
-            "label": "All Sides"
-          },
-          {
-            "value": "repeat-x",
-            "label": "Horizontally"
-          },
-          {
-            "value": "repeat-y",
-            "label": "Vertically"
-          },
-          {
-            "value": "inherit",
-            "label": "Inherit"
-          }
-        ],
-        "visible_if": "{{section.settings.bgimg != blank }}"
-      },
-      {
-        "type": "select",
-        "id": "bgpos",
-        "label": "Background Position",
-        "default": "center_center",
-        "info": "[position of the background images](https:\/\/w3schools.com\/cssref\/pr_background-position.asp)",
-        "options": [
-          {
-            "value": "left_top",
-            "label": "Left Top"
-          },
-          {
-            "value": "left_center",
-            "label": "Left Center"
-          },
-          {
-            "value": "left_bottom",
-            "label": "Left Bottom"
-          },
-          {
-            "value": "center_top",
-            "label": "Center Top"
-          },
-          {
-            "value": "center_center",
-            "label": "Center Center"
-          },
-          {
-            "value": "center_bottom",
-            "label": "Center Bottom"
-          }
-        ],
-        "visible_if": "{{section.settings.bgimg != blank }}"
-      },
-      {
-        "type": "select",
-        "id": "bgsz",
-        "label": "Background Size",
-        "default": "auto",
-        "info": "[Specifies the size of the background image](https:\/\/w3schools.com\/cssref\/css3_pr_background-size.asp)",
-        "options": [
-          {
-            "value": "auto",
-            "label": "Auto"
-          },
-          {
-            "value": "cover",
-            "label": "Cover"
-          },
-          {
-            "value": "contain",
-            "label": "Contain"
-          }
-        ],
-        "visible_if": "{{section.settings.bgimg != blank }}"
-      },
-      {
-        "type": "select",
-        "id": "bgat",
-        "label": "Background Attachment",
-        "default": "inherit",
-        "info": "[Specifies background image is fixed or scrolls with page](https:\/\/w3schools.com\/cssref\/pr_background-attachment.asp)",
-        "options": [
-          {
-            "value": "fixed",
-            "label": "Fixed"
-          },
-          {
-            "value": "scroll",
-            "label": "Scroll"
-          },
-          {
-            "value": "inherit",
-            "label": "Inherit"
-          }
-        ],
-        "visible_if": "{{section.settings.bgimg != blank }}"
-      },
-      {
-        "type": "color",
-        "id": "bdr",
-        "label": "Top Border",
-        "default": "#eee"
-      },
-      {
-        "type": "color",
-        "id": "bdrm",
-        "label": "Border (mobile)",
-        "default": "#f9f9f9"
-      }
-    ],
-	"blocks": [
-	  {
-        "type": "menu",
-        "name": "Menu",
-        "settings": [
-		 {
-        "type": "checkbox",
-        "id": "hidem",
-        "label": "Hide on mobile?",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "hide_desk",
-        "label": "Hide on desktop?",
-        "default": false
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Menu Title",
-        "default": "Informations"
-      },
-      {
-        "type": "link_list",
-        "id": "menu",
-        "label": "Select Menu",
-        "default": "main-menu"
-      },     
-		  {
-            "type": "select",
-            "id": "width",
-            "label": "Block width",
-            "default": "wd25",
-			"info":"Total width of all block must not exceed 100%",
-            "options": [  			 
-			  { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-	  {
-        "type": "hmenu",
-        "name": "Horizontal Menu",
-        "settings": [
-		 {
-        "type": "checkbox",
-        "id": "hidem",
-        "label": "Hide on mobile?",
-        "default": false,
-     },
-    {
-      "type": "checkbox",
-      "id": "hide_desk",
-      "label": "Hide on desktop?",
-      "default": false
-    },                  
-    {
-        "type": "link_list",
-        "id": "menu",
-        "label": "Select Navigation",
-        "default": "main-menu"
-      },
-    {
-        "type": "select",
-        "id": "talign",
-        "label": "Text Align",
-        "default": "tc",
-        "options": [		    
-            { "value": "tl", "label": "Left" },
-                  { "value": "tc", "label": "Center" },
-            { "value": "tr", "label": "right" }
-        ]
-      },
- 		  {
-			"type":"checkbox",
-			"id":"bdr_top",
-			"label":"Show Top Border",
-			"default":false
-		  },
- 		  {
-			"type":"checkbox",
-			"id":"bdr_btm",
-			"label":"Show bottom Border",
-			"default":false
-		  },
-          {
-            "type": "color",
-            "id": "bdr",
-            "label": "Border Color",
-            "default": "#000",
-             "visible_if": "{{ block.settings.bdr_top or block.settings.bdr_btm  }}"
-          },
- 		  {
-			"type":"checkbox",
-			"id":"btmmr",
-			"label":"Remove bottom space",
-			"default":false
-		  },
-		  {
-            "type": "select",
-            "id": "width",
-            "label": "Block width",
-            "default": "wd100",
-			      "info":"Total width of all block must not exceed 100%",
-            "options": [  			 
-			  { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-	  {
-        "type": "contact",
-        "name": "Contact Details",		    
-        "settings": [
-		      {
-            "type": "checkbox",
-            "id": "hidem",
-            "label": "Hide on mobile?",
-			      "default": false
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_desk",
-            "label": "Hide on desktop?",
-            "default": false
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-			      "default": "Contact Us"
-          },
-          {
-            "type": "image_picker",
-            "id": "logo",
-            "label": "Logo Image"
-          },
-          {
-              "type": "range",
-              "id": "logo-wd",
-              "label": "Logo Max Width",
-              "default": 200,
-              "min": 100,
-              "max": 300,
-              "step": 5,
-              "unit": "px",
-              "visible_if": "{{ block.settings.logo != blank }}"
-          },
-		  {
-            "type": "textarea",
-            "id": "address",
-            "label": "Address",
-		    	"default": "55 Gallaxy Enque,<br />2568 steet, 23568 NY"
-          },
-		  {
-            "type": "text",
-            "id": "phone",
-            "label": "Phone",
-			"default": "(440) 000 000 0000"
-          },
-		  {
-            "type": "text",
-            "id": "email",
-            "label": "Email",
-			"default": "sales@yousite.com"
-          },
- 		  {
-			"type":"checkbox",
-			"id":"icons",
-			"label":"Show Icons?",
-			"default":false
-		  },
-      	  {
-			"type":"checkbox",
-			"id":"socials",
-			"label":"Show Social Icons?",
-			"default":true
-		  },
-      	  {
-			"type":"text",
-			"id":"socttl",
-			"label":"Socials Title",
-			"default":"Stay Connected",
-             "visible_if": "{{ block.settings.socials }}"
-		  },         
-		  {
-            "type": "select",
-            "id": "width",
-            "label": "Block Width",
-            "default": "wd25",
-             "info":"Total width of all block must not exceed 100%",
-            "options": [ 			
-			  { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-	  {
-        "type": "custom",
-        "name": "Custom Block",
-        "settings": [
-		      {
-            "type": "checkbox",
-            "id": "hidem",
-            "label": "Hide on mobile?",
-			      "default": false
-          },
-           {
-            "type": "checkbox",
-            "id": "hide_desk",
-            "label": "Hide on desktop?",
-            "default": false
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-		    	"default": "About Us"
-          },
-          {
-            "type": "image_picker",
-            "id": "logo",
-            "label": "Upload Image"
-          },
-          {
-              "type": "range",
-              "id": "logo-wd",
-              "label": "Image Max Width",
-              "default": 200,
-              "min": 100,
-              "max": 300,
-              "step": 5,
-              "unit": "px",
-              "visible_if": "{{ block.settings.logo != blank }}"
-          },
-		   {
-            "type": "inline_richtext",
-            "id": "inline_text",
-            "label": "Text",
-			"default": "At AdornThemes, we design and provide elegant and highly functional Shopify themes, backed by exceptional support"
-          }, 
-          {
-            "type": "range",
-            "id": "text_width",
-            "label": "Text Max. Width",
-            "default": 200,
-            "min": 200,
-            "max": 600,
-            "step": 5,
-            "unit": "px"
-        },   
-           {
-            "type": "range",
-            "id": "fs",
-            "label": "Font Size",
-            "default": 13,
-              "min": 10,
-            "max": 30,
-            "step": 1,
-            "unit": "px"
-        },    
-		 {
-			"type":"checkbox",
-			"id":"socials",
-			"label":"Show Socials?",
-			"default":true
-		  },
-      	  {
-			"type":"text",
-			"id":"socttl",
-			"label":"Socials Title",
-			"default":"Stay Connected",
-             "visible_if": "{{ block.settings.socials }}"
-		  },
-			{
-			"type":"checkbox",
-			"id":"payicon",
-			"label":"Show Payment Icons?",
-			"default":false
-		  },                  
- 	     {
-            "type": "select",
-            "id": "width",
-            "label": "Block Width",
-            "default": "wd25",
-             "info":"Total width of all block must not exceed 100%",
-            "options": [		    
-			 { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-	  {
-        "type": "image",
-        "name": "Image Block",
-        "settings": [ 	
-		 {
-        "type": "checkbox",
-        "id": "hidem",
-        "label": "Hide on mobile?",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "hide_desk",
-        "label": "Hide on desktop?",
-        "default": false
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Title",
-        "default": "Download App"
-      },
-			{
-            "type": "textarea",
-            "id": "txt",
-            "label": "Text",
-			"default": "Revone App is now available on App Store & Google Play. Get it now. "
-          },	
-          {
-            "type": "image_picker",
-            "id": "logo",
-            "label": "Upload Image"
-          },
-		 {
-            "type": "text",
-            "id": "url1",
-            "label": "Image Url"
-          },
-          {
-              "type": "range",
-              "id": "logo-wd",
-              "label": "Image Max Width",
-              "default": 200,
-              "min": 100,
-              "max": 300,
-              "step": 5,
-              "unit": "px"
-          },
-			{
-            "type": "checkbox",
-            "id": "logomr",
-            "label": "Enable image right padding",
-			"default":true
-          },
-				{
-            "type": "image_picker",
-            "id": "logo2",
-            "label": "Upload Image"
-          },
-		{
-            "type": "text",
-            "id": "url2",
-            "label": "Image Url"
-          },
-          {
-              "type": "range",
-              "id": "logo-wd2",
-              "label": "Image Max Width",
-              "default": 200,
-              "min": 100,
-              "max": 300,
-              "step": 5,
-              "unit": "px"
-          },
-          {
-                    "type": "range",
-                    "id": "radius",
-                    "min": 0,
-                    "max": 50,
-                    "step": 1,
-                    "label": "Rounded Corners",
-                    "unit": "px",
-                    "default": 0
-          },         
- 	     {
-            "type": "select",
-            "id": "width",
-            "label": "Block Width",
-            "default": "wd25",
-             "info":"Total width of all block must not exceed 100%",
-            "options": [		    
-			 { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "newsletter",
-        "name": "Newsletter Signup",
-        "limit": 1,
-        "settings": [
-		 {
-            "type": "checkbox",
-            "id": "hidem",
-            "label": "Hide on mobile?",
-			      "default": false
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_desk",
-            "label": "Hide on desktop?",
-            "default": false
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-            "default": "Newsletter"
-          },
-		  {
-            "type": "text",
-            "id": "txt",
-            "label": "Text",
-			"default": "Enter your email to receive daily news and get 20% off coupon for all items. NO spam, we promise"
-          }, 		           
-		 {
-			"type":"checkbox",
-			"id":"socials",
-			"label":"Show Socials?",
-			"default":true
-		  },
-      	  {
-			"type":"text",
-			"id":"socttl",
-			"label":"Socials Title",
-			"default":"Stay Connected",
-            "visible_if": "{{ block.settings.socials }}"
-		  },         
-		  {
-            "type": "select",
-            "id": "width",
-            "label": "Block Width",
-            "default": "wd25",
-            "info":"Total width of all block must not exceed 100%",
-            "options": [ 			
-			 { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          },
-          {
-            "type": "header",
-            "content": "Form Appearance ==="
-          },
-          {
-            "type": "color",
-            "id": "tf_bg",
-            "label": "Textfield Background",
-            "default": "#fff"
-          },
-          {
-            "type": "color",
-            "id": "tf_bdr",
-            "label": "Textfield Border",
-            "default": "#fafafa"
-          },
-          {
-            "type": "color",
-            "id": "tf_txt",
-            "label": "Textfield Text",
-            "default": "#000"
-          },         
-          {
-            "type": "color",
-            "id": "btncl",
-            "label": "Button Text",
-            "default": "#fff"
-          },
-          {
-            "type": "color",
-            "id": "btnbg",
-            "label": "Button Background",
-            "default": "#333"
-          },
-          {
-            "type": "color",
-            "id": "btnclh",
-            "label": "Button Hover Text",
-            "default": "#fff"
-          },
-          {
-            "type": "color",
-            "id": "btnbgh",
-            "label": "Button Hover Background",
-            "default": "#333"
-          }
-        ]
-      },
-      {
-            "type": "liquid",
-            "name": "Liquid code",
-            "settings": [
-                 {
-                    "type": "text",
-                    "id": "title",
-                    "label": "Title",
-                    "default": "Liquid code"
-                },
-                {
-                    "type": "liquid",
-                    "id": "liquid",
-                    "label": "Add liquid code"                   
-                },
-                {
-            "type": "select",
-            "id": "width",
-            "label": "Block width",
-            "default": "wd25",
-            "info":"Total width of all block must not exceed 100%",
-            "options": [ 			 
-			  { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-         ]
-        },
-	  {
-        "type": "socialicons",
-        "name": "Social Icons",
-        "limit": 1,
-        "settings": [
-		 {
-            "type": "checkbox",
-            "id": "hidem",
-            "label": "Hide on mobile?",
-			      "default": false
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_desk",
-            "label": "Hide on desktop?",
-            "default": false
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-            "default": "Stay Connected"
-          },           
-		  {
-            "type": "select",
-            "id": "width",
-            "label": "Block width",
-            "default": "wd25",
-            "info":"Total width of all block must not exceed 100%",
-            "options": [ 			 
-			  { "value": "wd20", "label": "20%" },
-              { "value": "wd25", "label": "25%" },
-			  { "value": "wd30", "label": "30%" },
-              { "value": "wd33", "label": "33%" },
-			  { "value": "wd40", "label": "40%" },
-              { "value": "wd50", "label": "50%" },
-			  { "value": "wd60", "label": "60%" },
-              { "value": "wd66", "label": "66%" },
-              { "value": "wd75", "label": "75%" },
-              { "value": "wd100", "label": "100%" }
-            ]
-          }
-        ]
-      },
-      {
-      	"type": "hrline",
-      	"name": "Horizontal Line",
-		 "settings": [         	  
-		    {
-            "type": "color",
-            "id": "lineclr",
-            "label": "Line Color",
-            "default": "#eee"
-          },
-          {
-            "type":"checkbox",
-            "id":"hidem",
-            "label":"Hide on Mobile?",
-            "default": true
-    	    },
-           {
-            "type": "checkbox",
-            "id": "hide_desk",
-            "label": "Hide on desktop?",
-            "default": false
-          },
-          {
-            "type": "range",
-            "id": "mar",
-            "label": "Top/Bottom Margin",
-            "default": 15,
-            "min": 0,
-            "max": 50,
-            "step": 5,
-            "unit": "px"
         }
-		]
-      }
-	]
-  }
+      ]
+    },
+    {
+      "type": "hmenu",
+      "name": "Horizontal Menu",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false,
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Navigation",
+          "default": "main-menu"
+        },
+        {
+          "type": "select",
+          "id": "talign",
+          "label": "Text Align",
+          "default": "tc",
+          "options": [
+            {
+              "value": "tl",
+              "label": "Left"
+            },
+            {
+              "value": "tc",
+              "label": "Center"
+            },
+            {
+              "value": "tr",
+              "label": "right"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "bdr_top",
+          "label": "Show Top Border",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "bdr_btm",
+          "label": "Show bottom Border",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "bdr",
+          "label": "Border Color",
+          "default": "#000",
+          "visible_if": "{{ block.settings.bdr_top or block.settings.bdr_btm  }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "btmmr",
+          "label": "Remove bottom space",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block width",
+          "default": "wd100",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Details",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "range",
+          "id": "logo-wd",
+          "label": "Logo Max Width",
+          "default": 200,
+          "min": 100,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "visible_if": "{{ block.settings.logo != blank }}"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "55 Gallaxy Enque,<br />2568 steet, 23568 NY"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "(440) 000 000 0000"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "sales@yousite.com"
+        },
+        {
+          "type": "checkbox",
+          "id": "icons",
+          "label": "Show Icons?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "socials",
+          "label": "Show Social Icons?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "socttl",
+          "label": "Socials Title",
+          "default": "Stay Connected",
+          "visible_if": "{{ block.settings.socials }}"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block Width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "Custom Block",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "About Us"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Upload Image"
+        },
+        {
+          "type": "range",
+          "id": "logo-wd",
+          "label": "Image Max Width",
+          "default": 200,
+          "min": 100,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "visible_if": "{{ block.settings.logo != blank }}"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "inline_text",
+          "label": "Text",
+          "default": "At AdornThemes, we design and provide elegant and highly functional Shopify themes, backed by exceptional support"
+        },
+        {
+          "type": "range",
+          "id": "text_width",
+          "label": "Text Max. Width",
+          "default": 200,
+          "min": 200,
+          "max": 600,
+          "step": 5,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "fs",
+          "label": "Font Size",
+          "default": 13,
+          "min": 10,
+          "max": 30,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "socials",
+          "label": "Show Socials?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "socttl",
+          "label": "Socials Title",
+          "default": "Stay Connected",
+          "visible_if": "{{ block.settings.socials }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "payicon",
+          "label": "Show Payment Icons?",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block Width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Download App"
+        },
+        {
+          "type": "textarea",
+          "id": "txt",
+          "label": "Text",
+          "default": "Revone App is now available on App Store & Google Play. Get it now. "
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Upload Image"
+        },
+        {
+          "type": "text",
+          "id": "url1",
+          "label": "Image Url"
+        },
+        {
+          "type": "range",
+          "id": "logo-wd",
+          "label": "Image Max Width",
+          "default": 200,
+          "min": 100,
+          "max": 300,
+          "step": 5,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "logomr",
+          "label": "Enable image right padding",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "logo2",
+          "label": "Upload Image"
+        },
+        {
+          "type": "text",
+          "id": "url2",
+          "label": "Image Url"
+        },
+        {
+          "type": "range",
+          "id": "logo-wd2",
+          "label": "Image Max Width",
+          "default": 200,
+          "min": 100,
+          "max": 300,
+          "step": 5,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "radius",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "label": "Rounded Corners",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block Width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter Signup",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Newsletter"
+        },
+        {
+          "type": "text",
+          "id": "txt",
+          "label": "Text",
+          "default": "Enter your email to receive daily news and get 20% off coupon for all items. NO spam, we promise"
+        },
+        {
+          "type": "checkbox",
+          "id": "socials",
+          "label": "Show Socials?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "socttl",
+          "label": "Socials Title",
+          "default": "Stay Connected",
+          "visible_if": "{{ block.settings.socials }}"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block Width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Form Appearance ==="
+        },
+        {
+          "type": "color",
+          "id": "tf_bg",
+          "label": "Textfield Background",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "tf_bdr",
+          "label": "Textfield Border",
+          "default": "#fafafa"
+        },
+        {
+          "type": "color",
+          "id": "tf_txt",
+          "label": "Textfield Text",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "btncl",
+          "label": "Button Text",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "btnbg",
+          "label": "Button Background",
+          "default": "#333"
+        },
+        {
+          "type": "color",
+          "id": "btnclh",
+          "label": "Button Hover Text",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "btnbgh",
+          "label": "Button Hover Background",
+          "default": "#333"
+        }
+      ]
+    },
+    {
+      "type": "liquid",
+      "name": "Liquid code",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Liquid code"
+        },
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Add liquid code"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "socialicons",
+      "name": "Social Icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on mobile?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Stay Connected"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block width",
+          "default": "wd25",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "copyright",
+      "name": "copyright",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copyright_text",
+          "label": "Copyright Text",
+          "default": "© 2025,Revone. All Rights Reserved."
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Block width",
+          "default": "wd100",
+          "info": "Total width of all block must not exceed 100%",
+          "options": [
+            {
+              "value": "wd20",
+              "label": "20%"
+            },
+            {
+              "value": "wd25",
+              "label": "25%"
+            },
+            {
+              "value": "wd30",
+              "label": "30%"
+            },
+            {
+              "value": "wd33",
+              "label": "33%"
+            },
+            {
+              "value": "wd40",
+              "label": "40%"
+            },
+            {
+              "value": "wd50",
+              "label": "50%"
+            },
+            {
+              "value": "wd60",
+              "label": "60%"
+            },
+            {
+              "value": "wd66",
+              "label": "66%"
+            },
+            {
+              "value": "wd75",
+              "label": "75%"
+            },
+            {
+              "value": "wd100",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "hrline",
+      "name": "Horizontal Line",
+      "settings": [
+        {
+          "type": "color",
+          "id": "lineclr",
+          "label": "Line Color",
+          "default": "#eee"
+        },
+        {
+          "type": "checkbox",
+          "id": "hidem",
+          "label": "Hide on Mobile?",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desk",
+          "label": "Hide on desktop?",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "mar",
+          "label": "Top/Bottom Margin",
+          "default": 15,
+          "min": 0,
+          "max": 50,
+          "step": 5,
+          "unit": "px"
+        }
+      ]
+    }
+  ]
+}
 {%- endschema -%}

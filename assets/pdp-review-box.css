@@ -257,6 +257,7 @@ div.AirReviews-Blocks__ActionRate {height: auto;}
 .AirReviews--PageWidth__Xl .AirReviews-Blocks__List {
     margin-top: 0 !important;
 }
+
 @media only screen and (max-width:1024px) {
     #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern.AirReviews--PageWidth__Sm .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
         display: flex;

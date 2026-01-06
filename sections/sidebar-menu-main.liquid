@@ -111,10 +111,24 @@
 {%- endif -%}
 {%- if sec_st.sm_support -%}
   <div class="sidebar-menu-footer">
-    <a href="{% if sec_st.msp_link != blank %}{{ sec_st.msp_link }}{% else %}#{% endif %}" class="fl f-aic">
-      {% render 'icons-list-menu', icon_name: sec_st.msp_icon %}
-      {{ sec_st.msp_name }}
-    </a>
+    <div class="item">
+      <a href="{% if sec_st.msp_link != blank %}{{ sec_st.msp_link }}{% else %}#{% endif %}" class="fl f-aic">
+        {% render 'icons-list-menu', icon_name: sec_st.msp_icon %}
+        {{ sec_st.msp_name }}
+        <span class="menu-icon" data-m-submenu-toggle data-target="toggle-sm_support"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+      </a>
+      <ul class="submenu-sp">
+        {% if sec_st.msp_hd_link != blank and sec_st.msp_hd_label != blank %}
+          <li><a href="{{ sec_st.msp_hd_link }}">{{ sec_st.msp_hd_label }}</a></li>
+        {% endif %}
+        {% if sec_st.msp_hotline != blank %}
+          <li><a href="tel:{{ sec_st.msp_hotline | remove: '.' }}">Hotline: {{ sec_st.msp_hotline }}</a></li>
+        {% endif %}
+        {% if sec_st.msp_email != blank %}
+          <li><a href="mailto:{{ sec_st.msp_email }}">Email: {{ sec_st.msp_email }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 {%- endif -%}
 {% schema %}
@@ -286,6 +300,33 @@
         "id": "msp_icon",
         "label": "Icon Name",
         "default": "home",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "text",
+        "id": "msp_hd_label",
+        "label": "label hỏi đáp",
+        "default": "Hỏi đáp - FAQs",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "url",
+        "id": "msp_hd_link",
+        "label": "Link hỏi đáp",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "text",
+        "id": "msp_hotline",
+        "label": "Hotline",
+        "default": "0975.067.333",
+        "visible_if": "{{ section.settings.sm_support }}"
+      },
+      {
+        "type": "text",
+        "id": "msp_email",
+        "label": "Email",
+        "default": "support@mion.vn",
         "visible_if": "{{ section.settings.sm_support }}"
       },
 	    {
