@@ -1438,6 +1438,8 @@ details[open] .arw { transform:rotate(180deg); }
 }
 .sidebar-menu-list > li > a svg.arw {
   height: 16px;
+}
+.sidebar-menu-list .menu-icon {
   margin-left: auto;
 }
 .sidebar-menu-list > li > a.active,
@@ -1531,6 +1533,39 @@ details[open] .arw { transform:rotate(180deg); }
   .collection-list2 .cl_box .swiper {
     margin-right: 0;
     padding-right: 78px;
+  }
+
+  /* menu mobile */
+  .sidebar-menu-list > li > a:hover {
+    background: transparent;
+  }
+  .sidebar-wrapper .sub-menu-lv1 {
+    --duration: .3s;
+    margin: 0;
+    padding: 0 0 0 10px;
+    overflow: hidden;
+    height: 0;
+    transition: height var(--duration) cubic-bezier(.2, .9, .2, 1);
+    will-change: height;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  .is-open .sub-menu-lv1 {
+    padding: 0 0 10px 10px;
+  }
+  .sidebar-wrapper .mgmenu .gitem {
+    width: 100%;
+  }
+  .sidebar-wrapper .subLinks li a {
+    padding-left: 25px;
+  }
+  .sidebar-menu-list .sub-menu-lv1  li a {
+    line-height: 30px;
+    font-weight: 400;
+  }
+  .sidebar-menu-list .sub-menu-lv1 li a.m-title {
+    font-weight: 600;
   }
 }
 @media screen and (max-width: 768px) {

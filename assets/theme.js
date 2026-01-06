@@ -1078,3 +1078,68 @@ document.addEventListener("DOMContentLoaded", function() {
     init();
   }
 })();
+
+/**
+ * Mobile menu toggle
+ */
+(function(){
+  const root = document.querySelector('.sidebar-menu-list');
+
+  function animateOpen(el){
+    el.style.display = "block";
+    el.style.overflow = "hidden";
+    el.style.height = "0px";
+
+    const full = el.scrollHeight + "px";
+    requestAnimationFrame(() => {
+      el.style.height = full;
+    });
+
+    el.addEventListener("transitionend", function end(e){
+      if (e.target !== el) return;
+      el.style.height = "auto";
+      el.style.overflow = "";
+      el.removeEventListener("transitionend", end);
+    });
+  }
+
+  function animateClose(el){
+    el.style.overflow = "hidden";
+    const full = el.scrollHeight + "px";
+    el.style.height = full;
+
+    requestAnimationFrame(() => {
+      el.style.height = "0px";
+    });
+
+    el.addEventListener("transitionend", function end(e){
+      if (e.target !== el) return;
+      el.style.display = "";
+      el.removeEventListener("transitionend", end);
+    });
+  }
+
+  function toggleSubmenu(btn){
+    const targetId = btn.dataset.target;
+    const box = document.getElementById(targetId);
+    if (!box) return;
+
+    const elLi = btn.closest('li');
+    const isOpen = elLi.classList.contains('is-open');
+
+    if (isOpen){
+      elLi.classList.remove('is-open');
+      animateClose(box);
+    } else {
+      elLi.classList.add('is-open');
+      animateOpen(box);
+    }
+  }
+
+  root.querySelectorAll('[data-m-submenu-toggle]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      toggleSubmenu(btn);
+    });
+  });
+})();
