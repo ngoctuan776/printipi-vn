@@ -478,7 +478,7 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 .tee-field .tee-field__input + .tee-field__subfield {
   flex: 0 0 40px; 
   padding-left: 10px;
-  width: 40px;
+  width: auto;
   margin-top: 0;
   box-sizing: content-box;
 }
@@ -491,6 +491,10 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 .tee-campaign-form-footer .tee-block {
   margin-bottom: 10px;
 }
+.teeinblue-theme-modern .tee-slider__button {
+  display: none;
+}
+
 @media only screen and (min-width:769px){
   .tee-btn-wrapper--personalize {
     width: calc(100vw - var(--sidebar-width));
