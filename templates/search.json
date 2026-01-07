@@ -40,7 +40,7 @@
         "grid": 4,
         "gridtb": 3,
         "gridmb": 2,
-        "prpp": 5,
+        "prpp": 50,
         "pagination": "infinite",
         "filters": true,
         "sbpos": "popup",

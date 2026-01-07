@@ -11,6 +11,7 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -21,12 +22,12 @@
       "type": "main-wishlist",
       "settings": {
         "hidettl": false,
-        "sst": 30,
-        "ssb": 30,
+        "sst": 40,
+        "ssb": 40,
         "sstm": 15,
         "ssbm": 15,
         "bg": "#ffffff",
-        "sw": false
+        "sw": true
       }
     }
   },
