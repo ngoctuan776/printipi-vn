@@ -23,7 +23,7 @@
 	 <div class="{% if section_st.sw %} fw-sec{% else %} page-width{% endif %}" style="--fs:{{ section_st.tfs }}px;--fsm:{{ section_st.tfsm }}px;--fw:{{ section_st.tfw }};--lh:{{section_st.lh }};--cl:{{ section_st.wdTtlcl }};">
        <div class="sec-ttl-wrp fl f-jcsb f-aic">
         <div class="sec-ttl tl">
-          <{{ section_st.htag }} class="blogHead rgTxt {% if section_st.tcase %} ttu{% endif %}">{{ blog.title }}</{{ section_st.htag }}>
+          <{{ section_st.htag }} class="blogHead {% if section_st.tcase %} ttu{% endif %}">{{ blog.title }}</{{ section_st.htag }}>
           <div class="sbttl color-text">{{ 'blogs.article.subtitle' | t: item_count: blog.articles_count }}</div>
         </div>
       </div>
