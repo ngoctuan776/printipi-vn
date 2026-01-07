@@ -772,7 +772,7 @@ span.wishicon.added svg path{fill: #FFFFFF;}
 @media only screen and (min-width:769px){
 	.cl_box1 .details { bottom:var(--psbtm); }
 }
-@media only screen and (min-width:768px){
+@media only screen and (max-width:768px){
   .collection-list2 .sec_cov {padding-top: 20px;}
 }
 
@@ -906,14 +906,13 @@ body:has(.main_hdr.trnsprt) .shopify-section:first-child .hero_wrap { padding-to
 .contact-frm textarea { height:120px; }
 .c_address li { padding:5px 0; }
 .follow-us li { margin-right:5px; }
-.content-wrapper{max-width: 736px;margin: 0 auto;}
 
 .contact1 .contact-frm { padding-right:20px;}
 .contact2 .c_details hr, .contact2 .c_details .sep:first-child {display:none;}
 .contact2 .c_details .sep {width:1px;}
 
 @media only screen and (min-width:1025px){
-  .content-wrapper { margin-top:80px;}
+  .content-wrapper{max-width: 1000px;margin: 80px auto 50px;}
 }
 
 @media only screen and (max-width:768px){ 
@@ -1351,7 +1350,13 @@ details[open] .arw { transform:rotate(180deg); }
 .grecaptcha-badge, #admin-bar-iframe { display:none!important; }
 
 .shopify-policy__container { max-width:none !important; padding-top:30px; padding-bottom:30px; }
-.shopify-policy__title h1 {text-align: left;}
+.shopify-policy__title h1 {
+  text-align: left;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(229, 229, 229, 1);
+  padding-bottom: 15px;
+  margin: 0 0 30px;
+}
 .product__policies a {text-decoration:underline;}
 
 .shopify-pc__banner__dialog h2 {font-weight:500!important; left:auto !important; right:0 !important;}
