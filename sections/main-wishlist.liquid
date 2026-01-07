@@ -26,7 +26,7 @@
              <p>{{ 'products.wishlist.wishlist-empty' | t }}</p>
              <a href="{{ routes.root_url }}" class="btn">{{ 'products.wishlist.shop_link' | t }}</a>
         </div>
-        <wishlist-items id="wishlist" data-url="{{ routes.search_url }}" class="mt20 grid rwcols-2 rwcols-md-3 rwcols-lg-4 grid-products">
+        <wishlist-items id="wishlist" data-url="{{ routes.search_url }}" class="grid rwcols-2 rwcols-md-3 rwcols-lg-4 rwcols-xl-6 grid-products">
           {% for item in search.results %}
             <div class="{% if section_st.carousel %}swiper-slide {% endif %}gitem {% render 'animate-data', css:true %}" {% render 'animate-data' %}>{% render 'product-card-grid', product: item, section_st:section_st, sizes: sizes %}</div>
           {% endfor %}
