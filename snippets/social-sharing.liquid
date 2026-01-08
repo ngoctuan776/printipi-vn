@@ -4,7 +4,7 @@
   <div id="sharePopup" class="tinglebox pp-hide cm">
       <label class="h4 fwm tc mb15" for="ShareUrl-{{ section.id }}">{{ 'general.social.copy_to_clipboard' | t }}</label>
       <div class="fl f-wrap mb15 gap" style="--gap:5px">
-        <input type="text" class="fl1 mb0" id="ShareUrl-{{ section.id }}" value="{{ share_link }}" onclick="this.select();" readonly>
+        <input type="text" class="fl1 mb0" id="ShareUrl-{{ section.id }}" value="{{ shop.url | append: share_link }}" onclick="this.select();" readonly>
         <button class="copy_url btn">{{- 'icon-copy.svg' | inline_asset_content -}}<span class="hidden_txt">{{ 'general.social.copy_to_clipboard' | t }}</span></button>
       </div>
       <span id="ShareMessage-{{ section.id }}" class="share_message scmsg hidden mb15 fwm tc db" role="status">{{ 'general.social.success_message' | t }}</span>      

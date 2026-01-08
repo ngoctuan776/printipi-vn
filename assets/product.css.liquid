@@ -95,7 +95,7 @@
 .prd-d-rv .review-box {
   padding: 30px 0 30px 30px;
   box-sizing: border-box;
-} 
+}
 .sec__pdp-bottom .gitem.ss-right-box {
   padding: 20px 5px 0 5px;
   box-sizing: border-box;
@@ -121,8 +121,9 @@
 }
 .rte strong {font-weight: 500;}
 
+.pr_btn.product-form__submit .loading__spinner {width: 0;}
 .pr_btn.product-form__submit.loading .loading__spinner {
-  display: block;height: auto;visibility: visible;
+  display: block;height: auto;visibility: visible;width: auto;
 }
 .pr_btn.product-form__submit.loading .txt {height: auto;}
 
@@ -132,10 +133,13 @@
 
 .product-single-tee .product__images-wrapper h3 {font-size: 16px;line-height: 26px;margin-bottom: 15px;}
 .product-single-tee .product__images-wrapper .item {
-  min-width: 115px;
-  width: 115px;
-  border-radius: 8px;
+  min-width: 100px;
+  width: 100px;
   overflow: hidden;
+  border-radius: 4px;
+}
+.product-single-tee .product__images-wrapper .item img {
+  border-radius: 4px;
 }
 
 .product-single-tee>.col-media {
@@ -147,6 +151,11 @@
 @media only screen and (max-width:576px) {
   .product-single:not(.product-single-tee) .product__info {
     margin-top: 20px;
+  }
+  .sec__pdp-bottom .gitem.ss-right-box {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
   }
 }
 @media only screen and (min-width:577px) {
@@ -174,7 +183,7 @@
   }
   .product-single-tee>.col-media {
     display: grid;
-    grid-template-columns: 256px minmax(0,1fr);
+    grid-template-columns: 208px minmax(0,1fr);
     grid-template-areas: "area11 area22";
     align-items: start;
     height: 100%;
@@ -266,11 +275,7 @@
     padding-right: 0;
   }
   .product-single-tee .product__images-wrapper .list-item-images {
-    gap: 16px;
-  }
-  .product-single-tee .product__images-wrapper .item {
-    border-radius: 8px;
-    overflow: hidden;
+    gap: 8px;
   }
   .product-single-tee>.col-media {
     position: sticky;
@@ -322,7 +327,7 @@
 
 @media only screen and (min-width:1025px) and (max-width:1500px) {
   .product-single-tee>.col-media {
-    grid-template-columns: 115px minmax(0, 1fr);
+    grid-template-columns: 100px minmax(0, 1fr);
   }
   .product-single-tee .product__images-wrapper .list-item-images {
     grid-template-columns: 1fr;
@@ -378,7 +383,7 @@
   color: #FFF;
 }
 .pswp__scroll-wrap .pswp__button--arrow {
-  top: 50%;
+  top: 45%;
   bottom: auto;
   margin: 0;
   padding: 0;
@@ -549,7 +554,7 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 
 @media only screen and (max-width:768px) {
   .product-single-tee .product__images-wrapper .list-item-images {
-    gap: 10px;
+    gap: 6px;
     display: flex;
     overflow-x: auto;
     padding: 0;

@@ -65,8 +65,11 @@ class ProductRecentlyViewed extends SlideSection {
         ) {
           recentlyViewedDiv.innerHTML = recentlyViewedProducts.innerHTML;
         }
+        
+        var recentSec = document.querySelector(".recent-product");
         if (recentlyViewedProducts.innerHTML.trim().length === 0) {
-          var recentSec = document.querySelector(".recent-product");
+          recentSec.remove();
+        } else if(!recentlyViewedProducts.querySelector(".gitem")) {
           recentSec.remove();
         }
       })
