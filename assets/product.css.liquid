@@ -495,11 +495,55 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
   display: none;
 }
 
+.tee-thumbnails {
+  width: 100% !important;
+  margin-top: 15px;
+  overflow-x: auto;
+}
+.tee-thumbnails__track {
+  transform: none !important;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 8px;
+}
+.tee-thumbnails .tee-thumbnail,
+.tee-thumbnails .tee-platform-mockup .tee-mockup,
+.tee-thumbnails .tee-printarea--image {
+  width: 100px !important;
+  height: 100px !important;
+}
+.tee-thumbnails .tee-thumbnail {
+  margin: 0;
+}
+
 @media only screen and (min-width:769px){
   .tee-btn-wrapper--personalize {
     width: calc(100vw - var(--sidebar-width));
     left: auto;
     right: 0;
+  }
+  .tee-thumbnails {
+    scrollbar-width: thin; /* auto | thin | none */
+    scrollbar-color: #999 transparent;
+  }
+
+  /* Chrome, Edge, Safari */
+  .tee-thumbnails::-webkit-scrollbar {
+    height: 8px; /* ngang */
+    width: 8px;  /* dọc */
+  }
+
+  .tee-thumbnails::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 999px;
+  }
+
+  .scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
   }
 }
 
@@ -528,5 +572,11 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 
   .product__images-wrapper {
     order: 1;
+  }
+  .tee-thumbnails .tee-thumbnail,
+  .tee-thumbnails .tee-platform-mockup .tee-mockup,
+  .tee-thumbnails .tee-printarea--image {
+    width: 65px !important;
+    height: 65px !important;
   }
 }
