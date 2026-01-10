@@ -1,29 +1,35 @@
 {%- liquid
-   assign section_st = section.settings
+  assign section_st = section.settings
 -%}
 <div class="sec_cov sec__pdp-bottom" style="--sbg:{% if section_st.bgg != blank %}{{ section_st.bgg }}{% else %}{{ section_st.bg }}{% endif %};--sst:{{ section_st.sst }}px;--ssb:{{ section_st.ssb }}px;--sstm:{{ section_st.sstm }}px;--ssbm:{{ section_st.ssbm }}px">
 	<div class="{% if section_st.sw %}fw-sec{% else %}page-width{% endif %}" data-section-id="{{ section.id }}">
-        <div class="grid">
-            <div class="gitem ss-left-box">
-				<div class="product-description rte">{{ product.description }}</div>
-                {%- for block in section.blocks -%}
-                    {%- if block.type == 'related-products' -%}
-                        {% render 'pdp-related-prds', block: block %}
-                    {%- endif -%}
-                    {%- if block.type == 'rvp' -%}
-                        {% render 'pdp-rvp-prds', block: block %}
-                    {%- endif -%}
-                {%- endfor -%}
-			</div>
-            <div class="gitem ss-right-box">
-                {%- for block in section.blocks -%}
-                    {%- if block.type == '@app' -%}
-                        {% render block %}
-                    {%- endif -%}
-                {%- endfor -%}
-            </div>
+    <div class="grid pdp-g-bt">
+      <div class="ss-left-box">
+        <div class="product-description rte" data-pdp-ct-d>
+          {%- if section_st.title_desc != blank -%}
+            <h2 class="title-desc">{{ section_st.title_desc }}</h2>
+          {%- endif -%}
+          <div class="ct-desc">{{ product.description }}</div>
+          <div class="g-btn-sm"><button class="btn btn2 btn-sm btn-show-more" data-pdp-show-ml><span class="show-more">{{ 'products.product.show_more' | t }}</span><span class="show-less">{{ 'products.product.show_less' | t }}</span>{% render 'icon-show-more' %}</button></div>
         </div>
+        {%- for block in section.blocks -%}
+            {%- if block.type == 'related-products' -%}
+                {% render 'pdp-related-prds', block: block %}
+            {%- endif -%}
+            {%- if block.type == 'rvp' -%}
+                {% render 'pdp-rvp-prds', block: block %}
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="ss-right-box">
+        {%- for block in section.blocks -%}
+            {%- if block.type == '@app' -%}
+                {% render block %}
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
     </div>
+  </div>
 </div>
 {% schema %}
 {
@@ -34,6 +40,12 @@
     ]
   },
   "settings": [
+    {
+      "id": "title_desc",
+      "type": "text",
+      "label": "Title description",
+      "default": "THÔNG TIN SẢN PHẨM"
+    },
     {
       "type": "header",
       "content": "Section Design ==="

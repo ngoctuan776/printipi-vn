@@ -254,7 +254,7 @@
 						{%- when 'hr' -%}
 							<hr class="mt0 mb{{ blk_st.bm }}" style="border-color: {{ blk_st.hrc }}" />
 						{%- when 'title' -%}
-							<h1 class="rgTxt {{ blk_st.tff }} mb{{ blk_st.bm }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+							<h1 class="title-product fwr {{ blk_st.tff }} mb{{ blk_st.bm }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
 						{%- when 'subtitle' -%}
 							<div {{ block.shopify_attributes }} class="{{ blk_st.tcase }} mb{{ blk_st.bm }}">{{ product.metafields.descriptors.subtitle }}</div>								
 						{%- when 'price' -%}
@@ -341,7 +341,7 @@
 									<span class="rating-avg">{{ rating }}</span>
 									<span class="rating-count fs-10 lh-20">({{ rating_count }})</span>
 								</div>
-								{%- if settings.wishlist -%}
+								{% comment %} {%- if settings.wishlist -%}
 									<product-card class="fl">
 										<button type="button" class="btn btnNone btn2 pr wishlist addwishlist" data-url="{{pages[settings.wishlist_page].url}}" data-id="{{ product.id }}" aria-label="{{ 'products.wishlist.add_to_wishlist' | t }}">
 										<span class="txt"><svg class="at-icon wishicon color-text"><use class="add" xlink:href="#icon-wishlist"></use><use class="added" xlink:href="#icon-remove"></use></svg></span>
@@ -349,7 +349,7 @@
 										<span class="text color-text fs-10 lh-20" data-tooltip-label>{{ 'products.wishlist.add_to_wishlist' | t}}</span>										
 										</button>
 									</product-card>
-								{%- endif -%}
+								{%- endif -%} {% endcomment %}
 							</div>
 						{%- when 'spoint' -%}
 							<div class="mb{{ blk_st.bm }} salepoint rgTxt fl{%  if blk_st.atc %} f-jcc{% endif %}" style="--icns:18px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;" {{ block.shopify_attributes }}>
@@ -640,7 +640,7 @@
 													-%}
 													<div class="fl gap" style="--gap:10px;">
 														{%- if inventory_block != blank -%}{{ inventory_block }}{%- endif -%}
-														<button id="ProductSubmitButton-{{ section.id }}" type="submit" name="add" class="btn {{ block.settings.atc-style }} pr_btn product-form__submit btn-has-icon"
+														<button id="ProductSubmitButton-{{ section.id }}" type="submit" name="add" class="btn pr_btn product-form__submit btn-has-icon"
 															{% if current_variant.available == false or quantity_rule_soldout %}disabled{% endif %}>
 															{%- render 'icon-cart' -%}
 															<span class="txt">
@@ -1106,7 +1106,7 @@
 {% schema %}
 	{
 	"name": "Product Main",
-	"settings": [      
+	"settings": [
         {
   			"type": "select",
   			"id": "image-col",
@@ -1186,7 +1186,7 @@
 			"default": "#888",
             "visible_if": "{{ section.settings.prstyle == '1' }}"
 		},
-      {
+      	{
 			"type": "checkbox",
 			"id": "przoom",
 			"label": "Enable image zoom",

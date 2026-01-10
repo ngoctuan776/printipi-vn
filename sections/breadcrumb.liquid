@@ -5,47 +5,47 @@
     <a href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
     {% if template contains 'product' %}
         {% if collection %}
-               <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+               <span class="barr" aria-hidden="true">/</span>
             {% if collection.handle %}
                 {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
                 {{ collection.title | link_to: url }}
             {% endif %}
         {% endif %}
-        <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
-        <span class="fwm">{{ product.title }}</span>
+        <span class="barr" aria-hidden="true">/</span>
+        <span class="fwm color-main-text">{{ product.title }}</span>
     {% elsif template contains 'collection' and collection.handle %}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+           <span class="barr" aria-hidden="true">/</span>
         {% if current_tags %}
             {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
             {{ collection.title | link_to: url }}
-            <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+            <span class="barr" aria-hidden="true">/</span>
             <span>{{ current_tags | join: " + " }}</span>
         {% else %}
-            <span class="fwm">{{ collection.title }}</span>
+            <span class="fwm color-main-text">{{ collection.title }}</span>
         {% endif %}
     {% elsif template == 'blog' %}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+           <span class="barr" aria-hidden="true">/</span>
         {% if current_tags %}
             {{ blog.title | link_to: blog.url }}
-               <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+               <span class="barr" aria-hidden="true">/</span>
             <span>{{ current_tags | join: " + " }}</span>
         {% else %}
-            <span class="fwm">{{ blog.title }}</span>
+            <span class="fwm color-main-text">{{ blog.title }}</span>
         {% endif %}
     {% elsif template == 'article' %}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
+           <span class="barr" aria-hidden="true">/</span>
         {{ blog.title | link_to: blog.url }}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
-        <span class="fwm">{{ article.title }}</span>
+           <span class="barr" aria-hidden="true">/</span>
+        <span class="fwm color-main-text">{{ article.title }}</span>
     {% elsif template contains 'page' %}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
-        <span class="fwm">{{ page.title }}</span>
+           <span class="barr" aria-hidden="true">/</span>
+        <span class="fwm color-main-text">{{ page.title }}</span>
     {% elsif template contains 'cart' %}
-           <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
-        <span class="fwm">{{ 'cart.general.title' | t }}</span>
+           <span class="barr" aria-hidden="true">/</span>
+        <span class="fwm color-main-text">{{ 'cart.general.title' | t }}</span>
     {% else %}
-        <span class="barr" aria-hidden="true"><svg class="at-icon arw right"><use xlink:href="#icon-arrow"></use></svg></span>
-        <span class="fwm">{{ page_title }}</span>
+        <span class="barr" aria-hidden="true">/</span>
+        <span class="fwm color-main-text">{{ page_title }}</span>
     {% endif %}
 </nav>
 

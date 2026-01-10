@@ -135,7 +135,7 @@ input[disabled], select[disabled], textarea[disabled],button[disabled] { cursor:
 button,input[type=submit],label[for],.cpointer{cursor:pointer}
 [role=button],a,button,input,label,select,textarea{touch-action:manipulation}
 
-input, select, textarea { font-family:var(--ft1); background-color:{{ settings.cfield_bg }}; color:{{ settings.cfield_text }}; border:1px solid {{ settings.field_bd }}; border-radius:{{settings.btn_rad}}px; line-height:1; padding:12px 18px; outline:0; margin-bottom:16px; font-size: 14px; height: 44px;}
+input, select, textarea { font-family:var(--ft1); background-color:{{ settings.cfield_bg }}; color:#000000; border:1px solid {{ settings.field_bd }}; border-radius:{{settings.btn_rad}}px; line-height:1; padding:12px 18px; outline:0; margin-bottom:16px; font-size: 14px; height: 44px;}
 textarea{overflow:auto; min-height:100px;resize:none;{% if settings.btn_rad > 8 %}border-radius: 8px;{% endif %} }
 
 ::-webkit-input-placeholder, ::-moz-placeholder,:-ms-input-placeholder{ color:var(--tf_txt, {{ settings.cfield_text }}); opacity:.6}
@@ -1026,14 +1026,14 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 
 {% comment %} /* ==== Breadcrumbs And Navigation ===== */ {% endcomment %}
 .template-collection .bc_wrap, .template-list-collections .bc_wrap,.template-page .bc_wrap,.template-search .bc_wrap { margin-bottom: 0;}	
-.bc_wrap { margin-bottom:15px; background-color:{{settings.brdbg}}; padding:10px 0; }
-.breadcrumb { font-size:var(--fsm, {{settings.bc_font}}px); column-gap:10px; row-gap:5px; }
-.breadcrumb span { color:var(--cl, {{settings.brdtxt}}); }
+.bc_wrap { margin:15px 0; padding:10px 0;}
+.breadcrumb { font-size:var(--fsm, {{settings.bc_font}}px); column-gap:10px; row-gap:5px;}
 .breadcrumb a, .breadcrumb svg {color: var(--color-text);}
-@media only screen and (min-width:766px){
-  .bc_wrap { margin-bottom:20px; }
+@media only screen and (min-width:768px){
+  .bc_wrap { margin:15px 0 20px; }
   .breadcrumb { font-size:var(--fs, {{settings.bc_font}}px); }
 }
+@media only screen and (min-width:1400px){.bc_wrap {margin:20px 0;}}
 
 {% comment %} Product Title, Product Price{% endcomment %}
 .pr_title { color:var(--cl,{{settings.pr_ttl_cl}}); font-size:var(--fsm,{{settings.pr_ttl_fsm}}px); font-weight:var(--fw,{{settings.pr_ttl_fw}}); line-height:normal; {% if settings.fcase %}text-transform:uppercase;{% endif %}} 
@@ -1112,10 +1112,10 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 .swatchInput { bottom:0; left:50%; opacity:0; }
 .swatchLbl { color:{{settings.cl}}; min-width:40px; min-height:40px; display:inline-flex!important; line-height:1; justify-content:center; align-items:center; position:relative; text-align:center; padding:0 10px; background-color:{{settings.bg}}; font-weight: 500;}
 .cloptions .swatchLbl { padding:0 15px;}
-.swatchLbl:not(.color) { border:1px solid {{ settings.sbdr }}; border-radius:7px; }
+.swatchLbl:not(.color) { border:1px solid #D9D9D9; border-radius:0; }
 .swatchLbl.color { padding:0; background-repeat:no-repeat; background-position:{{settings.s_pos}}; background-size:100% auto; min-width:24px; min-height:24px; border-radius:{{settings.swtbdr}}px; }
 .swatchLbl.color.medium { width:50px; height:50px; }
-.swatchLbl.color.large { width:60px; height:60px; border-radius: 8px;}
+.swatchLbl.color.large { width:60px; height:60px; border-radius: 4px;}
 .swatchLbl span.color { width:25px; height:25px; display:block; border:1px solid {{settings.cla}}; border-radius:50%; margin-right:7px; background-size:cover!important; }
 .cloptions .swatchLbl.color {
   border-radius: 100%;
@@ -1149,7 +1149,7 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 
 .qtyField { display:inline-flex; border:1px solid {{ settings.field_bd }};border-radius: 3px; overflow:hidden; }
 .qtyField .at-icon { width:13px; height:13px; pointer-events:none; }
-.qtyBtn, .qty, .gprQty { margin:0; color:{{ settings.cfield_text }}; width:40px; display:flex; align-items:center; justify-content:center; border:0; background:{{ settings.cfield_bg }}; border-radius:0; }
+.qtyBtn, .qty, .gprQty { margin:0; width:40px; display:flex; align-items:center; justify-content:center; border:0; background:{{ settings.cfield_bg }}; border-radius:0; }
 .qty { width:60px; text-align:center; border:0 none; border-left:1px solid {{ settings.field_bd }}; border-right:1px solid {{ settings.field_bd }}; }
 
 .qtyField.sm .qty, .qtyField.sm .qtyBtn, .qtyField.sm .gprQty { line-height:19px; width:30px; height:30px; padding:4px 0; border-left: none; border-right: none; }
@@ -1160,7 +1160,7 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 }
 
 .pr_btn, 
-.shopify-payment-button__button { font-family:var(--{{settings.btn_font}});  font-size:{{settings.btnf}}px; font-weight:{{settings.btn_weight}} !important; text-transform:uppercase; width:100% !important; letter-spacing:inherit; height:40px !important; border-radius: 8px; padding-left: 5px;padding-right: 5px;} 
+.shopify-payment-button__button { font-family:var(--{{settings.btn_font}}); font-size:{{settings.btnf}}px; font-weight:{{settings.btn_weight}} !important; text-transform:uppercase; width:100% !important; letter-spacing:inherit; height:46px !important; padding-left: 5px;padding-right: 5px;} 
 .shopify-payment-button__button--unbranded {padding:11px 20px !important; }
 .shopify-payment-button__button { margin-top:-5px; transition:all 0.3s ease-out; border:1px solid var(--btnbdr)!important; background:var(--btnbg)!important; color:var(--btntext) !important; border-radius: {{settings.btn_rad}}px !important; }
 .shopify-payment-button__button--hidden { display:none !important; }    
@@ -1169,7 +1169,8 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 .product-form__buttons .wishlist { height:50px; width:50px; padding:0; overflow:visible;}
 .product-form__buttons .wishlist .tooltip-label { bottom: calc(100% + 15px); }
 .product-form__buttons .wishlist:hover .tooltip-label{visibility: visible; opacity: 1; bottom: calc(100% + 10px);}
-
+.pr_btn svg path,
+.shopify-payment-button__button svg path {fill: #FFFFFF}
 .cart_term a { margin-left:5px;}
 
 .product-single .share-title { display:none; }

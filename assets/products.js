@@ -149,3 +149,9 @@ if(tearmFields.length){
   });
   
 }
+
+(function(){
+  document.querySelector('[data-pdp-show-ml]').onclick = function () {
+    document.querySelector('[data-pdp-ct-d]').classList.toggle('show');
+  };
+})();

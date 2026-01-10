@@ -1136,8 +1136,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  root.querySelectorAll('[data-m-submenu-toggle]').forEach(btn => {
+  root.querySelectorAll('li.parent [data-m-submenu-toggle]').forEach(btn => {
     btn.addEventListener('click', e => {
+      if (window.innerWidth > 1024) return;
       e.preventDefault();
       toggleSubmenu(btn);
     });
