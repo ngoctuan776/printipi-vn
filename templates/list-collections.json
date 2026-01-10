@@ -11,6 +11,7 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
+      "disabled": true,
       "settings": {
         "sw": false,
         "hidemb": false,
@@ -38,8 +39,8 @@
         "fs": 17,
         "fsm": 13,
         "fw": "500",
-        "cl": "#111",
-        "tbg": "#fff",
+        "cl": "#111111",
+        "tbg": "#ffffff",
         "tbg_op": 0.9,
         "drad": 6,
         "tbp": 18,
@@ -65,7 +66,6 @@
           "type": "collection",
           "settings": {
             "collection": "women",
-            "image": "shopify://shop_images/port-sports.jpg",
             "title": "JACKETS",
             "btntxt": "",
             "url": ""
@@ -75,7 +75,6 @@
           "type": "collection",
           "settings": {
             "collection": "fashion",
-            "image": "shopify://shop_images/port-dress.jpg",
             "title": "SHORT DRESS",
             "btntxt": "",
             "url": ""
@@ -85,7 +84,6 @@
           "type": "collection",
           "settings": {
             "collection": "shoes",
-            "image": "shopify://shop_images/list4_1.jpg",
             "title": "FOOTWEAR",
             "btntxt": "",
             "url": ""
@@ -95,7 +93,6 @@
           "type": "collection",
           "settings": {
             "collection": "women",
-            "image": "shopify://shop_images/port-jeans.jpg",
             "title": "DENIM",
             "btntxt": "",
             "url": ""
@@ -105,7 +102,6 @@
           "type": "collection",
           "settings": {
             "collection": "sports",
-            "image": "shopify://shop_images/men-shoes.jpg",
             "title": "SPORTS",
             "btntxt": "",
             "url": ""
@@ -115,7 +111,6 @@
           "type": "collection",
           "settings": {
             "collection": "men",
-            "image": "shopify://shop_images/men-sports.jpg",
             "title": "MEN",
             "btntxt": "",
             "url": ""
@@ -125,7 +120,6 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/demo2-women.jpg",
             "title": "CROP TOP",
             "btntxt": "",
             "url": ""
@@ -135,7 +129,6 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/demo1-accessories.png",
             "title": "BAGS",
             "btntxt": "",
             "url": ""
@@ -172,8 +165,8 @@
         "fsm": 12,
         "lh": 1.5,
         "fw": "500",
-        "cl": "#111",
-        "tbg": "#fff",
+        "cl": "#111111",
+        "tbg": "#ffffff",
         "tbg_op": 1,
         "drad": 20,
         "tbp": 15,
@@ -185,17 +178,17 @@
         "arrowm": false,
         "dot": false,
         "dotm": true,
-        "sw": false,
-        "npd": true,
-        "bg": "#fff",
+        "sw": true,
+        "npd": false,
+        "bg": "#ffffff",
         "bgg": "",
         "overlay": "#3d4246",
         "overlay_op": 0,
         "headings_cl": "",
-        "sst": 60,
-        "ssb": 60,
-        "sstm": 15,
-        "ssbm": 25,
+        "sst": 40,
+        "ssb": 40,
+        "sstm": 20,
+        "ssbm": 15,
         "hidem": false,
         "hided": false
       }

@@ -11,7 +11,6 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
-      "disabled": true,
       "settings": {
         "sw": true,
         "hidemb": false,
@@ -292,7 +291,7 @@
         "qty_bdr": "#666666",
         "btn-sticky": "btn5",
         "page_width": 1400,
-        "sst": 30,
+        "sst": 10,
         "ssb": 30,
         "sstm": 15,
         "ssbm": 20,
