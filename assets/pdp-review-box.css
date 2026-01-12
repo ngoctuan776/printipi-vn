@@ -64,14 +64,27 @@
     gap: 0 !important;
 }
 #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks--Rate {
-        flex-direction: row;
-        gap: 6px;
-        background-color: transparent !important;
-        min-height: 0;
-        position: absolute;
-        top: 22px;
-        right: 15px;
+    flex-direction: row;
+    gap: 6px;
+    background-color: transparent !important;
+    min-height: 0;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+}
+.AirReviews-Blocks__SubmitReview {
+    margin-top: 5px;
+}
+@media only screen and (min-width:577px) and (max-width:768px) {
+    #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
+        flex: 0 0 110px;
+        width: 110px;
     }
+    .AirReviews-Blocks__SubmitReview div.AirReviews-Blocks__ActionRate svg {
+        width: 15px !important;
+    }
+}
+
 @media only screen and (min-width:769px) {
     #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
         gap: 16px !important;
@@ -183,6 +196,7 @@ div#AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__Prese
 }
 div.AirReviews-Blocks__ActionRate svg {
     width: 21px !important;
+    height: auto !important;
 }
 #AirReviews-BlockWrapper .AirReviews-Widget__V2 .AirReviews-TextField__Label {
     font-size: 12px;
@@ -312,6 +326,9 @@ div.AirReviews-Blocks__ActionRate svg {
 #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__PresetModern .AirReviews-Blocks--Actions {
     min-height: 90px;
     padding: 18px 0;
+}
+.AirReviews-Blocks__pagination .AirReviews-Pagination {
+    margin: 3px 0 0 0;
 }
 @media only screen and (max-width:1024px) {
     #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__Summary .AirReviews-Blocks--Rate {

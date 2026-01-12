@@ -123,6 +123,11 @@
 .sec__pdp-bottom .ss-left-box .product-description {
   padding: 40px 0 30px;
 }
+.sec__pdp-bottom .sec-ttl .sttl {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 26px;
+}
 .product-description .title-desc {
   font-size: 12px;
   line-height: 26px;
@@ -164,21 +169,26 @@
 .product-description.rte :is(h1,h2,h3,h4,h5,h6) { font-size: 12px; }
 .product-single-tee .product__images-wrapper h3 {font-size: 16px;line-height: 26px;margin-bottom: 15px;}
 .product-single-tee .product__images-wrapper .item {
-  min-width: 80px;
-  width: 80px;
+  min-width: 87px;
+  width: 87px;
   overflow: hidden;
   border-radius: 4px;
+}
+@media only screen and (min-width:440px) {
+  .product-single-tee .product__images-wrapper .item {
+    min-width: 91px;
+    width: 91px;
+  }
 }
 .product-single-tee .product__images-wrapper .item img {
   border-radius: 4px;
 }
-
 .product-single-tee>.col-media {
   padding-bottom: 40px;
   width: 100%;
 }
 .product-single-tee .product__images-wrapper .list-item-images {
-  gap: 6px;
+  gap: 8px;
   display: flex;
   overflow-x: auto;
   padding: 0;
@@ -243,10 +253,11 @@
     border-width: 1px 0 1px 0;
     border-style: solid;
     border-color: var(--border-color);
-    padding: 30px 0 50px;
+    padding: 30px 0 36px;
+    margin-bottom: 15px;
   }
   .product-description:not(.show) .ct-desc {
-    max-height: 120px;
+    max-height: 185px;
   }
 }
 @media only screen and (min-width:769px) {
