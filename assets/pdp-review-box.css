@@ -9,7 +9,7 @@
     --air-input-outline-color: var(--color-main);
     --air-product-thumbnail-sm-width: 80px;
     --air-border-radius-xs: 5px;
-    --air-star-icon-md: 14px;
+    --air-star-icon-md: 11px;
 }
 .AirReviews-Widget__V2 {
     padding-top: 0 !important;
@@ -44,30 +44,53 @@
     font-weight: 500;
     font-size: 14px;
 }
-#AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks--Rate {
-    flex-direction: row;
-    gap: 6px;
-    background-color: transparent !important;
-    position: absolute;
-    top: 20px;
-    right: 15px;
-    min-height: 0;
-}
 #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
     display: flex;
+    flex-direction: column;
 }
 #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__Summary .AirReviews-Blocks--List {
     flex: 1;
 }
 #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
     width: 100%;
+    min-height: 0 !important;
+}
+#AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks--Rate {
+        flex-direction: row;
+        gap: 6px;
+        background-color: transparent !important;
+        min-height: 0;
+    }
+@media only screen and (min-width:769px) {
+    #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
+        gap: 16px !important;
+    }
+    #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
+        order: -1;
+        flex: 0 0 114px;
+        width: 114px;
+    }
+    #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
+        flex: 0 0 114px;
+        width: 114px;
+    }    
+    #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks--Rate {
+        position: absolute;
+        top: 22px;
+        right: 15px;
+    }
+}
+@media only screen and (min-width:1025px) {
+    #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
+        flex: 0 0 164px;
+        width: 164px;
+    }
 }
 @media only screen and (min-width:1401px) {
     #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
         gap: 40px !important;
     }
     #AirReviews-BlockWrapper .AirReviews-Blocks__Summary .AirReviews-Blocks--Actions {
-        order: -1;
         flex: 0 0 208px;
     }
 }
@@ -130,7 +153,7 @@ div.AirReviews-Blocks .AirReviews-Blocks__List .AirReviews-Blocks__ListSort .Air
     margin-right: 2px;
 }
 .AirReviews-Blocks--Rate .AirReviews-StarRate {margin: 0 !important;order: -1;}
-.AirReviews-Blocks--Rate .AirReviews-Blocks--RateCount { color: var(--color-vote) !important; }
+.AirReviews-Blocks--Rate .AirReviews-Blocks--RateCount { color: var(--color-vote) !important; font-size: 12px !important;}
 .AirReviews-Blocks .AirReviews-Blocks__Summary .AirReviews-Blocks--List {
     gap: 3px !important;
     padding: 0 !important;
@@ -149,6 +172,9 @@ div.AirReviews-Blocks .AirReviews-Blocks__List .AirReviews-Blocks__ListSort .Air
 }
 div#AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks__List {
     margin-top: 0 !important;
+}
+.AirReviews-Blocks__ActionRate {
+    min-width: 100px !important;
 }
 div.AirReviews-Blocks__ActionRate svg {
     width: 21px !important;
@@ -189,7 +215,7 @@ div.AirReviews-Blocks__ActionRate svg {
     border: 1px solid #DFDFDF;
     margin-bottom: 10px;
     padding: 20px 0;
-    border-radius: 8px;
+    border-radius: 0;
     gap: 6px;
 }
 #AirReviews-Collapsible .AirReviews-Dropzone__Overlay svg {
@@ -258,32 +284,31 @@ div.AirReviews-Blocks__ActionRate svg {
     margin-top: 0 !important;
 }
 
-#AirReviews-BlockWrapper .AirReviews-Widget__V2 .AirReviews-Collapsible__Product,
-.AirReviews-Collapsible__Title {
+#AirReviews-BlockWrapper .AirReviews-Widget__V2 .AirReviews-Collapsible__Product {
     display: none;
 }
-
+#AirReviews-BlockWrapper .AirReviews-Widget__V2 .AirReviews-Collapsible__Title {
+    text-align: left;
+    font-size: 12px !important;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
 #AirReviews-BlockWrapper .AirReviews-Widget__V2 .AirReviews-ButtonGroup .AirReviews-Button {
     width: auto !important;
     flex: none;
 }
 @media only screen and (max-width:1024px) {
-    #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern.AirReviews--PageWidth__Sm .AirReviews-Blocks__Summary .AirReviews-Blocks__SummaryWrapper {
-        display: flex;
-        flex-direction: column;
-    }
-    #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__LayoutList.AirReviews-Blocks__PresetModern .AirReviews-Blocks__Summary {
-        padding: 20px 65px 15px!important;
-    }
     #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__Summary .AirReviews-Blocks--Rate {
         min-height: 80px;
     }
     .AirReviews-Blocks .AirReviews-Blocks__Summary .AirReviews-Blocks--List {
         padding: 0 !important;
     }
-    #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__PresetModern.AirReviews--PageWidth__Sm .AirReviews-Blocks--Actions {
+    #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__PresetModern .AirReviews-Blocks--Actions {
         min-height: 90px;
-        margin-top: 15px;
+        margin-top: 10px;
+        padding: 10px 0;
     }
     #AirReviews-BlockWrapper .AirReviews-Widget__V2 #AirReviews-Collapsible.active {
         margin: 20px 0 0 0;

@@ -220,7 +220,7 @@
 		<div class="col-media gitem {{ pimgcol_wd }}">
 			{%- if product.metafields.teeinblue.platform_product or product.metafields.teeinblue.campaign_version -%}
 				<div class="product__images-wrapper f-aic primgSlider">
-					<h3 class="title">{{ 'products.product.gallery' | t }}</h3>
+					{% comment %} <h3 class="title">{{ 'products.product.gallery' | t }}</h3> {% endcomment %}
 					<div class="list-item-images">
 						{% for image in product.images %}
 							{% assign is_associated = false %}
