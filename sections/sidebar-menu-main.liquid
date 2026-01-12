@@ -34,9 +34,9 @@
       .navToggle { margin-{{ pm_right }}:-5px; }
     {%- endif -%}
 
-    .searchinline .search .ad_inputs { max-width:350px; position: relative;}
+    .searchinline .search .ad_inputs { max-width:350px; position: relative; }
   
-    @media only screen and (max-width: 768px){
+    @media only screen and (max-width: 1024px){
       .searchinline .search .ad_inputs {
         margin: 0 auto;
       }
@@ -69,7 +69,7 @@
 </div>
 {%- endcapture -%}
 {%- capture site_header -%}
-    <a href="#" class="close-sidebar hide-desktop" data-close-sidebar>{% render 'icon-close' %}</a>
+    <a href="#" class="close-sidebar" data-close-sidebar>{% render 'icon-close' %}</a>
     <div class="sidebar-content" style="--gap:{{ sec_st.gap }}px;--gapm:5px;">
       {% if sec_st.cntlogo %}
         <div class="fl1 mbnavCol fl hide-lg cnt">
