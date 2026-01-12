@@ -254,12 +254,12 @@
 						{%- when 'hr' -%}
 							<hr class="mt0 mb{{ blk_st.bm }}" style="border-color: {{ blk_st.hrc }}" />
 						{%- when 'title' -%}
-							<h1 class="title-product fwr {{ blk_st.tff }} mb{{ blk_st.bm }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+							<h1 class="title-product fwr {{ blk_st.tff }} {{ blk_st.tcase }}" style="--cl:{{ blk_st.cl }};--fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--fw:{{ blk_st.fw }};--lh:{{ blk_st.lh }}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
 						{%- when 'subtitle' -%}
 							<div {{ block.shopify_attributes }} class="{{ blk_st.tcase }} mb{{ blk_st.bm }}">{{ product.metafields.descriptors.subtitle }}</div>								
 						{%- when 'price' -%}
 							{%- unless settings.hide-price -%}
-								<div id="price-{{ section.id }}" role="status" class="priceSingle mb{{ blk_st.bm }}" style="--pcl:{{ blk_st.pcl }};--pcls:{{ blk_st.pcls }};--fs:{{ blk_st.fs }}px; --fsm:{{ blk_st.fsm }}px;--pfw:{{ blk_st.pfw }};--salet:{{ blk_st.salet }};--salebg:{{ blk_st.salebg }};--bfs:{{ blk_st.bfs }}px;--brad:{{ blk_st.brad }}px;" {{ block.shopify_attributes }}>
+								<div id="price-{{ section.id }}" role="status" class="priceSingle mb15" style="--pcl:{{ blk_st.pcl }};--pcls:{{ blk_st.pcls }};--fs:{{ blk_st.fs }}px; --fsm:{{ blk_st.fsm }}px;--pfw:{{ blk_st.pfw }};--salet:{{ blk_st.salet }};--salebg:{{ blk_st.salebg }};--bfs:{{ blk_st.bfs }}px;--brad:{{ blk_st.brad }}px;" {{ block.shopify_attributes }}>
 									{%- liquid
 										assign compareprice = current_variant.compare_at_price
 										assign price = current_variant.price
