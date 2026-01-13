@@ -15,9 +15,20 @@
         "collection_tDUFzW": {
           "type": "collection",
           "settings": {
-            "collection": "test",
-            "image": "shopify://shop_images/cl4.jpg",
+            "collection": "ao-thun",
+            "image": "shopify://shop_images/ao-thun.jpg",
             "pretitle": "Áo thun",
+            "title": "",
+            "btntxt": "",
+            "url": ""
+          }
+        },
+        "collection_BTqFD9": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/polo_0ee35229-9ae7-45e0-9cb4-b7775786ae04.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -27,8 +38,8 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/cl1.jpg",
-            "pretitle": "Polo",
+            "image": "shopify://shop_images/sweater_03a0f16f-97e1-4262-bb42-d35b1206b79d.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -37,9 +48,9 @@
         "collection_EXpQaa": {
           "type": "collection",
           "settings": {
-            "collection": "test",
-            "image": "shopify://shop_images/cl3.jpg",
-            "pretitle": "Cốc",
+            "collection": "",
+            "image": "shopify://shop_images/coc_4e07df3a-741c-46fb-a9f5-38111212bc4b.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -48,9 +59,9 @@
         "collection_79Kiic": {
           "type": "collection",
           "settings": {
-            "collection": "test",
-            "image": "shopify://shop_images/cl2.jpg",
-            "pretitle": "Sweater",
+            "collection": "",
+            "image": "shopify://shop_images/hoodie_12a7a509-a7b9-4f87-8854-bb70b88e9ca8.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -59,9 +70,9 @@
         "collection_y3FzDk": {
           "type": "collection",
           "settings": {
-            "collection": "test",
-            "image": "shopify://shop_images/cl1.jpg",
-            "pretitle": "Mũ",
+            "collection": "",
+            "image": "shopify://shop_images/op-dien-thoai.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -70,9 +81,9 @@
         "collection_y8kcah": {
           "type": "collection",
           "settings": {
-            "collection": "test",
-            "image": "shopify://shop_images/cl2.jpg",
-            "pretitle": "Hoodie",
+            "collection": "",
+            "image": "shopify://shop_images/mu.jpg",
+            "pretitle": "Sắp ra mắt",
             "title": "",
             "btntxt": "",
             "url": ""
@@ -81,6 +92,7 @@
       },
       "block_order": [
         "collection_tDUFzW",
+        "collection_BTqFD9",
         "collection_yNX4Ch",
         "collection_EXpQaa",
         "collection_79Kiic",
@@ -135,80 +147,6 @@
         "hided": false
       }
     },
-    "recently_viewed_fHNenA": {
-      "type": "recently-viewed",
-      "name": "Recently Viewed Products",
-      "settings": {
-        "title": "Sản phẩm đã xem",
-        "icon_name": "recently_viewed",
-        "subtitle": "",
-        "enable_custom_ratio": true,
-        "primg_ratio": "140",
-        "prbox_style": "grid_4",
-        "gridlg": 6,
-        "grid": 4,
-        "gridtb": 3,
-        "gridmb": 2,
-        "row": 8,
-        "carousel": true,
-        "loop": true,
-        "autoplay": false,
-        "speed": 5,
-        "arrow": true,
-        "arrowm": false,
-        "dot": false,
-        "dotm": false,
-        "sw": true,
-        "bg": "#ffffff",
-        "bgg": "",
-        "headings_cl": "",
-        "sst": 20,
-        "ssb": 20,
-        "sstm": 15,
-        "ssbm": 15,
-        "hidem": false,
-        "hided": false
-      }
-    },
-    "list_wishlist_cGzhYF": {
-      "type": "list-wishlist",
-      "name": "Wishlist Products",
-      "settings": {
-        "title": "Sản phẩm yêu thích nhất",
-        "icon_name": "wishlist",
-        "subtitle": "",
-        "enable_custom_ratio": true,
-        "primg_ratio": "140",
-        "prbox_style": "grid_4",
-        "gridlg": 6,
-        "grid": 4,
-        "gridtb": 3,
-        "gridmb": 2,
-        "row": 8,
-        "show_view_all": "Xem thêm",
-        "url": "shopify://pages/wishlist",
-        "btn-style": "btn2",
-        "btn-size": "btn-sm",
-        "carousel": false,
-        "loop": true,
-        "autoplay": false,
-        "speed": 5,
-        "arrow": true,
-        "arrowm": false,
-        "dot": false,
-        "dotm": false,
-        "sw": true,
-        "bg": "#ffffff",
-        "bgg": "",
-        "headings_cl": "",
-        "sst": 20,
-        "ssb": 20,
-        "sstm": 15,
-        "ssbm": 15,
-        "hidem": false,
-        "hided": false
-      }
-    },
     "product_slider_9mY3qX": {
       "type": "product-slider",
       "name": "Products Slider",
@@ -229,7 +167,7 @@
         "show_view_all": "Xem thêm",
         "btn-style": "btn2",
         "btn-size": "btn-sm",
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,
@@ -271,7 +209,7 @@
         "show_view_all": "Xem thêm",
         "btn-style": "btn2",
         "btn-size": "btn-sm",
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,
@@ -313,7 +251,7 @@
         "show_view_all": "Xem thêm",
         "btn-style": "btn2",
         "btn-size": "btn-sm",
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,
@@ -355,7 +293,7 @@
         "show_view_all": "Xem thêm",
         "btn-style": "btn2",
         "btn-size": "btn-sm",
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,
@@ -397,7 +335,7 @@
         "show_view_all": "Xem thêm",
         "btn-style": "btn2",
         "btn-size": "btn-sm",
-        "loop": true,
+        "loop": false,
         "autoplay": false,
         "speed": 5,
         "arrow": true,
@@ -418,16 +356,92 @@
         "hidem": false,
         "hided": false
       }
+    },
+    "list_wishlist_cGzhYF": {
+      "type": "list-wishlist",
+      "disabled": true,
+      "name": "Wishlist Products",
+      "settings": {
+        "title": "Sản phẩm yêu thích nhất",
+        "icon_name": "wishlist",
+        "subtitle": "",
+        "enable_custom_ratio": true,
+        "primg_ratio": "140",
+        "prbox_style": "grid_4",
+        "gridlg": 6,
+        "grid": 4,
+        "gridtb": 3,
+        "gridmb": 2,
+        "row": 8,
+        "show_view_all": "Xem thêm",
+        "url": "shopify://pages/wishlist",
+        "btn-style": "btn2",
+        "btn-size": "btn-sm",
+        "carousel": false,
+        "loop": true,
+        "autoplay": false,
+        "speed": 5,
+        "arrow": true,
+        "arrowm": false,
+        "dot": false,
+        "dotm": false,
+        "sw": true,
+        "bg": "#ffffff",
+        "bgg": "",
+        "headings_cl": "",
+        "sst": 20,
+        "ssb": 20,
+        "sstm": 15,
+        "ssbm": 15,
+        "hidem": false,
+        "hided": false
+      }
+    },
+    "recently_viewed_fHNenA": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "name": "Recently Viewed Products",
+      "settings": {
+        "title": "Sản phẩm đã xem",
+        "icon_name": "recently_viewed",
+        "subtitle": "",
+        "enable_custom_ratio": true,
+        "primg_ratio": "140",
+        "prbox_style": "grid_4",
+        "gridlg": 6,
+        "grid": 4,
+        "gridtb": 3,
+        "gridmb": 2,
+        "row": 8,
+        "carousel": true,
+        "loop": true,
+        "autoplay": false,
+        "speed": 5,
+        "arrow": true,
+        "arrowm": false,
+        "dot": false,
+        "dotm": false,
+        "sw": true,
+        "bg": "#ffffff",
+        "bgg": "",
+        "headings_cl": "",
+        "sst": 20,
+        "ssb": 20,
+        "sstm": 15,
+        "ssbm": 15,
+        "hidem": false,
+        "hided": false
+      }
     }
   },
   "order": [
     "collection_list2_qHxfr6",
-    "recently_viewed_fHNenA",
-    "list_wishlist_cGzhYF",
     "product_slider_9mY3qX",
     "product_slider_QDft9r",
     "product_slider_NyqDhN",
     "product_slider_WMTYQy",
-    "product_slider_fFGFGX"
+    "product_slider_fFGFGX",
+    "list_wishlist_cGzhYF",
+    "recently_viewed_fHNenA"
   ]
 }

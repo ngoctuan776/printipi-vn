@@ -21,7 +21,7 @@
             "icon": "home"
           }
         },
-        "m1_ekW6nT": {
+        "m1_YTfqHb": {
           "type": "m1",
           "settings": {
             "title": "Sản phẩm",
@@ -54,45 +54,46 @@
             "bxsz": false
           }
         },
-        "dd_djU4Xe": {
+        "dd_qwp6WC": {
           "type": "dd",
           "settings": {
             "title": "Chủ đề",
-            "url": "shopify://collections",
+            "url": "#",
             "menu": "ch",
             "icon": "themes"
           }
         },
-        "slink_VWbCYN": {
-          "type": "slink",
+        "dd_LddYec": {
+          "type": "dd",
           "settings": {
-            "title": "Phong cách [label3]",
-            "url": "shopify://collections/test",
+            "title": "Phong cách",
+            "url": "#",
+            "menu": "phong-cach",
             "icon": "styles"
           }
         },
         "slink_wXcBA4": {
           "type": "slink",
           "settings": {
-            "title": "Bán chạy [label1]",
-            "url": "shopify://pages/contact",
+            "title": "Bán chạy [label3]",
+            "url": "shopify://collections/ban-chay",
             "icon": "bestselling"
           }
         },
         "slink_MLCVqN": {
           "type": "slink",
           "settings": {
-            "title": "Hàng mới",
-            "url": "shopify://policies/privacy-policy",
+            "title": "Hàng mới [label1]",
+            "url": "shopify://collections/hang-moi",
             "icon": "new_product"
           }
         }
       },
       "block_order": [
         "home_qCC7QH",
-        "m1_ekW6nT",
-        "dd_djU4Xe",
-        "slink_VWbCYN",
+        "m1_YTfqHb",
+        "dd_qwp6WC",
+        "dd_LddYec",
         "slink_wXcBA4",
         "slink_MLCVqN"
       ],
@@ -116,7 +117,7 @@
         "mwl_icon": "wishlist",
         "sm_support": true,
         "msp_name": "Hỗ trợ",
-        "msp_link": "shopify://pages/contact",
+        "msp_link": "#",
         "msp_icon": "",
         "msp_hd_label": "Hỏi đáp - FAQs",
         "msp_hd_link": "shopify://collections",

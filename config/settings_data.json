@@ -27,19 +27,21 @@
     "catalog-mode": false,
     "user_icon": "2",
     "wishlist_page": "wishlist",
-    "favicon": "shopify://shop_images/favicon.png",
-    "favicon_retina": "shopify://shop_images/favicon-152.png",
-    "freeship": "300000",
+    "favicon": "shopify://shop_images/mion-fav.svg",
+    "favicon_retina": "shopify://shop_images/mion-fav.svg",
+    "freeship": "",
     "free_ship_msg": "Mua thêm <b>[price]</b> Để miễn phí ship",
     "got_free_ship": "Đơn hàng của bạn được giao MIỄN PHÍ!",
-    "ship_ico": true,
-    "progress_bar": true,
+    "ship_ico": false,
+    "free_ship_minicart": false,
+    "progress_bar": false,
     "shipbar": "#d4d4d4",
     "shipbara": "#000000",
     "terms_checkbox": false,
     "terms_text": "I agree with the<strong> </strong><a href=\"/policies/shipping-policy\" title=\"Shipping Policy\"><strong>Terms and Conditions</strong></a>",
     "stt_btnbg": "#eeeeee",
-    "dynamicTxt2": "⚡ Please, Come Back",
+    "dynamicTxt1": "Mion | Phong cách tạo khác biệt",
+    "dynamicTxt2": "Mion | Chất từ thiết kế",
     "fonts": "2",
     "font1": "inter_n4",
     "font2": "inter_n5",
@@ -148,6 +150,7 @@
     "count_cl": "#fff",
     "empty_cart": "Tiếp tục mua hàng",
     "empty_cart_url": "/",
+    "ajaxCart": true,
     "drawer_txt": "#000000",
     "viewcart": true,
     "btn-style": "btn4",
@@ -242,17 +245,17 @@
     "search_h": 45,
     "content_for_index": [],
     "blocks": {
-      "421424240597080315": {
-        "type": "shopify://apps/teeinblue-product-personalizer/blocks/product-personalizer/67212f31-32b0-450c-97dd-7e182a5fac7b",
-        "disabled": false,
-        "settings": {}
-      },
       "14710238943034738919": {
         "type": "shopify://apps/air-product-reviews/blocks/app-embed/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
         "disabled": false,
         "settings": {
           "air_reviews_json_ld_v2": "{% assign productTitle = product.title | default: '' %}{% assign productDesc = product.description | default: '' | escape | truncate: 150 %}{% assign productImage = product.featured_image | default: '' %}{% assign ratingValue = product.metafields.reviews.rating.value.rating | default: product.metafields.air_reviews_product.review_avg | default: 0 %}{% assign bestRating = product.metafields.reviews.rating.value.scale_max | default: 5 %}{% assign reviewCount = product.metafields.air_reviews_product.review_count | default: 0 %}{% assign worstRating = product.metafields.reviews.rating.value.scale_min | default: 1 %}{\n\"@context\": \"http://schema.org\",\n\"@type\": \"Product\",\n\"name\": \"{{ productTitle | escape }}\",\n\"description\": \"{{ productDesc | escape }}\",\n\"image\": \"{{ productImage | escape }}\",\n\"aggregateRating\": {\n  \"@type\": \"AggregateRating\",\n  \"ratingValue\": {{ ratingValue }},\n  \"bestRating\": {{ bestRating }},\n  \"reviewCount\": {{ reviewCount }}\n }{% if shop.metafields.air_reviews_has_ugc_content.data.value == true and product.metafields.air_reviews_product.data.value.reviews %}, \n  \"review\":[{% assign reviewsData = product.metafields.air_reviews_product.data.value.reviews %}\n  {% for review in reviewsData limit: 10 %}\n    {\n      \"@type\": \"Review\",\n      \"author\": {\n        \"@type\": \"Person\",\n        \"name\": \"{% if review.firstName %}{{ review.firstName | escape }}{% elsif review.lastName %}{{ review.lastName | escape }}{% else %}Anonymous{% endif %}\"\n      },\n      \"reviewRating\": {\n          \"@type\": \"Rating\",\n          \"bestRating\": {{ bestRating }},\n          \"ratingValue\": {{ review.rate | default: 0 }},\n          \"worstRating\": {{ worstRating }}\n      },\n      \"reviewBody\": \"{{ review.content | default: '' | escape }}\",\n      \"datePublished\": \"{{ review.createdAt | date: '%Y-%m-%d' }}\"\n    }{% unless forloop.last %},{% endunless %} \n  {% endfor %}]{% endif %}\n}"
         }
+      },
+      "421424240597080315": {
+        "type": "shopify://apps/teeinblue-product-personalizer/blocks/product-personalizer/67212f31-32b0-450c-97dd-7e182a5fac7b",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
