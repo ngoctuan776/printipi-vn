@@ -435,7 +435,9 @@
         "price_range": "{{ minimum }} - {{ maximum }}",
         "show_more": "Xem thêm",
         "show_less": "Thu gọn"
-      }
+      },
+      "show_more": "Xem thêm",
+      "show_less": "Thu gọn"
     },
     "notify": {
       "title": "Thông báo khi có hàng",

@@ -11,7 +11,6 @@
   "sections": {
     "breadcrumb": {
       "type": "breadcrumb",
-      "disabled": true,
       "settings": {
         "sw": true,
         "hidemb": false,
@@ -292,9 +291,9 @@
         "qty_bdr": "#666666",
         "btn-sticky": "btn5",
         "page_width": 1400,
-        "sst": 30,
+        "sst": 10,
         "ssb": 30,
-        "sstm": 15,
+        "sstm": 0,
         "ssbm": 20,
         "bg": "#ffffff",
         "sw": true
@@ -348,19 +347,18 @@
       "blocks": {
         "related_products_8Hxhxi": {
           "type": "related-products",
-          "disabled": true,
           "settings": {
-            "title": "Related Products",
-            "icon_name": "prd_related",
+            "title": "Sản phẩm liên quan",
+            "icon_name": "",
             "subtitle": "",
             "type": "1",
-            "gridlg": 3,
+            "gridlg": 4,
             "grid": 3,
             "gridtb": 2,
             "gridmb": 2,
             "limit": 5,
             "carousel": true,
-            "loop": true,
+            "loop": false,
             "autoplay": false,
             "speed": 5,
             "arrow": true,
@@ -371,8 +369,8 @@
             "bg": "#ffffff",
             "bgg": "",
             "headings_cl": "",
-            "sst": 40,
-            "ssb": 40,
+            "sst": 15,
+            "ssb": 15,
             "sstm": 15,
             "ssbm": 15,
             "hidem": false,
@@ -381,21 +379,20 @@
         },
         "rvp_qmQ3KF": {
           "type": "rvp",
-          "disabled": true,
           "settings": {
             "title": "Sản phẩm đã xem",
-            "icon_name": "recently_viewed",
+            "icon_name": "",
             "subtitle": "",
             "enable_custom_ratio": false,
             "primg_ratio": "140",
-            "prbox_style": "grid_1",
-            "gridlg": 3,
+            "prbox_style": "grid_4",
+            "gridlg": 4,
             "grid": 3,
             "gridtb": 2,
             "gridmb": 2,
             "row": 6,
-            "carousel": false,
-            "loop": true,
+            "carousel": true,
+            "loop": false,
             "autoplay": false,
             "speed": 5,
             "arrow": true,
@@ -406,8 +403,8 @@
             "bg": "#ffffff",
             "bgg": "",
             "headings_cl": "",
-            "sst": 40,
-            "ssb": 40,
+            "sst": 15,
+            "ssb": 15,
             "sstm": 15,
             "ssbm": 15,
             "hidem": false,
@@ -431,6 +428,7 @@
       ],
       "name": "Product Page Bottom",
       "settings": {
+        "title_desc": "THÔNG TIN SẢN PHẨM",
         "sw": true,
         "bg": "#ffffff",
         "bgg": "",
@@ -554,6 +552,7 @@
     },
     "related": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "title": "Related Products",
         "icon_name": "prd_related",
@@ -617,6 +616,7 @@
     },
     "recentviewed": {
       "type": "recently-viewed",
+      "disabled": true,
       "settings": {
         "title": "Recently Viewed Products",
         "icon_name": "recently_viewed",
