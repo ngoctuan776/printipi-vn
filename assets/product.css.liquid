@@ -307,13 +307,15 @@
     padding-bottom: 0;
     margin-bottom: 30px;
   }
-  .product-single-tee .product__images-wrapper .list-item-images {
-    gap: 8px;
-  }
   .product-single-tee .product__info,
   .sec__pdp-bottom .ss-right-box {
     min-width: 410px;
     max-width: 410px;
+  }
+  .product-single-tee>.col-media {gap: 40px;}
+  .product-single-tee .product__images-wrapper .item {
+    min-width: 100px;
+    width: 100px;
   }
 }
 
@@ -361,8 +363,19 @@
     width: auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
     overflow-x: hidden;
+  }
+  .product-description:not(.show) .ct-desc {
+    max-height: 145px;
+  }
+  .sec__pdp-bottom .ss-left-box .product-description {
+    padding: 30px 0 50px;
+  }
+  .recent-product.sec_cov {
+    padding-top: 30px;
+  }
+  .sec__pdp-bottom {
+    margin-top: 20px;
   }
 }
 @media only screen and (min-width:2100px) {

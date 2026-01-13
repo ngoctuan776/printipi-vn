@@ -516,6 +516,11 @@ button.loading .at-spin { display:inline-block; height:15px; }
     .at_footer .h4 { font-size:var(--tfs); margin-bottom:20px; cursor: default;}
     .ft_links .h4 + ul { margin:0; cursor: pointer;}
 }
+@media only screen and (min-width:1401px){
+  .at_footer {
+    margin-top: 60px;
+  }
+}
 @media only screen and (max-width:767px){  
   .at_footer .grid { margin:0;}
   .ft_block { padding-left:0; padding-right:0;}
@@ -1034,8 +1039,7 @@ a.pr_list_ttl:hover { color:{{ settings.grid_ttl_hclr}};}
 @media only screen and (min-width:768px){
   .bc_wrap { margin:15px 0 16px; }
   .breadcrumb { font-size:var(--fs, {{settings.bc_font}}px); }
-}
-@media only screen and (min-width:1400px){.bc_wrap {margin:20px 0;}}
+}@media only screen and (min-width:1025px){.bc_wrap {margin:20px 0 10px;}}
 
 {% comment %} Product Title, Product Price{% endcomment %}
 .pr_title { color:var(--cl,{{settings.pr_ttl_cl}}); font-size:var(--fsm,{{settings.pr_ttl_fsm}}px); font-weight:var(--fw,{{settings.pr_ttl_fw}}); line-height:normal; {% if settings.fcase %}text-transform:uppercase;{% endif %}} 

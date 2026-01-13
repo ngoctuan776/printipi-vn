@@ -243,7 +243,7 @@
 					</div>
 				</div>
 			{%- endif -%}
-			<div class="product__media-wrapper pr_photoes">{% comment %} {{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }} {% endcomment %}</div>
+			<div class="product__media-wrapper">{% comment %} {{ product_media_gallery | strip_newlines | remove: "  " | remove: "	" }} {% endcomment %}</div>
 		</div>
 		<div class="product__info {% unless section_st.prstyle == "5" %}gitem {{ pdescol_wd }}{% endunless %} pr_meta pr{% if section_st.image-col == "lg" %} small_view{% endif %}">
 			<product-info id="ProductInfo-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" class="product__info-container db wrap-product-info">

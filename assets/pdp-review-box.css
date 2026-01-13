@@ -327,9 +327,10 @@ div.AirReviews-Blocks__ActionRate svg {
     min-height: 90px;
     padding: 18px 0;
 }
-.AirReviews-Blocks__pagination .AirReviews-Pagination {
-    margin: 3px 0 0 0;
-}
+.AirReviews-Blocks__pagination:empty {display: none;}
+.AirReviews-Blocks__pagination {margin: 3px auto 0 !important;}
+.AirReviews-Blocks__pagination .AirReviews-Pagination {margin: 0 !important;}
+@media only screen and (min-width:1401px) {.AirReviews-Blocks__pagination {margin: 20px auto 0 !important;}}
 @media only screen and (max-width:1024px) {
     #AirReviews-BlockWrapper .AirReviews-Widget__V2:has(.AirReviews-Blocks__PresetModern) .AirReviews-Blocks__Summary .AirReviews-Blocks--Rate {
         min-height: 80px;
