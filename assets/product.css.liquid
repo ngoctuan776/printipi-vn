@@ -91,9 +91,9 @@
   padding: 30px 0 30px 30px;
   box-sizing: border-box;
 }
-.rte ul li::marker {
+/* .rte ul li::marker {
   color: rgba(255, 155, 67, 1);
-}
+} */
 .note-bd {
   border: 1px dashed rgba(174, 174, 174, 1);
   border-radius: 8px;
@@ -393,19 +393,13 @@
 } */
 
 /* Custom photoswipe thumbs */
-.pswp__scroll-wrap .pswp__item img {
-  background: #000;
-  object-fit: contain;
-  padding-bottom: 70px;
-}
 .pswp-thumbs {
-  background: #000;
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 70px;
-  padding-top: 10px;
+  height: 60px;
   z-index: 10000;
   pointer-events: auto;
 }
@@ -456,7 +450,7 @@
 }
 .pswp-thumbs .swiper-slide-thumb-active {
   opacity: 1;
-  outline: 2px solid #fff;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
 }
 .pswp-thumbs img {
   width: 100%;
@@ -499,6 +493,7 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
 .tee-field__select:focus-visible,
 .tee__input:focus-visible {box-shadow: none;}
 .tee-btn, .tee-song__btn {font-weight: 500;}
+.tee-field__select {border: none !important;}
 .tee-clipart-row {
   margin: 0;
   width: 100%;
@@ -560,6 +555,9 @@ div.tee-dialog, div.tee-form-wrapper, div.tee-gallery,
   width: 100% !important;
   margin-top: 20px;
   overflow-x: auto;
+}
+.tee-thumbnails .tee-thumbnail:before {
+  opacity: 0;
 }
 .tee-thumbnails__track {
   transform: none !important;
