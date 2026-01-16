@@ -324,6 +324,7 @@
 								assign rating_count = 0
 								endif
 							-%}
+							{%- if rating_count != 0 -%}
 							<div class="product__info-wl-r fl f-aic mb{{ blk_st.bm }}">
 								<div class="rating-wrapper fl f-aic">
 									<div class="rating_icons">
@@ -351,6 +352,7 @@
 									</product-card>
 								{%- endif -%} {% endcomment %}
 							</div>
+							{%- endif -%}
 						{%- when 'spoint' -%}
 							<div class="mb{{ blk_st.bm }} salepoint rgTxt fl{%  if blk_st.atc %} f-jcc{% endif %}" style="--icns:18px;--cl:{{ blk_st.cl }};--clbg:{{ blk_st.clbg }}; --fs:{{ blk_st.fs }}px;--fsm:{{ blk_st.fsm }}px;--tpd:{{ blk_st.tpd }}px;" {{ block.shopify_attributes }}>
 								{% if blk_st.sicon != blank %}
